@@ -5,15 +5,18 @@
  * Time: O(N)
  * Status: Fuzz-tested
  * Usage:
- *  rotate(v.begin(), v.begin()+min_rotation(v), v.end());
+ *  rotate(v.begin(), v.begin()+MinRotation(v), v.end());
  */
 #pragma once
 
-int min_rotation(string s) {
-	int a=0, N=sz(s); s += s;
-	rep(b,0,N) rep(i,0,N) {
-		if (a+i == b || s[a+i] < s[b+i]) {b += max(0, i-1); break;}
-		if (s[a+i] > s[b+i]) { a = b; break; }
-	}
-	return a;
+int MinRotation(string s) {
+  int a = 0, n = s.size(); s += s;
+  for (int b = 0; b < n; ++b)
+    for (int i = 0; i < n; ++i) {
+      if (a + i == b || s[a + i] < s[b + i]) {
+        b += max(0, i - 1); break;
+      }
+      if (s[a + i] > s[b + i]) { a = b; break; }
+    }
+  return a;
 }

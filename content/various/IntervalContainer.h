@@ -8,29 +8,36 @@
  * Time: O(\log N)
  */
 #pragma once
+template<class T>
+struct IntervalContainer : public set<pair<T, T>> {
+  
+  set<pair<T, T>>::iterator AddInterval(T l, T r) {
+    if (l == r) return is.end();
+    auto it = lower_bound({l, r}), before = it;
+    while (it != end() && it->first <= r) {
+      r = max(r, it->second);
+      before = it = erase(it);
+    }
+    while (it != begin() && (--it)->second >= l) {
+      l = min(l, it->first);
+      r = max(r, it->second);
+      erase(it);
+    }
+    return insert(before, {l, r});
+  }
+  
+  set<pair<T, T>>::iterator FindInterval(T x) {
+    auto it = lower_bound({x + 1, x + 1});
+    if (it == begin()) return end();
+    return prev(it);
+  }
 
-template <class T>
-auto addInterval(set<pair<T, T>>& is, T L, T R) {
-	if (L == R) return is.end();
-	auto it = is.lower_bound({L, R}), before = it;
-	while (it != is.end() && it->first <= R) {
-		R = max(R, it->second);
-		before = it = is.erase(it);
-	}
-	if (it != is.begin() && (--it)->second >= L) {
-		L = min(L, it->first);
-		R = max(R, it->second);
-		is.erase(it);
-	}
-	return is.insert(before, {L,R});
-};
-
-template <class T>
-void removeInterval(set<pair<T, T>>& is, T L, T R) {
-	if (L == R) return;
-	auto it = addInterval(is, L, R);
-	T r2 = it->second;
-	if (it->first == L) is.erase(it);
-	else (T&)it->second = L;
-	if (R != r2) is.emplace(R, r2);
+  void RemoveInterval(T l, T r) {
+    if (l == r) return;
+    auto it = AddInterval(l, r);
+    T r2 = it->second;
+    if (it->first == l) erase(it);
+    else (T&)it->second = l;
+    if (R != r2) emplace(r, r2);
+  }
 };
