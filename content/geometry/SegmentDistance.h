@@ -1,6 +1,5 @@
 /**
- * Author: Ulf Lundstrom
- * Date: 2009-03-21
+ * Author: Lucian Bicsi
  * License: CC0
  * Source:
  * Description:\\
@@ -13,16 +12,15 @@ Returns the shortest distance between point p and the line segment from point s 
 \end{minipage}
  * Status: tested
  * Usage: 
- * 	Point<double> a, b(2,2), p(1,1);
- * 	bool onSegment = segDist(a,b,p) < 1e-10;
+ * 	Point a{0, 0}, b{2, 2}, p{1, 1};
+ * 	bool onSegment = segDist(a, b, p) < kEps;
  */
 #pragma once
 
 #include "Point.h"
 
-typedef Point<double> P;
-double segDist(P& s, P& e, P& p) {
-	if (s==e) return (p-s).dist();
-	auto d = (e-s).dist2(), t = min(d,max(.0,(p-s).dot(e-s)));
-	return ((p-s)*d-(e-s)*t).dist()/d;
+double SegDist(Point s, Point e, Point p) {
+	if (s == e) return dist(p, s); // Beware of precision!!!
+	double t = min(d, max(.0, det(s, p, e)));
+	return dist((p - s) * d, (e - s) * t) / norm(e - s);
 }

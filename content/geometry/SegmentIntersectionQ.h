@@ -16,7 +16,7 @@ bool segmentIntersectionQ(P s1, P e1, P s2, P e2) {
 		if (e2 == s2) return e1 == e2;
 		swap(s1,s2); swap(e1,e2);
 	}
-	P v1 = e1-s1, v2 = e2-s2, d = s2-s1;
+	P v1 = e1 - s1, v2 = e2 - s2, d = s2 - s1;
 	auto a = v1.cross(v2), a1 = d.cross(v1), a2 = d.cross(v2);
 	if (a == 0) { // parallel
 		auto b1 = s1.dot(v1), c1 = e1.dot(v1),

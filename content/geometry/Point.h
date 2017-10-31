@@ -1,36 +1,39 @@
 /**
- * Author: Ulf Lundstrom
- * Date: 2009-02-26
+ * Author: Lucian Bicsi
  * License: CC0
- * Source: My head with inspiration from tinyKACTL
- * Description: Class to handle points in the plane.
- * 	T can be e.g. double or long long. (Avoid int.)
+ * Description: Point declaration, and basic operations.
  * Status: Works fine, used a lot
  */
 #pragma once
 
-template <class T>
-struct Point {
-	typedef Point P;
-	T x, y;
-	explicit Point(T x=0, T y=0) : x(x), y(y) {}
-	bool operator<(P p) const { return tie(x,y) < tie(p.x,p.y); }
-	bool operator==(P p) const { return tie(x,y)==tie(p.x,p.y); }
-	P operator+(P p) const { return P(x+p.x, y+p.y); }
-	P operator-(P p) const { return P(x-p.x, y-p.y); }
-	P operator*(T d) const { return P(x*d, y*d); }
-	P operator/(T d) const { return P(x/d, y/d); }
-	T dot(P p) const { return x*p.x + y*p.y; }
-	T cross(P p) const { return x*p.y - y*p.x; }
-	T cross(P a, P b) const { return (a-*this).cross(b-*this); }
-	T dist2() const { return x*x + y*y; }
-	double dist() const { return sqrt((double)dist2()); }
-	// angle to x-axis in interval [-pi, pi]
-	double angle() const { return atan2(y, x); }
-	P unit() const { return *this/dist(); } // makes dist()=1
-	P perp() const { return P(-y, x); } // rotates +90 degrees
-	P normal() const { return perp().unit(); }
-	// returns point rotated 'a' radians ccw around the origin
-	P rotate(double a) const {
-		return P(x*cos(a)-y*sin(a),x*sin(a)+y*cos(a)); }
-};
+using Point = complex<double>;
+
+const double kPi = 4.0 * atan(1.0);
+const double kEps = 1e-9; // Good eps for long double is ~1e-11
+
+#define x() real()
+#define y() imag()
+
+double dot(Point a, Point b) { return (conj(a) * b).x(); }
+double cross(Point a, Point b) { return (conj(a) * b).y(); }
+double dist(Point a, Point b) { return abs(b - a); }
+double rotateCCW(Point a, double theta) {
+  return a * polar(1.0, theta); }
+double det(Point a, Point b, Point c) {
+  return cross(b - a, c - a); }
+
+// abs() is norm (length) of vector
+// norm() is square of abs()
+// arg() is angle of vector
+// det() is twice the signed area of the triangle abc
+// and is > 0 iff c is to the left as viewed from a towards b.
+// polar(r, theta) gets a vector from abs() and arg()
+
+void ExampleUsage() {
+  Point a{1.0, 1.0}, b{2.0, 3.0};
+  cerr << a << " " << b << endl;
+  cerr << "Length of ab is: " << dist(a, b) << endl;
+  cerr << "Angle of a is: " << arg(a) << endl;
+  cerr << "axb is: " << cross(a, b) << endl;
+}
+

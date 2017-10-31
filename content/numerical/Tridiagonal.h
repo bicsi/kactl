@@ -21,7 +21,7 @@ This is useful for solving problems on the type
 $$a_i=b_ia_{i-1}+c_ia_{i+1}+d_i,\,1\leq i\leq n,$$
 where $a_0$, $a_{n+1}$, $b_i$, $c_i$ and $d_i$ are known. $a$ can then be obtained from
 \begin{align*}
-\{a_i\}=\textrm{tridiagonal}(&\{1,-1,-1,...,-1,1\}, \{0,c_1,c_2,\dots,c_n\},\\
+\{a_i\}=\textrm{Tridiagonal}(&\{1,-1,-1,...,-1,1\}, \{0,c_1,c_2,\dots,c_n\},\\
 &\{b_1,b_2,\dots,b_n,0\}, \{a_0,d_1,d_2,\dots,d_n,a_{n+1}\}).
 \end{align*}
  * Time: O(N)
@@ -32,16 +32,16 @@ vector<double> x = tridiagonal(diag, super, sub, b);
  */
 #pragma once
 
-template <class T>
-vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
+template <typename T>
+vector<T> Tridiagonal(vector<T> diag, const vector<T>& super,
 		const vector<T>& sub, vector<T> b) {
-	rep(i,0,sz(b)-1) {
-		diag[i+1] -= super[i]*sub[i]/diag[i];
-		b[i+1] -= b[i]*sub[i]/diag[i];
+  for (int i = 0; i < b.size() - 1; ++i) {
+		diag[i + 1] -= super[i] * sub[i] / diag[i];
+		b[i + 1] -= b[i] * sub[i] / diag[i];
 	}
-	for (int i = sz(b); --i > 0;) {
+	for (int i = b.size(); --i > 0;) {
 		b[i] /= diag[i];
-		b[i-1] -= b[i]*super[i-1];
+		b[i - 1] -= b[i] * super[i - 1];
 	}
 	b[0] /= diag[0];
 	return b;

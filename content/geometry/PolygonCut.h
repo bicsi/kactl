@@ -14,26 +14,23 @@
 \end{minipage}
  * Status: tested but not extensively
  * Usage:
- * 	vector<P> p = ...;
- * 	p = polygonCut(p, P(0,0), P(1,0));
+ * 	vector<Point> p = ...;
+ * 	p = PolygonCut(p, Point(0, 0), Point(1, 0));
  */
 #pragma once
 
 #include "Point.h"
-#include "lineIntersection.h"
+#include "LineIntersection.h"
 
-typedef Point<double> P;
-vector<P> polygonCut(const vector<P>& poly, P s, P e) {
-	vector<P> res;
-	rep(i,0,sz(poly)) {
-		P cur = poly[i], prev = i ? poly[i-1] : poly.back();
-		bool side = s.cross(e, cur) < 0;
-		if (side != (s.cross(e, prev) < 0)) {
-			res.emplace_back();
-			lineIntersection(s, e, cur, prev, res.back());
+vector<Point> PolygonCut(vector<Point>& P, Point s, Point e) {
+	vector<Point> res;
+  for (int i = 0; i < (int)P.size(); ++i) {
+		Point cur = P[i], prev = i ? poly[i - 1] : poly.back();
+		bool side = det(s, e, cur) < 0;
+		if (side != (det(s, e, prev) < 0)) {
+			res.push_back(LineIntersection(s, e, cur, prev));
 		}
-		if (side)
-			res.push_back(cur);
+		if (side) res.push_back(cur);
 	}
 	return res;
 }

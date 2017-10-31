@@ -2,92 +2,105 @@
  * Author: Stanford
  * Date: Unknown
  * Source: Stanford Notebook
- * Description: Min-cost max-flow. cap[i][j] != cap[j][i] is allowed; double edges are not.
- *  If costs can be negative, call setpi before maxflow, but note that negative cost cycles are not allowed (that's NP-hard).
+ * Description: Min-cost max-flow with potentials technique.
+ *  If costs can be negative, call SetPi before Compute,
+ * but note that negative cost cycles are not allowed (that's NP-hard).
  *  To obtain the actual flow, look at positive values only.
  * Status: Tested on kattis mincostmaxflow
- * Time: Approximately O(E^2)
+ * Time: Approximately O(E^2). Another upper bound is O(FE \log E)
  */
-#pragma once
+#include <bits/stdc++.h>
+#include <bits/extc++.h>
 
-#include <bits/extc++.h> /** keep-include */
+using namespace std;
 
-const ll INF = numeric_limits<ll>::max() / 4;
-typedef vector<ll> VL;
+using T = int;
+const T kInf = numeric_limits<T>::max() / 4;
 
-struct MCMF {
-	int N;
-	vector<vi> ed, red;
-	vector<VL> cap, flow, cost;
-	vi seen;
-	VL dist, pi;
-	vector<pii> par;
-
-	MCMF(int N) :
-		N(N), ed(N), red(N), cap(N, VL(N)), flow(cap), cost(cap),
-		seen(N), dist(N), pi(N), par(N) {}
-
-	void addEdge(int from, int to, ll cap, ll cost) {
-		this->cap[from][to] = cap;
-		this->cost[from][to] = cost;
-		ed[from].push_back(to);
-		red[to].push_back(from);
-	}
-
-	void path(int s, int t) {
-		fill(all(seen), 0);
-		fill(all(dist), INF);
-		dist[s] = 0; ll di;
-
-		__gnu_pbds::priority_queue<pair<ll, int>> q;
-		vector<decltype(q)::point_iterator> its(N);
-		q.push({0, s});
-
-		auto relax = [&](int i, ll cap, ll cost, int dir) {
-			ll val = di - pi[i] + cost;
-			if (cap && val < dist[i]) {
-				dist[i] = val;
-				par[i] = {s, dir};
-				if (its[i] == q.end()) its[i] = q.push({-dist[i], i});
-				else q.modify(its[i], {-dist[i], i});
-			}
-		};
-
-		while (!q.empty()) {
-			s = q.top().second; q.pop();
-			seen[s] = 1; di = dist[s] + pi[s];
-			trav(i, ed[s]) if (!seen[i])
-				relax(i, cap[s][i] - flow[s][i], cost[s][i], 1);
-			trav(i, red[s]) if (!seen[i])
-				relax(i, flow[i][s], -cost[i][s], 0);
-		}
-		rep(i,0,N) pi[i] = min(pi[i] + dist[i], INF);
-	}
-
-	pair<ll, ll> maxflow(int s, int t) {
-		ll totflow = 0, totcost = 0;
-		while (path(s, t), seen[t]) {
-			ll fl = INF;
-			for (int p,r,x = t; tie(p,r) = par[x], x != s; x = p)
-				fl = min(fl, r ? cap[p][x] - flow[p][x] : flow[x][p]);
-			totflow += fl;
-			for (int p,r,x = t; tie(p,r) = par[x], x != s; x = p)
-				if (r) flow[p][x] += fl;
-				else flow[x][p] -= fl;
-		}
-		rep(i,0,N) rep(j,0,N) totcost += cost[i][j] * flow[i][j];
-		return {totflow, totcost};
-	}
-
-	// If some costs can be negative, call this before maxflow:
-	void setpi(int s) { // (otherwise, leave this out)
-		fill(all(pi), INF); pi[s] = 0;
-		int it = N, ch = 1; ll v;
-		while (ch-- && it--)
-			rep(i,0,N) if (pi[i] != INF)
-				trav(to, ed[i]) if (cap[i][to])
-					if ((v = pi[i] + cost[i][to]) < pi[to])
-						pi[to] = v, ch = 1;
-		assert(it >= 0); // negative cost cycle
-	}
+struct MFMC {
+  struct Edge { int to, nxt; T flow, cap, cost; };
+  vector<Edge> edges;
+  
+  int n;
+  vector<T> dist, pi;
+  vector<int> par, graph;
+  
+  MFMC(int n) :
+  n(n), dist(n), pi(n, 0), par(n), graph(n, -1) {}
+  
+  void _addEdge(int from, int to, T cap, T cost) {
+    edges.push_back(Edge{to, graph[from], 0, cap, cost});
+    graph[from] = edges.size() - 1;
+  }
+  void AddEdge(int from, int to, T cap, T cost) {
+    _addEdge(from, to, cap, cost);
+    _addEdge(to, from, 0, -cost);
+  }
+  
+  bool dijkstra(int s, int t) {
+    fill(dist.begin(), dist.end(), kInf);
+    fill(par.begin(), par.end(), -1);
+    
+    __gnu_pbds::priority_queue<pair<T, int>> q;
+    vector<decltype(q)::point_iterator> its(n);
+    
+    dist[s] = 0; q.push({0, s});
+    while (!q.empty()) {
+      int node; T d;
+      tie(d, node) = q.top(); q.pop();
+      if (dist[node] != -d) continue;
+      for (int i = graph[node]; i >= 0; ) {
+        const auto &e = edges[i];
+        T now = dist[node] + pi[node] - pi[e.to] + e.cost;
+        if (e.flow < e.cap && now < dist[e.to]) {
+          dist[e.to] = now;
+          par[e.to] = i;
+          if (its[e.to] == q.end())
+            its[e.to] = q.push({-dist[e.to], e.to});
+          else q.modify(its[e.to], {-dist[e.to], e.to});
+        }
+        i = e.nxt;
+      }
+      
+    }
+    for (int i = 0; i < n; ++i)
+    pi[i] = min(pi[i] + dist[i], kInf);
+    return par[t] != -1;
+  }
+  
+  pair<T, T> Compute(int s, int t) {
+    T flow = 0, cost = 0;
+    while (dijkstra(s, t)) {
+      T now = kInf;
+      for (int node = t; node != s; ) {
+        int ei = par[node];
+        now = min(now, edges[ei].cap - edges[ei].flow);
+        node = edges[ei ^ 1].to;
+      }
+      for (int node = t; node != s; ) {
+        int ei = par[node];
+        edges[ei].flow += now;
+        edges[ei ^ 1].flow -= now;
+        cost += edges[ei].cost * now;
+        node = edges[ei ^ 1].to;
+      }
+      flow += now;
+    }
+    return {flow, cost};
+  }
+  
+  // If some costs can be negative, call this before maxflow:
+  void SetPi(int s) { // (otherwise, leave this out)
+    fill(pi.begin(), pi.end(), kInf); pi[s] = 0;
+    int it = n, ch = 1; T v;
+    while (ch-- && it--)
+    for (int i = 0; i < n; ++i) if (pi[i] != kInf)
+    for (int ei = graph[i]; ei >= 0; ) {
+      const auto& e = edges[ei];
+      if (e.cap && (v = pi[i] + e.cost) < pi[e.to])
+      pi[e.to] = v, ch = 1;
+      ei = e.to;
+    }
+    assert(it >= 0); // negative cost cycle
+  }
 };

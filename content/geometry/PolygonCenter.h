@@ -10,13 +10,12 @@
 
 #include "Point.h"
 
-typedef Point<double> P;
-Point<double> polygonCenter(vector<P>& v) {
-	auto i = v.begin(), end = v.end(), j = end-1;
-	Point<double> res{0,0}; double A = 0;
-	for (; i != end; j=i++) {
-		res = res + (*i + *j) * j->cross(*i);
-		A += j->cross(*i);
+Point PolygonCenter(vector<Point>& P) {
+	auto i = P.begin(), j = prev(P.end());
+	Point res{0.0, 0.0}; double area = 0.0;
+	for (; i != P.end(); j=i++) {
+		res += (*i + *j) * cross(*j, *i);
+		area += cross(*j, *i);
 	}
-	return res / A / 3;
+	return res / area / 3.0;
 }

@@ -5,108 +5,76 @@
  * Source: folkore
  * Description: Decomposes a tree into vertex disjoint heavy paths and light
  *  edges such that the path from any leaf to the root contains at most log(n)
- *  light edges. The function of the HLD can be changed by modifying T, LOW and
- *  f. f is assumed to be associative and commutative.
- * Usage:
- *  HLD hld(G);
- *  hld.update(index, value);
- *  tie(value, lca) = hld.query(n1, n2);
- * Status: Tested at SPOJ
+ *  light edges.
  */
 #pragma once
 
-#include "../data-structures/SegmentTree.h"
-
-typedef vector<pii> vpi;
-
-struct Node {
-	int d, par, val, chain = -1, pos = -1;
-};
-
-struct Chain {
-	int par, val;
-	vector<int> nodes;
-	Tree tree;
-};
-
-struct HLD {
-	typedef int T;
-	const T LOW = -(1<<29);
-	void f(T& a, T b) { a = max(a, b); }
-
-	vector<Node> V;
-	vector<Chain> C;
-
-	HLD(vector<vpi>& g) : V(sz(g)) {
-		dfs(0, -1, g, 0);
-		trav(c, C){
-			c.tree.init(sz(c.nodes), 0);
-			for (int ni : c.nodes)
-				c.tree.update(V[ni].pos, V[ni].val);
-		}
-	}
-
-	void update(int node, T val) {
-		Node& n = V[node]; n.val = val;
-		if (n.chain != -1) C[n.chain].tree.update(n.pos, val);
-	}
-
-	int pard(Node& nod) {
-		if (nod.par == -1) return -1;
-		return V[nod.chain == -1 ? nod.par : C[nod.chain].par].d;
-	}
-
-	// query all *edges* between n1, n2
-	pair<T, int> query(int i1, int i2) {
-		T ans = LOW;
-		while(i1 != i2) {
-			Node n1 = V[i1], n2 = V[i2];
-			if (n1.chain != -1 && n1.chain == n2.chain) {
-				int lo = n1.pos, hi = n2.pos;
-				if (lo > hi) swap(lo, hi);
-				f(ans, C[n1.chain].tree.query(lo, hi));
-				i1 = i2 = C[n1.chain].nodes[hi];
-			} else {
-				if (pard(n1) < pard(n2))
-					n1 = n2, swap(i1, i2);
-				if (n1.chain == -1)
-					f(ans, n1.val), i1 = n1.par;
-				else {
-					Chain& c = C[n1.chain];
-					f(ans, n1.pos ? c.tree.query(n1.pos, sz(c.nodes))
-					              : c.tree.s[1]);
-					i1 = c.par;
-				}
-			}
-		}
-		return make_pair(ans, i1);
-	}
-
-	// query all *nodes* between n1, n2
-	pair<T, int> query2(int i1, int i2) {
-		pair<T, int> ans = query(i1, i2);
-		f(ans.first, V[ans.second].val);
-		return ans;
-	}
-
-	pii dfs(int at, int par, vector<vpi>& g, int d) {
-		V[at].d = d; V[at].par = par;
-		int sum = 1, ch, nod, sz;
-		tuple<int,int,int> mx(-1,-1,-1);
-		trav(e, g[at]){
-			if (e.first == par) continue;
-			tie(sz, ch) = dfs(e.first, at, g, d+1);
-			V[e.first].val = e.second;
-			sum += sz;
-			mx = max(mx, make_tuple(sz, e.first, ch));
-		}
-		tie(sz, nod, ch) = mx;
-		if (2*sz < sum) return pii(sum, -1);
-		if (ch == -1) { ch = sz(C); C.emplace_back(); }
-		V[nod].pos = sz(C[ch].nodes);
-		V[nod].chain = ch;
-		C[ch].par = at;
-		C[ch].nodes.push_back(nod);
-		return pii(sum, ch);
-	}
+struct HeavyLight {
+  struct Node {
+    int jump, subsize, depth, lin, parent;
+    vector<int> leg;
+  };
+  vector<Node> T;
+  bool processed = false;
+  
+  HeavyLight(int n) : T(n) {}
+  
+  void AddEdge(int a, int b) {
+    T[a].leg.push_back(b);
+    T[b].leg.push_back(a);
+  }
+  
+  void Preprocess() {
+    dfs_sub(0, -1); dfs_jump(0, 0);
+    processed = true;
+  }
+  
+  // Gets the position in the HL linearization
+  int GetPosition(int node) {
+    assert(processed);
+    return T[node].lin;
+  }
+  
+  // Gets an array of ranges of form [li...ri)
+  // that correspond to the ranges you would need
+  // to query in the underlying structure
+  vector<pair<int, int>> GetPathRanges(int a, int b) {
+    assert(processed);
+    vector<pair<int, int>> ret;
+    while (T[a].jump != T[b].jump) {
+      if (T[T[a].jump].depth < T[T[b].jump].depth)
+      swap(a, b);
+      
+      ret.emplace_back(T[T[a].jump].lin, T[a].lin + 1);
+      a = T[T[a].jump].parent;
+    }
+    if (T[a].depth < T[b].depth) swap(a, b);
+    ret.emplace_back(T[b].lin, T[a].lin + 1);
+    return ret;
+  }
+  
+  int dfs_sub(int x, int par) {
+    auto &node = T[x];
+    node.subsize = 1; node.parent = par;
+    if (par != -1) {
+      node.leg.erase(find(node.leg.begin(),
+                          node.leg.end(), par));
+      node.depth = 1 + T[par].depth;
+    }
+    for (auto vec : node.leg)
+      node.subsize += dfs_sub(vec, x);
+    return node.subsize;
+  }
+  
+  int timer = 0;
+  void dfs_jump(int x, int jump) {
+    auto &node = T[x];
+    node.jump = jump; node.lin = timer++;
+    iter_swap(node.leg.begin(), max_element(node.leg.begin(),
+      node.leg.end(), [&](int a, int b) {
+        return T[a].subsize < T[b].subsize;
+    }));
+    for (auto vec : node.leg)
+      dfs_jump(vec, vec == node.leg.front() ? jump : vec);
+  }
 };

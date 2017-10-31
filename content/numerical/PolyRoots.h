@@ -3,36 +3,39 @@
  * Date: 2004-02-08
  * License: CC0
  * Description: Finds the real roots to a polynomial.
- * Usage: vector<double> roots; polynomial p(2);
- p.a[0] = 2; p.a[1] = -3; p.a[2] = 1;
- poly_roots(p,-1e10,1e10,roots); // x^2-3x+2=0
+ * Usage: Poly p = {2, -3, 1} // x^2 - 3x + 2 = 0
+ * auto roots = GetRoots(p, -1e18, 1e18); // {1, 2}
  */
 #pragma once
 
+#include <bits/stdc++.h>
 #include "Polynomial.h"
 
-void poly_roots(const Polynomial& p, double xmin, double xmax, vector<double>& roots) {
-	if (p.n == 1) { roots.push_back(-p.a.front()/p.a.back()); }
+using namespace std;
+
+vector<double> GetRoots(Poly p, double xmin, double xmax) {
+	if (p.size() == 2) { return {-p.front() / p.back()}; }
 	else {
-		Polynomial d = p;
-		d.diff();
-		vector<double> dr;
-		poly_roots(d, xmin, xmax, dr);
-		dr.push_back(xmin-1);
-		dr.push_back(xmax+1);
-		sort(all(dr));
+		Poly d = Diff(p);
+		vector<double> dr = GetRoots(d, xmin, xmax);
+		dr.push_back(xmin - 1);
+		dr.push_back(xmax + 1);
+		sort(dr.begin(), dr.end());
+
+		vector<double> roots;
 		for (auto i = dr.begin(), j = i++; i != dr.end(); j = i++){
-			double l = *j, h = *i, m, f;
-			bool sign = p(l) > 0;
-			if (sign ^ (p(h) > 0)) {
-				//for(int i = 0; i < 60; ++i){
-				while(h - l > 1e-8) {
-					m = (l + h) / 2, f = p(m);
-					if ((f <= 0) ^ sign) l = m;
-					else h = m;
+			double lo = *j, hi = *i, mid, f;
+			bool sign = Eval(p, lo) > 0;
+			if (sign ^ (Eval(p, hi) > 0)) {
+				// for (int it = 0; it < 60; ++it) {
+				while (hi - lo > 1e-8) {
+					mid = (lo + hi) / 2, f = Eval(p, mid);
+					if ((f <= 0) ^ sign) lo = mid;
+					else hi = mid;
 				}
-				roots.push_back((l + h) / 2);
+				roots.push_back((lo + hi) / 2);
 			}
 		}
+		return roots;
 	}
 }

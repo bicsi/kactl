@@ -10,49 +10,54 @@
  * Can also find the distance between two nodes.
  * Usage:
  *  LCA lca(undirGraph);
- *  lca.query(firstNode, secondNode);
- *  lca.distance(firstNode, secondNode);
+ *  lca.Query(firstNode, secondNode);
+ *  lca.Distance(firstNode, secondNode);
  * Time: $O(|V| \log |V| + Q)$
  */
 #pragma once
 
-typedef vector<pii> vpi;
-typedef vector<vpi> graph;
-const pii inf(1 << 29, -1);
+const pair<int, int> kInf{1 << 29, -1};
 
 #define RMQ_HAVE_INF /** exclude-line */
 #include "../data-structures/RMQ.h"
 
 struct LCA {
-	vi time;
-	vector<ll> dist;
-	RMQ<pii> rmq;
-
-	LCA(graph& C) : time(sz(C), -99), dist(sz(C)), rmq(dfs(C)) {}
-
-	vpi dfs(graph& C) {
-		vector<tuple<int, int, int, ll> > q(1);
-		vpi ret;
-		int T = 0, v, p, d; ll di;
-		while (!q.empty()) {
-			tie(v, p, d, di) = q.back();
-			q.pop_back();
-			if (d) ret.emplace_back(d, p);
-			time[v] = T++;
-			dist[v] = di;
-			trav(e, C[v]) if (e.first != p)
-				q.emplace_back(e.first, v, d+1, di + e.second);
-		}
-		return ret;
-	}
-
-	int query(int a, int b) {
-		if (a == b) return a;
-		a = time[a], b = time[b];
-		return rmq.query(min(a, b), max(a, b)).second;
-	}
-	ll distance(int a, int b) {
-		int lca = query(a, b);
-		return dist[a] + dist[b] - 2 * dist[lca];
-	}
+  vector<int> enter, depth;
+  vector<vector<int>> G;
+  vector<pair<int, int>> linear;
+  RMQ<pair<int, int>> rmq;
+  int timer = 0;
+  
+  LCA(int n) : enter(n, -1), depth(n), G(n), linear(2 * n) {}
+  
+  void dfs(int node, int dep) {
+    linear[timer] = {dep, node};
+    enter[node] = timer++;
+    depth[node] = dep;
+    
+    for (auto vec : G[node])
+    if (enter[vec] == -1) {
+      dfs(vec, dep + 1);
+      linear[timer++] = {dep, node};
+    }
+  }
+  
+  void AddEdge(int a, int b) {
+    G[a].push_back(b);
+    G[b].push_back(a);
+  }
+  
+  void Build(int root) {
+    dfs(root, 0);
+    rmq.Build(linear);
+  }
+  
+  int Query(int a, int b) {
+    a = enter[a], b = enter[b];
+    return rmq.Query(min(a, b), max(a, b) + 1).second;
+  }
+  
+  int Distance(int a, int b) {
+    return depth[a] + depth[b] - 2 * depth[Query(a, b)];
+  }
 };

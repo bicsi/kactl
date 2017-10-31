@@ -1,6 +1,5 @@
 /**
- * Author: Ulf Lundstrom
- * Date: 2009-03-21
+ * Author: Lucian Bicsi
  * License: CC0
  * Source: tinyKACTL
  * Description: Returns twice the signed area of a polygon.
@@ -11,9 +10,9 @@
 
 #include "Point.h"
 
-template <class T>
-T polygonArea2(vector<Point<T>>& v) {
-	T a = v.back().cross(v[0]);
-	rep(i,0,sz(v)-1) a += v[i].cross(v[i+1]);
-	return a;
+double SignedArea(const vector<Point> &P) {
+  double area = cross(P.back(), P.front());
+  for (int i = 1; i < (int)P.size(); ++i)
+    area += cross(P[i - 1], P[i]);
+  return area; // Divide by 2 for proper area
 }

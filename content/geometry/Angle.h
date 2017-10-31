@@ -31,12 +31,9 @@ struct Angle {
 };
 bool operator<(Angle a, Angle b) {
 	// add a.dist2() and b.dist2() to also compare distances
-	return make_tuple(a.t, a.quad(), a.y * (ll)b.x) <
-	       make_tuple(b.t, b.quad(), a.x * (ll)b.y);
+	return make_tuple(a.t, a.quad(), 1LL * a.y * b.x) <
+	       make_tuple(b.t, b.quad(), 1LL * a.x * b.y);
 }
-bool operator>=(Angle a, Angle b) { return !(a < b); }
-bool operator>(Angle a, Angle b) { return b < a; }
-bool operator<=(Angle a, Angle b) { return !(b < a); }
 
 // Given two points, this calculates the smallest angle between
 // them, i.e., the angle that covers the defined line segment.
@@ -48,6 +45,6 @@ pair<Angle, Angle> segmentAngles(Angle a, Angle b) {
 
 Angle operator+(Angle a, Angle b) { // where b is a vector
 	Angle r(a.x + b.x, a.y + b.y, a.t);
-	if (r > a.t180()) r.t--;
+	if (a.t180() < r) r.t--;
 	return r.t180() < a ? r.t360() : r;
 }

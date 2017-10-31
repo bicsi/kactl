@@ -4,11 +4,11 @@
  * Source:
  * Description:\\
 \begin{minipage}{75mm}
- Apply the linear transformation (translation, rotation and scaling) which takes line p0-p1 to line q0-q1 to point r.
+ Apply the affine transformation (translation, rotation and scaling) which takes line (p0, p1) to line (q0, q1) to point r.
 \end{minipage}
 \begin{minipage}{15mm}
 \vspace{-8mm}
-\includegraphics[width=\textwidth]{../content/geometry/linearTransformation}
+\includegraphics[width=\textwidth]{../content/geometry/LinearTransformation}
 \vspace{-2mm}
 \end{minipage}
  * Status: not tested
@@ -17,9 +17,9 @@
 
 #include "Point.h"
 
-typedef Point<double> P;
-P linearTransformation(const P& p0, const P& p1,
-		const P& q0, const P& q1, const P& r) {
-	P dp = p1-p0, dq = q1-q0, num(dp.cross(dq), dp.dot(dq));
-	return q0 + P((r-p0).cross(num), (r-p0).dot(num))/dp.dist2();
+Point LinearTransformation(Point p0, Point p1,
+                           Point q0, Point q1, Point r) {
+  Point dp = p1 - p0, dq = q1 - q0,
+        num = dp * conj(dq);
+  return q0 + (r - p0) * conj(num) / norm(dp);
 }
