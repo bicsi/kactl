@@ -1,20 +1,30 @@
 /**
- * Author: Ulf Lundstrom
+ * Author: Lucian Bicsi
  * Date: 2009-04-07
  * License: CC0
- * Source: My geometric reasoning
- * Description: Returns the shortest distance on the sphere with radius radius between the points with azimuthal angles (longitude) f1 ($\phi_1$) and f2 ($\phi_2$) from x axis and zenith angles (latitude) t1 ($\theta_1$) and t2 ($\theta_2$) from z axis. All angles measured in radians. The algorithm starts by converting the spherical coordinates to cartesian coordinates so if that is what you have you can use only the two last rows. dx*radius is then the difference between the two points in the x direction and d*radius is the total distance between the points.
+ * Description: Conversions to/from spherical coordinates
+ * and great circle distance formula
  * Status: somewhat tested locally
  tested with Kattis problem airlinehub
  to be tested with UVa 535
  */
 #pragma once
 
-double sphericalDistance(double f1, double t1,
-		double f2, double t2, double radius) {
-	double dx = sin(t2)*cos(f2) - sin(t1)*cos(f1);
-	double dy = sin(t2)*sin(f2) - sin(t1)*sin(f1);
-	double dz = cos(t2) - cos(t1);
-	double d = sqrt(dx*dx + dy*dy + dz*dz);
-	return radius*2*asin(d/2);
+Point3D FromSpherical(double r, double lat, double lon) {
+  return Point3D{
+    r * cos(lat) * cos(lon),
+    r * cos(lat) * sin(lon),
+    r * sin(lat)};
+}
+
+void ToSpherical(Point3D p, double& r,
+                 double& lat, double& lon) {
+  r = p.abs(); lat = asin(p.z / r); lon = atan2(p.y, p.x);
+}
+
+double SphericalDistance(double r, double lat1, double lon1,
+                         double lat2, double lon2) {
+	double d = (FromSpherical(1.0, lat1, lon1)
+            - FromSpherical(1.0, lat2, lon2)).abs();
+	return 2 * r * asin(d / 2);
 }

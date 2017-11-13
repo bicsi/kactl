@@ -1,0 +1,100 @@
+Last login: Sat Nov 11 11:46:18 on ttys000
+lucianbicsi@Lucians-MBP:~$ cd C++/simulari/
+lucianbicsi@Lucians-MBP:~/C++/simulari$ ls
+ACMWF2017/      opencup1-10/    opencup29-10/   seerc19-10/
+battleofgiants/ opencup14-10/   opencup7-10/    sim17-10/
+lucianbicsi@Lucians-MBP:~/C++/simulari$ mkdir cerc11_11-11
+lucianbicsi@Lucians-MBP:~/C++/simulari$ cd cerc11_11-11/
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ vim v.cpp
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ g++11 v.cpp 
+v.cpp:7:15: error: invalid operands to binary expression ('string' (aka
+      'basic_string<char, char_traits<char>, allocator<char> >') and 'int')
+        if (a == '0') {
+            ~ ^  ~~~
+1 error generated.
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ vim v.cpp 
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ g++11 v.cpp 
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ echo "ICPC
+> THISISSECRETMESSAGE
+> ACM CENTRALEUROPEPROGRAMMINGCONTEST LONGKEY
+> CERC
+> 0" > in
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ ./a.out <in
+
+"
+ "		
+
+!		
+	
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ cat in
+ICPC
+THISISSECRETMESSAGE
+ACM CENTRALEUROPEPROGRAMMINGCONTEST LONGKEY
+CERC
+0
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ vim v.cpp 
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ g++11 v.cpp 
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ ./a.out <in
+CKYVRVIHLUUWVHIVJJU
+DHAUUNMHHSRCFSEPJEBPZJQTDRAUHFU
+OTFJ
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ subl v.cpp 
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ mv v.cpp j.cpp
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ vim i.cpp
+lucianbicsi@Lucians-MBP:~/C++/simulari/cerc11_11-11$ vim c.cpp
+
+
+
+
+
+
+  1 #include <iostream>
+  2 using namespace std;
+  3 
+  4 const int ERROR = 1e9 + 1;
+  5 
+  6 struct OP {
+  7 };
+  8 
+  9 int main() {
+ 10     while (1) {
+ 11         string s;
+ 12         ops.clear();
+ 13         while (cin >> s) {
+ 14             if (s == "QUIT") {
+ 15                 exit(0);
+ 16             }
+ 17             
+ 18             if (s == "END") {
+ 19                 break;
+ 20             }
+ 21             
+ 22             ops.push_back(OP(s));
+ 23         }
+ 24         
+ 25         int n; cin >> n;
+ 26         for (int i = 0; i < n; i += 1) {
+ 27             int v; cin >> v;
+ 28             auto x = Solve(v);
+ 29             if (x == ERROR) {
+ 30                 cout << "ERROR\n";
+ 31             } else { 
+ 32                 cout << x << '\n';
+ 33             }
+ 34         }
+ 35     }
+ 36 }
+ 37 
+~                                                                                         
+~                                                                                         
+~                                                                                         
+~                                                                                         
+~                                                                                         
+~                                                                                         
+~                                                                                         
+~                                                                                         
+~                                                                                         
+~                                                                                         
+~                                                                                         
+~                                                                                         
+-- INSERT --                                                            6,12          All

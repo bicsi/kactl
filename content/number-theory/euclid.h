@@ -6,10 +6,17 @@
  */
 #pragma once
 
-ll gcd(ll a, ll b) { return __gcd(a, b); }
+using ll = long long;
 
-ll euclid(ll a, ll b, ll &x, ll &y) {
-	if (b) { ll d = euclid(b, a % b, y, x);
-		return y -= a/b * x, d; }
-	return x = 1, y = 0, a;
+ll Euclid(ll a, ll b, ll &x, ll &y) {
+	if (b) {
+    ll d = Euclid(b, a % b, y, x);
+		return y -= a/b * x, d;
+  } else return x = 1, y = 0, a;
+}
+
+ll ModInv(ll a, ll p) {
+  ll x, y;
+  assert(Euclid(a, p, x, y) == 1);
+  return x;
 }

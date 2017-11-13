@@ -8,34 +8,40 @@
  * we can reach $u$ from $v$ and vice versa.
  * Time: O(E + V)
  * Status: Bruteforce-tested for N <= 5
- * Usage: scc(graph, [\&](vi\& v) { ... }) visits all components
+ * Usage: SCC(graph, [\&](vi\& v) { ... }) visits all components
  * in reverse topological order. comp[i] holds the component
  * index of a node (a component only has edges to components with
  * lower index). ncomps will contain the number of components.
  */
 #pragma once
 
-vi val, comp, z, cont;
-int Time, ncomps;
-template<class G, class F> int dfs(int j, G& g, F f) {
-	int low = val[j] = ++Time, x; z.push_back(j);
-	trav(e,g[j]) if (comp[e] < 0)
-		low = min(low, val[e] ?: dfs(e,g,f));
+vector<int> val, comp, stk, cont;
+int timer, ncomps;
 
-	if (low == val[j]) {
-		do {
-			x = z.back(); z.pop_back();
-			comp[x] = ncomps;
-			cont.push_back(x);
-		} while (x != j);
-		f(cont); cont.clear();
-		ncomps++;
-	}
-	return val[j] = low;
+template<class Graph, class Func>
+int dfs(int node, Graph& G, Func f) {
+  int low = val[node] = ++timer, x; stk.push_back(node);
+  for (auto vec : G[node]) if (comp[vec] < 0)
+    low = min(low, val[vec] ?: dfs(vec, G, f));
+  
+  if (low == val[node]) {
+    do {
+      x = stk.back(); stk.pop_back();
+      comp[x] = ncomps;
+      cont.push_back(x);
+    } while (x != node);
+    f(cont); cont.clear();
+    ncomps++;
+  }
+  return val[node] = low;
 }
-template<class G, class F> void scc(G& g, F f) {
-	int n = sz(g);
-	val.assign(n, 0); comp.assign(n, -1);
-	Time = ncomps = 0;
-	rep(i,0,n) if (comp[i] < 0) dfs(i, g, f);
+
+template<class Graph, class Func>
+void SCC(Graph& G, Func f) {
+  int n = G.size();
+  val.assign(n, 0); comp.assign(n, -1);
+  timer = ncomps = 0;
+  for (int i = 0; i < n; ++i)
+    if (comp[i] < 0)
+      dfs(i, G, f);
 }

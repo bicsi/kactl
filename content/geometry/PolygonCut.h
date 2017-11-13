@@ -23,14 +23,15 @@
 #include "LineIntersection.h"
 
 vector<Point> PolygonCut(vector<Point>& P, Point s, Point e) {
-	vector<Point> res;
-  for (int i = 0; i < (int)P.size(); ++i) {
-		Point cur = P[i], prev = i ? poly[i - 1] : poly.back();
-		bool side = det(s, e, cur) < 0;
-		if (side != (det(s, e, prev) < 0)) {
-			res.push_back(LineIntersection(s, e, cur, prev));
-		}
-		if (side) res.push_back(cur);
-	}
-	return res;
+    vector<Point> res;
+    for (int i = 0; i < (int)P.size(); ++i) {
+        Point cur = P[i], prev = i ? P[i - 1] : P.back();
+        int side1 = sgn(det(s, e, cur));
+        int side2 = sgn(det(s, e, prev));
+        if (side1 * side2 == -1) {
+            res.push_back(LineIntersection(s, e, cur, prev));
+        }
+        if (side1 <= 0) res.push_back(cur);
+    }
+    return res;
 }

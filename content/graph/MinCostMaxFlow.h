@@ -94,13 +94,13 @@ struct MFMC {
     fill(pi.begin(), pi.end(), kInf); pi[s] = 0;
     int it = n, ch = 1; T v;
     while (ch-- && it--)
-    for (int i = 0; i < n; ++i) if (pi[i] != kInf)
-    for (int ei = graph[i]; ei >= 0; ) {
-      const auto& e = edges[ei];
-      if (e.cap && (v = pi[i] + e.cost) < pi[e.to])
-      pi[e.to] = v, ch = 1;
-      ei = e.to;
-    }
+      for (int i = 0; i < n; ++i) if (pi[i] != kInf)
+        for (int ei = graph[i]; ei >= 0; ) {
+          const auto& e = edges[ei];
+          if (e.cap && (v = pi[i] + e.cost) < pi[e.to])
+            pi[e.to] = v, ch = 1;
+          ei = e.nxt;
+        }
     assert(it >= 0); // negative cost cycle
   }
 };

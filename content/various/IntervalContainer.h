@@ -1,43 +1,45 @@
 /**
- * Author: Simon Lindholm
+ * Author: Lucian Bicsi
  * License: CC0
  * Description: Add and remove intervals from a set of disjoint intervals.
  * Will merge the added interval with any overlapping intervals in the set when adding.
  * Intervals are [inclusive, exclusive).
- * Status: fuzz-tested
+ * Status: Somehow tested (Infoarena hotel)
  * Time: O(\log N)
  */
 #pragma once
-template<class T>
-struct IntervalContainer : public set<pair<T, T>> {
+struct IntervalContainer {
+  map<int, int> s;
+  using Iter = map<int, int>::iterator;
   
-  set<pair<T, T>>::iterator AddInterval(T l, T r) {
-    if (l == r) return is.end();
-    auto it = lower_bound({l, r}), before = it;
-    while (it != end() && it->first <= r) {
+  Iter AddInterval(int l, int r) {
+    if (l == r) return s.end();
+    Iter it = s.lower_bound(l);
+    while (it != s.end() && it->first <= r) {
       r = max(r, it->second);
-      before = it = erase(it);
+      it = s.erase(it);
     }
-    while (it != begin() && (--it)->second >= l) {
+    while (it != s.begin() && (--it)->second >= l) {
       l = min(l, it->first);
       r = max(r, it->second);
-      erase(it);
+      it = s.erase(it);
     }
-    return insert(before, {l, r});
+    return s.insert({l, r}).first;
   }
   
-  set<pair<T, T>>::iterator FindInterval(T x) {
-    auto it = lower_bound({x + 1, x + 1});
-    if (it == begin()) return end();
-    return prev(it);
+  Iter FindInterval(int x) {
+    auto it = s.upper_bound(x);
+    if (it == s.begin() or (--it)->second <= x)
+      return s.end();
+    return it;
   }
-
-  void RemoveInterval(T l, T r) {
+  
+  void RemoveInterval(int l, int r) {
     if (l == r) return;
     auto it = AddInterval(l, r);
-    T r2 = it->second;
-    if (it->first == l) erase(it);
-    else (T&)it->second = l;
-    if (R != r2) emplace(r, r2);
+    int l2 = it->first, r2 = it->second;
+    s.erase(it);
+    if (l != l2) s.insert({l2, l});
+    if (r != r2) s.insert({r, r2});
   }
 };
