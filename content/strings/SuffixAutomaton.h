@@ -66,4 +66,11 @@ struct SuffixAutomaton {
     }
     return last = cur;
   }
+  
+  // Runs through the automaton
+  int Go(int node, char c) {
+    while (node != -1 && T[node].leg.count(c) == 0)
+      node = T[node].link;
+    return (node == -1 ? 0 : T[node].leg[c]);
+  }
 };

@@ -9,21 +9,23 @@
  */
 #pragma once
 
-const ll mod = 12345;
-ll det(vector<vector<ll>>& a) {
-	int n = sz(a); ll ans = 1;
-	rep(i,0,n) {
-		rep(j,i+1,n) {
-			while (a[j][i] != 0) { // gcd step
-				ll t = a[i][i] / a[j][i];
-				if (t) rep(k,i,n)
-					a[i][k] = (a[i][k] - a[j][k] * t) % mod;
-				swap(a[i], a[j]);
-				ans *= -1;
-			}
-		}
-		ans = ans * a[i][i] % mod;
-		if (!ans) return 0;
-	}
-	return (ans + mod) % mod;
+using int64 = int64_t;
+const int64 kMod = 12345;
+
+int64 IntDeterminant(vector<vector<int64>>& M) {
+  int n = M.size(); int64 ans = 1;
+  for (int i = 0; i < n; ++i) {
+    for (int j = i + 1; j < n; ++j) {
+      while (M[j][i] != 0) { // gcd step
+        int64 t = M[i][i] / M[j][i];
+        if (t) for (int k = i; k < n; ++k)
+          M[i][k] = (M[i][k] - M[j][k] * t) % kMod;
+        swap(M[i], M[j]);
+        ans *= -1;
+      }
+    }
+    ans = ans * a[i][i] % mod;
+    if (!ans) return 0;
+  }
+  return (ans + kMod) % kMod;
 }

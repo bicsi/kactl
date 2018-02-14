@@ -12,24 +12,24 @@
  */
 #pragma once
 
-typedef unsigned long long ull;
-ull sumsq(ull to) { return to / 2 * ((to-1) | 1); }
+using ull = unsigned long long;
+using ll = long long;
 
-ull divsum(ull to, ull c, ull k, ull m) {
-	ull res = k / m * sumsq(to) + c / m * to;
+ull SumSq(ull to) { return to / 2 * ((to-1) | 1); }
+
+ull DivSum(ull to, ull c, ull k, ull m) {
+	ull res = k / m * SumSq(to) + c / m * to;
 	k %= m; c %= m;
 	if (k) {
 		ull to2 = (to * k + c) / m;
 		res += to * to2;
-		res -= divsum(to2, m-1 - c, m, k) + to2;
+		res -= DivSum(to2, m-1 - c, m, k) + to2;
 	}
 	return res;
 }
 
-ll modsum(ull to, ll c, ll k, ll m) {
-	c %= m;
-	k %= m;
-	if (c < 0) c += m;
-	if (k < 0) k += m;
-	return to * c + k * sumsq(to) - m * divsum(to, c, k, m);
+ll ModSum(ull to, ll c, ll k, ll m) {
+	c %= m; if (c < 0) c += m;
+	k %= m; if (k < 0) k += m;
+	return to * c + k * SumSq(to) - m * DivSum(to, c, k, m);
 }

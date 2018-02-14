@@ -17,6 +17,8 @@ const double kEps = 1e-9; // Good eps for long double is ~1e-11
 double dot(Point a, Point b) { return (conj(a) * b).x(); }
 double cross(Point a, Point b) { return (conj(a) * b).y(); }
 double dist(Point a, Point b) { return abs(b - a); }
+Point perp(Point a) { return Point{-a.y(), a.x()}; }
+
 double rotateCCW(Point a, double theta) {
   return a * polar(1.0, theta); }
 double det(Point a, Point b, Point c) {

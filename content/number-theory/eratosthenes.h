@@ -9,14 +9,18 @@
  */
 #pragma once
 
-const int MAX_PR = 5000000;
-bitset<MAX_PR> isprime;
-vi eratosthenes_sieve(int lim) {
+const int kMaxPr = 5000000;
+bitset<kMaxPr> isprime;
+
+vector<int> Sieve(int lim) {
 	isprime.set(); isprime[0] = isprime[1] = 0;
 	for (int i = 4; i < lim; i += 2) isprime[i] = 0;
 	for (int i = 3; i*i < lim; i += 2) if (isprime[i])
 		for (int j = i*i; j < lim; j += i*2) isprime[j] = 0;
-	vi pr;
-	rep(i,2,lim) if (isprime[i]) pr.push_back(i);
+	
+  vector<int> pr;
+  for (int i = 2; i < lim; ++i)
+    if (isprime[i])
+      pr.push_back(i);
 	return pr;
 }

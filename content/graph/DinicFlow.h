@@ -16,13 +16,13 @@ struct Dinic {
   
   Dinic(int n) : graph(n, -1), dist(n, -1) {}
   
-  void _addEdge(int from, int to, int cap) {
+  void add_edge(int from, int to, int cap) {
     edges.push_back(Edge {to, cap, 0, graph[from]});
     graph[from] = edges.size() - 1;
   }
   void AddEdge(int from, int to, int cap) {
-    _addEdge(from, to, cap);
-    _addEdge(to, from, 0);
+    add_edge(from, to, cap);
+    add_edge(to, from, 0);
   }
   
   bool bfs() {

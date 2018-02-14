@@ -5,20 +5,24 @@
  * Source: Wikipedia
  * Description: Pollard's rho algorithm. It is a probabilistic factorisation
  * algorithm, whose expected time complexity is good. Before you start using it,
- * run {\tt init(bits)}, where bits is the length of the numbers you use.
+ * run {\tt Init(bits)}, where bits is the length of the numbers you use.
  * Time: Expected running time should be good enough for 50-bit numbers.
  */
 #pragma once
 
-#include "miller_rabin.h"
-#include "eratosthenes.h"
-#include "euclid.h"
+#include "MullerRabin.h"
+#include "Eratosthenes.h"
+#include "Euclid.h"
+
+using ull = unsigned long long;
 
 vector<ull> pr;
+
 ull f(ull a, ull n, ull &has) {
-	return (mod_mul(a, a, n) + has) % n;
+	return (ModMul(a, a, n) + has) % n;
 }
-vector<ull> factor(ull d) {
+
+vector<ull> Factorize(ull d) {
 	vector<ull> res;
 	for (size_t i = 0; i < pr.size() && pr[i]*pr[i] <= d; i++)
 		if (d % pr[i] == 0) {
@@ -45,9 +49,7 @@ vector<ull> factor(ull d) {
 	}
 	return res;
 }
-void init(int bits) {//how many bits do we use?
-	vi p = eratosthenes_sieve(1 << ((bits + 2) / 3));
-	vector<ull> pr(p.size());
-	for (size_t i=0; i<pr.size(); i++)
-		pr[i] = p[i];
+
+void Init(int bits) {//how many bits do we use?
+	pr = Sieve(1 << ((bits + 2) / 3));
 }

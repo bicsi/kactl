@@ -3,14 +3,14 @@
  * Date: 2011-11-29
  * Source:
  * Description: Calculates a valid assignment to boolean variables a, b, c,... to a 2-SAT problem, so that an expression of the type $(a \vee b) \wedge (!a \vee c) \wedge (d \vee !b) \wedge ...$ becomes true, or reports that it is unsatisfiable.
+ * THROWS 5 IF NO SOLUTION
  * Negated variables are represented by bit-inversions (\texttt{\tilde{}x}).
  * Usage:
  *  TwoSat sat(4); // number of variables
  *  sat.Either(0, \tilde3); // Var 0 is true or var 3 is false
  *  sat.SetValue(2); // Var 2 is true
  *  sat.AtMostOne({0,\tilde1,2}); // <= 1 of vars 0, \tilde1 and 2 are true
- *  sat.Solve(); // Returns true iff it is solvable
- *  sat.values[0..N-1] holds the assigned values to the vars
+ *  sat.Solve(); // Returns solution or throws
  * Time: O(N+E), where N is the number of boolean variables, and E is the number of clauses.
  */
 #pragma once
@@ -71,17 +71,17 @@ struct TwoSat {
     return enter[node] = low;
   }
   
-  bool Solve() {
+  vector<int> Solve() {
     values.assign(n, -1);
     enter.assign(2 * n, 0); comp = enter;
     for (int i = 0; i < 2 * n; ++i) {
       if (!comp[i])
-      dfs(i);
+        dfs(i);
     }
     for (int i = 0; i < n; ++i) {
       if (comp[2 * i] == comp[2 * i + 1])
-      return false;
+        throw 5;
     }
-    return true;
+    return values;
   }
 };
