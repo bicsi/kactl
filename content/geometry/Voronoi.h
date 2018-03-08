@@ -7,12 +7,15 @@
  * a list of other points. If the cell is unbounded, check
  * for points with very high coordinates.
  * Status: Tested by eye
- * Time: O(\N^{2})
+ * Time: O(N^{2})
  */
 #pragma once
 
 #include "Point.h"
 #include "PolygonCut.h"
+#include <bits/stdc++.h>
+
+using namespace std;
 
 const double kInf = 1e9;
 
