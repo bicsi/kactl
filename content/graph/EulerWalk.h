@@ -30,7 +30,7 @@ struct EulerWalk {
     while (G[node].size()) {
       auto vec = *G[node].begin();
       G[node].erase(G[node].begin());
-      // G[vec].erase(G[vec].find(node)) (*)
+      // G[vec].erase(G[vec].find(node)); (*)
       dfs(vec);
     }
     walk.push_back(node);

@@ -31,7 +31,7 @@ struct LinearRec {
         res[i + j] = res[i + j] + a[i] * b[j];
     
     for (int i = 2 * n; i > n; --i)
-      for (int j = 0; j < n; ++j) {
+      for (int j = 0; j < n; ++j)
         res[i - 1 - j] = res[i - 1 - j] + res[i] * trans[j];
     
     res.resize(n + 1);

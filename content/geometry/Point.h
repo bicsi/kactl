@@ -11,13 +11,13 @@ using Point = complex<double>;
 const double kPi = 4.0 * atan(1.0);
 const double kEps = 1e-9; // Good eps for long double is ~1e-11
 
-#define x() real()
-#define y() imag()
+#define X() real()
+#define Y() imag()
 
-double dot(Point a, Point b) { return (conj(a) * b).x(); }
-double cross(Point a, Point b) { return (conj(a) * b).y(); }
+double dot(Point a, Point b) { return (conj(a) * b).X(); }
+double cross(Point a, Point b) { return (conj(a) * b).Y(); }
 double dist(Point a, Point b) { return abs(b - a); }
-Point perp(Point a) { return Point{-a.y(), a.x()}; }
+Point perp(Point a) { return Point{-a.Y(), a.X()}; } // +90deg
 
 double rotateCCW(Point a, double theta) {
   return a * polar(1.0, theta); }
