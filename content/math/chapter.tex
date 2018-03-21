@@ -67,6 +67,18 @@ y = r\sin\theta\sin\phi & \theta = \textrm{acos}(z/\sqrt{x^2+y^2+z^2})\\
 z = r\cos\theta & \phi = \textrm{atan2}(y,x)
 \end{array}\]
 
+\section{Linear algebra}
+
+\subsection{Matrix inverse}
+
+The inverse of a 2x2 matrix:
+$$\begin{bmatrix} a&b \\ c&d \end{bmatrix}^{-1} = \frac{1}{ad - bc} \begin{bmatrix} d&-b \\ -c&a \end{bmatrix}$$
+
+In general:
+$$A^{-1} = \frac{1}{det(A)} A^{*}$$
+where $A^{*}_{i, j} = (-1)^{i + j} * \Delta_{i, j}$ and $\Delta_{i, j}$ is the determinant of matrix ${A}$
+crossing out line $i$ and column $j$.
+
 \section{Derivatives/Integrals}
 \begin{align*}
 	\dfrac{d}{dx}\arcsin x = \dfrac{1}{\sqrt{1-x^2}} &&& \dfrac{d}{dx}\arccos x = -\dfrac{1}{\sqrt{1-x^2}} \\

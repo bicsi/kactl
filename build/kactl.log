@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.14)  13 FEB 2018 14:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.14)  21 MAR 2018 23:25
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -900,28 +900,42 @@ File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
 
-runsystem(python2 kactlprocessor.py -i "../content/data-structures/ConvexTree.h" -o kactl.tmp )...executed.
+runsystem(python2 kactlprocessor.py -i "../content/data-structures/LineContainer.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
 
-runsystem(python2 kactlprocessor.py -i "../content/data-structures/Treap.h" -o kactl.tmp )...executed.
+runsystem(python2 kactlprocessor.py -i "../content/data-structures/ConvexTree.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 )
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 54.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 20.
  (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <7> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 54.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 20.
  [3])
 runsystem(rm -f kactl.tmp)...executed.
 
+runsystem(python2 kactlprocessor.py -i "../content/data-structures/Treap.h" -o kactl.tmp )...executed.
+
+ (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
+))
+runsystem(rm -f kactl.tmp)...executed.
+
 runsystem(python2 kactlprocessor.py -i "../content/data-structures/FenwickTree.h" -o kactl.tmp )...executed.
+
+ (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
+))
+runsystem(rm -f kactl.tmp)...executed.
+
+runsystem(python2 kactlprocessor.py -i "../content/data-structures/RMQ.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
@@ -935,7 +949,7 @@ runsystem(python2 kactlprocessor.py -i "../content/numerical/FracBinarySearch.h"
 
 Package kactlpkg Warning:  FracBinarySearch.h : Unknown command: Complexity.  on input line 1.
 
-(/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+[4] (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
@@ -965,12 +979,12 @@ runsystem(python2 kactlprocessor.py -i "../content/numerical/Polynomial.h" -o ka
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [4])
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/numerical/PolyRoots.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+ (./kactl.tmp [5] (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
@@ -995,7 +1009,7 @@ runsystem(python2 kactlprocessor.py -i "../content/numerical/LinearRecurrence.h"
 
 Package kactlpkg Warning:  LinearRecurrence.h : Unknown command: Tested.  on input line 1.
 
-[5] (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+(/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
@@ -1004,7 +1018,7 @@ runsystem(python2 kactlprocessor.py -i "../content/numerical/FFT.h" -o kactl.tmp
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [6])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/numerical/Integrate.h" -o kactl.tmp )...executed.
@@ -1021,11 +1035,32 @@ File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
 
+runsystem(python2 kactlprocessor.py -i "../content/numerical/Simplex.h" -o kactl.tmp )...executed.
+
+ (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
+))
+runsystem(rm -f kactl.tmp)...executed.
+
+runsystem(python2 kactlprocessor.py -i "../content/numerical/SolveLinear.h" -o kactl.tmp )...executed.
+
+ (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
+) [7])
+runsystem(rm -f kactl.tmp)...executed.
+
+runsystem(python2 kactlprocessor.py -i "../content/numerical/MatrixInverse.h" -o kactl.tmp )...executed.
+
+ (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
+))
+runsystem(rm -f kactl.tmp)...executed.
+
 runsystem(python2 kactlprocessor.py -i "../content/numerical/Tridiagonal.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [6])) (../content/number-theory/chapter.tex
+))) (../content/number-theory/chapter.tex
 Chapter 5.
 runsystem(rm -f kactl.tmp)...executed.
 
@@ -1054,7 +1089,7 @@ runsystem(python2 kactlprocessor.py -i "../content/number-theory/ModMulLL.h" -o 
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [8])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/number-theory/ModSqrt.h" -o kactl.tmp )...executed.
@@ -1068,7 +1103,7 @@ runsystem(python2 kactlprocessor.py -i "../content/number-theory/NTT.h" -o kactl
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [7])
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/number-theory/Eratosthenes.h" -o kactl.tmp )...executed.
@@ -1089,7 +1124,7 @@ runsystem(python2 kactlprocessor.py -i "../content/number-theory/Factor.h" -o ka
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [9])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/number-theory/Euclid.h" -o kactl.tmp )...executed.
@@ -1113,7 +1148,7 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 14.
  (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-)) [8]) (../content/combinatorial/chapter.tex
+))) (../content/combinatorial/chapter.tex
 Chapter 6.
 (../content/combinatorial/twelvefoldway.tex) (../content/combinatorial/factorial.tex)
 runsystem(rm -f kactl.tmp)...executed.
@@ -1122,7 +1157,7 @@ runsystem(python2 kactlprocessor.py -i "../content/combinatorial/intperm.h" -o k
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+)) [10]
 Overfull \hbox (6.88965pt too wide) detected at line 17
 \OML/cmm/m/it/10 D\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) = (\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1)(\OML/cmm/m/it/10 D\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1) + \OML/cmm/m/it/10 D\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 2)) = \OML/cmm/m/it/10 nD\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1) + (\OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 1)[] = []
  []
@@ -1133,7 +1168,7 @@ runsystem(python2 kactlprocessor.py -i "../content/combinatorial/derangements.h"
 
 (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-)) [9] [10]
+)) [11]
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/combinatorial/binomial.h" -o kactl.tmp )...executed.
@@ -1166,7 +1201,7 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 100.
 ) (../content/graph/chapter.tex
 Chapter 7.
-[11]
+[12]
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/graph/EulerWalk.h" -o kactl.tmp )...executed.
@@ -1194,7 +1229,7 @@ runsystem(python2 kactlprocessor.py -i "../content/graph/MinCostMaxFlow.h" -o ka
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [12])
+) [13])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/graph/CycleCancelFlow.h" -o kactl.tmp )...executed.
@@ -1218,16 +1253,9 @@ File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
 
-runsystem(python2 kactlprocessor.py -i "../content/graph/hopcroftKarp.h" -o kactl.tmp )...executed.
-
- (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [13])
-runsystem(rm -f kactl.tmp)...executed.
-
 runsystem(python2 kactlprocessor.py -i "../content/graph/DFSMatching.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+ (./kactl.tmp [14] (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
@@ -1246,18 +1274,11 @@ File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
 
-runsystem(python2 kactlprocessor.py -i "../content/graph/MinimumVertexCover.h" -o kactl.tmp )...executed.
-
- (./kactl.tmp [14] (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
-runsystem(rm -f kactl.tmp)...executed.
-
 runsystem(python2 kactlprocessor.py -i "../content/graph/SCC.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [15])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/graph/BiconnectedComponents.h" -o kactl.tmp )...executed.
@@ -1271,13 +1292,6 @@ runsystem(python2 kactlprocessor.py -i "../content/graph/2sat.h" -o kactl.tmp ).
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [15])
-runsystem(rm -f kactl.tmp)...executed.
-
-runsystem(python2 kactlprocessor.py -i "../content/graph/TreePower.h" -o kactl.tmp )...executed.
-
- (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
 
@@ -1285,7 +1299,7 @@ runsystem(python2 kactlprocessor.py -i "../content/graph/LCA.h" -o kactl.tmp )..
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [16])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/graph/CompressTree.h" -o kactl.tmp )...executed.
@@ -1306,7 +1320,7 @@ runsystem(python2 kactlprocessor.py -i "../content/graph/LinkCutTree.h" -o kactl
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [16])
+) [17])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/graph/MatrixTree.h" -o kactl.tmp )...executed.
@@ -1326,7 +1340,7 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/LineDistance.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp <../content/geometry/LineDistance.pdf, id=245, 42.67899pt x 42.67899pt>
+ (./kactl.tmp <../content/geometry/LineDistance.pdf, id=248, 42.67899pt x 42.67899pt>
 File: ../content/geometry/LineDistance.pdf Graphic file (type pdf)
  <use ../content/geometry/LineDistance.pdf>
 Package pdftex.def Info: ../content/geometry/LineDistance.pdf used on input line 12.
@@ -1338,7 +1352,7 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/SegmentDistance.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp <../content/geometry/SegmentDistance.pdf, id=246, 42.67899pt x 42.67899pt>
+ (./kactl.tmp <../content/geometry/SegmentDistance.pdf, id=249, 42.67899pt x 42.67899pt>
 File: ../content/geometry/SegmentDistance.pdf Graphic file (type pdf)
  <use ../content/geometry/SegmentDistance.pdf>
 Package pdftex.def Info: ../content/geometry/SegmentDistance.pdf used on input line 15.
@@ -1350,14 +1364,14 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/SegmentIntersection.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp <../content/geometry/SegmentIntersection.pdf, id=247, 42.67899pt x 42.67899pt>
+ (./kactl.tmp <../content/geometry/SegmentIntersection.pdf, id=250, 42.67899pt x 42.67899pt>
 File: ../content/geometry/SegmentIntersection.pdf Graphic file (type pdf)
  <use ../content/geometry/SegmentIntersection.pdf>
 Package pdftex.def Info: ../content/geometry/SegmentIntersection.pdf used on input line 19.
 (pdftex.def)             Requested size: 42.67912pt x 42.68211pt.
  (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [17 <../content/geometry/LineDistance.pdf> <../content/geometry/SegmentDistance.pdf>])
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/LineIntersectionCheck.h" -o kactl.tmp )...executed.
@@ -1369,7 +1383,7 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/LineIntersection.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp <../content/geometry/lineIntersection.pdf, id=317, 42.67899pt x 42.67899pt>
+ (./kactl.tmp <../content/geometry/lineIntersection.pdf, id=251, 42.67899pt x 42.67899pt>
 File: ../content/geometry/lineIntersection.pdf Graphic file (type pdf)
  <use ../content/geometry/lineIntersection.pdf>
 Package pdftex.def Info: ../content/geometry/lineIntersection.pdf used on input line 15.
@@ -1388,14 +1402,14 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/LinearTransformation.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp <../content/geometry/LinearTransformation.pdf, id=318, 42.67899pt x 42.67899pt>
+ (./kactl.tmp <../content/geometry/LinearTransformation.pdf, id=252, 42.67899pt x 42.67899pt>
 File: ../content/geometry/LinearTransformation.pdf Graphic file (type pdf)
  <use ../content/geometry/LinearTransformation.pdf>
 Package pdftex.def Info: ../content/geometry/LinearTransformation.pdf used on input line 14.
 (pdftex.def)             Requested size: 42.67912pt x 42.68211pt.
  (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [18 <../content/geometry/LineDistance.pdf> <../content/geometry/SegmentDistance.pdf> <../content/geometry/SegmentIntersection.pdf> <../content/geometry/lineIntersection.pdf>])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/Angle.h" -o kactl.tmp )...executed.
@@ -1426,7 +1440,7 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/CircleTangents.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp <../content/geometry/CircleTangents.pdf, id=319, 42.67899pt x 42.67899pt>
+ (./kactl.tmp <../content/geometry/CircleTangents.pdf, id=390, 42.67899pt x 42.67899pt>
 File: ../content/geometry/CircleTangents.pdf Graphic file (type pdf)
  <use ../content/geometry/CircleTangents.pdf>
 Package pdftex.def Info: ../content/geometry/CircleTangents.pdf used on input line 13.
@@ -1438,14 +1452,14 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/circumcircle.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp <../content/geometry/circumcircle.pdf, id=320, 42.67899pt x 42.67899pt>
+ (./kactl.tmp <../content/geometry/circumcircle.pdf, id=391, 42.67899pt x 42.67899pt>
 File: ../content/geometry/circumcircle.pdf Graphic file (type pdf)
  <use ../content/geometry/circumcircle.pdf>
 Package pdftex.def Info: ../content/geometry/circumcircle.pdf used on input line 13.
 (pdftex.def)             Requested size: 42.67912pt x 42.68211pt.
  (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [18 <../content/geometry/SegmentIntersection.pdf> <../content/geometry/lineIntersection.pdf> <../content/geometry/LinearTransformation.pdf> <../content/geometry/CircleTangents.pdf>])
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/MinimumEnclosingCircle.h" -o kactl.tmp )...executed.
@@ -1464,7 +1478,7 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/PolygonArea.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+ (./kactl.tmp [19 <../content/geometry/LinearTransformation.pdf> <../content/geometry/CircleTangents.pdf> <../content/geometry/circumcircle.pdf>] (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
@@ -1478,7 +1492,7 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/PolygonCut.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp <../content/geometry/PolygonCut.pdf, id=457, 42.67899pt x 42.67899pt>
+ (./kactl.tmp <../content/geometry/PolygonCut.pdf, id=492, 42.67899pt x 42.67899pt>
 File: ../content/geometry/PolygonCut.pdf Graphic file (type pdf)
  <use ../content/geometry/PolygonCut.pdf>
 Package pdftex.def Info: ../content/geometry/PolygonCut.pdf used on input line 16.
@@ -1490,12 +1504,19 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/ConvexHull.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp <../content/geometry/ConvexHull.pdf, id=458, 42.67899pt x 42.67899pt>
+ (./kactl.tmp <../content/geometry/ConvexHull.pdf, id=493, 42.67899pt x 42.67899pt>
 File: ../content/geometry/ConvexHull.pdf Graphic file (type pdf)
  <use ../content/geometry/ConvexHull.pdf>
 Package pdftex.def Info: ../content/geometry/ConvexHull.pdf used on input line 15.
 (pdftex.def)             Requested size: 42.67912pt x 42.68211pt.
  (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
+))
+runsystem(rm -f kactl.tmp)...executed.
+
+runsystem(python2 kactlprocessor.py -i "../content/geometry/Voronoi.h" -o kactl.tmp )...executed.
+
+ (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
@@ -1511,14 +1532,14 @@ runsystem(python2 kactlprocessor.py -i "../content/geometry/PointInsideHull.h" -
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [19 <../content/geometry/circumcircle.pdf> <../content/geometry/PolygonCut.pdf> <../content/geometry/ConvexHull.pdf>])
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/LineHullIntersection.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [20 <../content/geometry/PolygonCut.pdf> <../content/geometry/ConvexHull.pdf>])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/closestPair.h" -o kactl.tmp )...executed.
@@ -1532,7 +1553,7 @@ runsystem(python2 kactlprocessor.py -i "../content/geometry/kdTree.h" -o kactl.t
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [20])
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/DelaunayTriangulation.h" -o kactl.tmp )...executed.
@@ -1553,7 +1574,7 @@ runsystem(python2 kactlprocessor.py -i "../content/geometry/Point3D.h" -o kactl.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [21])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/3dHull.h" -o kactl.tmp )...executed.
@@ -1578,18 +1599,25 @@ File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
 
+runsystem(python2 kactlprocessor.py -i "../content/strings/ZFunction.h" -o kactl.tmp )...executed.
+
+ (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
+))
+runsystem(rm -f kactl.tmp)...executed.
+
 runsystem(python2 kactlprocessor.py -i "../content/strings/Manacher.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [21])
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/strings/PalindromicTree.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [22])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/strings/MinRotation.h" -o kactl.tmp )...executed.
@@ -1610,7 +1638,7 @@ runsystem(python2 kactlprocessor.py -i "../content/strings/SuffixAutomaton.h" -o
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [22])
+) [23])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/strings/AhoCorasick.h" -o kactl.tmp )...executed.
@@ -1656,7 +1684,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--9
 
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-)) [23]
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/various/AlphaBeta.h" -o kactl.tmp )...executed.
@@ -1668,7 +1696,7 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/various/DivideAndConquerDP.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+ (./kactl.tmp [24] (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
@@ -1721,7 +1749,7 @@ runsystem(python2 kactlprocessor.py -i "../content/various/SIMD.h" -o kactl.tmp 
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [24])) [25] (../content/appendix/chapter.tex
+))) [25] (../content/appendix/chapter.tex
 Chapter A.
 runsystem(rm -f kactl.tmp)...executed.
 
@@ -1735,15 +1763,15 @@ File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 
  (./kactl.aux) ) 
 Here is how much of TeX's memory you used:
- 10628 strings out of 494437
- 150820 string characters out of 6166645
- 905764 words of memory out of 5000000
- 13317 multiletter control sequences out of 15000+600000
+ 10704 strings out of 494437
+ 152121 string characters out of 6166645
+ 901764 words of memory out of 5000000
+ 13377 multiletter control sequences out of 15000+600000
  11738 words of font info for 46 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 39i,15n,60p,802b,2351s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,15n,60p,802b,2347s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017basic/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on kactl.pdf (27 pages, 2904676 bytes).
+Output written on kactl.pdf (27 pages, 2915769 bytes).
 PDF statistics:
  649 PDF objects out of 1000 (max. 8388607)
  416 compressed objects within 5 object streams

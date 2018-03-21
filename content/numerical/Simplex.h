@@ -21,11 +21,11 @@ typedef vector<vd> vvd;
 const T eps = 1e-8, inf = 1/.0;
 #define MP make_pair
 #define ltj(X) if(s == -1 || MP(X[j],N[j]) < MP(X[s],N[s])) s=j
+#define rep(i, a, b) for(int i = a; i < (b); ++i)
+#define sz(x) (int)(x).size()
 
 struct LPSolver {
-	int m, n;
-	vi N, B;
-	vvd D;
+	int m, n; vi N, B; vvd D;
 
 	LPSolver(const vvd& A, const vd& b, const vd& c) :
 		m(sz(b)), n(sz(c)), N(n+1), B(m), D(m+2, vd(n+2)) {
@@ -65,7 +65,7 @@ struct LPSolver {
 		}
 	}
 
-	T solve(vd &x) {
+	T Solve(vd &x) {
 		int r = 0;
 		rep(i,1,m) if (D[i][n+1] < D[r][n+1]) r = i;
 		if (D[r][n+1] < -eps) {

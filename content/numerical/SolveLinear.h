@@ -1,49 +1,94 @@
 /**
- * Author: Per Austrin, Simon Lindholm
+ * Author: Lucian Bicsi
  * Date: 2004-02-08
  * License: CC0
- * Description: Solves $A * x = b$. If there are multiple solutions, an arbitrary one is returned.
- *  Returns rank, or -1 if no solutions. Data in $A$ and $b$ is lost.
- * Time: O(n^2 m)
- * Status: tested on kattis:equationsolver, and bruteforce-tested mod 3 and 5 for n,m <= 3
+ * Description: Solves $M * x = b$. If there are multiple solutions,
+ * returns a solution which has all free variables set to 0.
+ * To compute rank, count the number of values in pivot.
+ * vector which are not -1.
+ * Time: O(vars^2 cons)
+ * Status: tested
  */
 #pragma once
 
-typedef vector<double> vd;
-const double eps = 1e-12;
-
-int solveLinear(vector<vd>& A, vd& b, vd& x) {
-	int n = sz(A), m = sz(x), rank = 0, br, bc;
-	if (n) assert(sz(A[0]) == m);
-	vi col(m); iota(all(col), 0);
-
-	rep(i,0,n) {
-		double v, bv = 0;
-		rep(r,i,n) rep(c,i,m)
-			if ((v = fabs(A[r][c])) > bv)
-				br = r, bc = c, bv = v;
-		if (bv <= eps) {
-			rep(j,i,n) if (fabs(b[j]) > eps) return -1;
-			break;
-		}
-		swap(A[i], A[br]);
-		swap(b[i], b[br]);
-		swap(col[i], col[bc]);
-		rep(j,0,n) swap(A[j][i], A[j][bc]);
-		bv = 1/A[i][i];
-		rep(j,i+1,n) {
-			double fac = A[j][i] * bv;
-			b[j] -= fac * b[i];
-			rep(k,i+1,m) A[j][k] -= fac*A[i][k];
-		}
-		rank++;
-	}
-
-	x.assign(m, 0);
-	for (int i = rank; i--;) {
-		b[i] /= A[i][i];
-		x[col[i]] = b[i];
-		rep(j,0,i) b[j] -= A[j][i] * b[i];
-	}
-	return rank; // (multiple solutions if rank < m)
+// Transforms a matrix into its row echelon form
+// Returns a vector of pivots for each variable
+// vars is the number of variables to do echelon for
+vector<int> ToRowEchelon(vector<vector<double>> &M, int vars) {
+  int n = M.size(), m = M[0].size();
+  vector<int> pivots(vars, -1);
+  
+  int cur = 0;
+  for (int var = 0; var < vars; ++var) {
+    if (cur >= n) break;
+    
+    for (int con = cur + 1; con < n; ++con)
+      if (sgn(M[con][var]) != 0)
+        swap(M[con], M[cur]);
+    
+    if (sgn(M[cur][var]) != 0) {
+      pivots[var] = cur;
+      auto aux = M[cur][var];
+      
+      for (int i = 0; i < m; ++i)
+        M[cur][i] = M[cur][i] / aux;
+      
+      for (int con = 0; con < n; ++con) {
+        if (con != cur) {
+          auto mul = M[con][var];
+          for (int i = 0; i < m; ++i) {
+            M[con][i] = M[con][i] - mul * M[cur][i];
+          }
+        }
+      }
+      ++cur;
+    }
+  }
+  
+  return pivots;
 }
+
+// Computes the inverse of a nxn square matrix.
+// Returns true if successful
+bool Invert(vector<vector<double>> &M) {
+  int n = M.size();
+  for (int i = 0; i < n; ++i) {
+    M[i].resize(2 * n, 0); M[i][n + i] = 1;
+  }
+  
+  auto pivs = ToRowEchelon(M, n);
+  for (auto x : pivs) if (x == -1) return false;
+  
+  for (int i = 0; i < n; ++i)
+    M[i] = vector<double>(M[i].begin() + n, M[i].end());
+  return true;
+}
+
+// Returns the solution of a system
+// Will change matrix
+// Throws 5 if inconsistent
+vector<double> SolveSystem(vector<vector<double>> &M,
+                           vector<double>& b) {
+  int vars = M[0].size();
+  for (int i = 0; i < (int)M.size(); ++i)
+    M[i].push_back(b[i]);
+  
+  auto pivs = ToRowEchelon(M, vars);
+  vector<double> solution(vars);
+  for (int i = 0; i < vars; ++i) {
+    solution[i] = (pivs[i] == -1) ? 0 : M[pivs[i]][vars];
+  }
+  
+  // Check feasible (optional)
+  for (int i = 0; i < (int)M.size(); ++i) {
+    double check = 0;
+    for (int j = 0; j < vars; ++j)
+      check = check + M[i][j] * solution[j];
+    if (sgn(check - M[i][vars]) != 0)
+      throw 5;
+  }
+  
+  return solution;
+}
+
+

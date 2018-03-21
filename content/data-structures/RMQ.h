@@ -9,31 +9,29 @@
  * Set inf to something reasonable before use.
  * Usage:
  *  RMQ rmq(values);
- *  rmq.query(inclusive, exclusive);
+ *  rmq.Query(inclusive, exclusive);
  * Time: $O(|V| \log |V| + Q)$
  */
 #pragma once
 
-#ifndef RMQ_HAVE_INF /** exclude-line */
-const int inf = numeric_limits<int>::max();
-#endif /** exclude-line */
-
 template <class T>
 struct RMQ {
-	vector<vector<T>> jmp;
+  const int kInf = numeric_limits<T>::max();
+	vector<vector<T>> rmq;
 
 	RMQ(const vector<T>& V) {
-		int N = sz(V), on = 1, depth = 1;
-		while (on < sz(V)) on *= 2, depth++;
-		jmp.assign(depth, V);
-		rep(i,0,depth-1) rep(j,0,N)
-			jmp[i+1][j] = min(jmp[i][j],
-			jmp[i][min(N - 1, j + (1 << i))]);
+		int n = V.size(), on = 1, depth = 1;
+		while (on < n) on *= 2, ++depth;
+		rmq.assign(depth, V);
+    for (int i = 0; i < depth - 1; ++i)
+      for (int j = 0; j < n; ++j) {
+        jmp[i + 1][j] = min(jmp[i][j],
+          jmp[i][min(n - 1, j + (1 << i))]);
 	}
 
-	T query(int a, int b) {
-		if (b <= a) return inf;
-		int dep = 31 - __builtin_clz(b - a);
-		return min(jmp[dep][a], jmp[dep][b - (1 << dep)]);
+	T Query(int a, int b) {
+		if (b <= a) return kInf;
+		int dep = 31 - __builtin_clz(b - a); // log(b - a)
+		return min(rmq[dep][a], rmq[dep][b - (1 << dep)]);
 	}
 };

@@ -4,38 +4,72 @@
  * License: CC0
  * Source:
  * Description: This is a simple matching algorithm but should
- * be just fine in most cases. Graph $g$ should be a list of
- * neighbours of the left partition. $n$ is the size of the left
+ * be just fine in most cases. $n$ is the size of the left
  * partition and $m$ is the size of the right partition.
  * If you want to get the matched pairs, $match[i]$ contains
  * match for vertex $i$ on the right side or $-1$ if it's not
- * matched.
+ * matched. Performance can be sigmificantly improved by splitting the
+ * condition at (*) and/or by randomizing the order at (**).
  * Time: O(EV) where $E$ is the number of edges and V is the number of vertices.
  * Status: works
  */
 #pragma once
+#include <bits/stdc++.h>
 
-vi match;
-vector<bool> seen;
-bool find(int j, const vector<vi>& g) {
-	if (match[j] == -1) return 1;
-	seen[j] = 1; int di = match[j];
-	trav(e, g[di])
-		if (!seen[e] && find(e, g)) {
-			match[e] = di;
-			return 1;
-		}
-	return 0;
-}
-int dfs_matching(const vector<vi>& g, int n, int m) {
-	match.assign(m, -1);
-	rep(i,0,n) {
-		seen.assign(m, 0);
-		trav(j,g[i])
-			if (find(j, g)) {
-				match[j] = i;
-				break;
-			}
-	}
-	return m - (int)count(all(match), -1);
-}
+using namespace std;
+
+struct BipartiteMatcher {
+  int n, m;
+  vector<vector<int>> G;
+  vector<int> L, R, vis;
+  
+  BipartiteMatcher(int n, int m) :
+    n(n), m(m), G(n), L(n, -1), R(m, -1), vis(n) {}
+  
+  void AddEdge(int a, int b) {
+    G[a].push_back(b);
+  }
+  
+  bool match(int node) {
+    if (vis[node])
+      return false;
+    vis[node] = true;
+    
+    for (auto vec : G[node]) {
+      if (R[vec] == -1 || match(R[vec])) { // (*)
+        L[node] = vec; R[vec] = node; return true;
+      }
+    }
+    return false;
+  }
+
+  int Solve() {
+    int ok = 1;
+    while (ok--) {
+      fill(vis.begin(), vis.end(), 0);
+      for (int i = 0; i < n; ++i) // (**)
+        if (L[i] == -1)
+          ok |= match(i);
+    }
+    return n - count(L.begin(), L.end(), -1);
+  }
+
+  // Only include if you want vertex cover
+  vector<bool> CL, CR;
+
+  void cover(int node) {
+    for (auto vec : G[node]) if (!CR[vec]) {
+      CR[vec] = true; 
+      CL[R[vec]] = false; 
+      cover(R[vec]);
+    }
+  }
+
+  int VertexCover() {
+    int ret = Solve();
+    CL.assign(n, false); CR.assign(m, false);
+    for (int i = 0; i < n; ++i) if (L[i] != -1) CL[i] = true;
+    for (int i = 0; i < n; ++i) if (L[i] == -1) cover(i);
+    return ret;
+  }
+};
