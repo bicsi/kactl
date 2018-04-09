@@ -1,9 +1,11 @@
 /**
+ * Author: 
  * Source: Topcoder
  * Description: Computes Gomory-Hu tree of a graph
  * Time: O(V) calls of flow algorithm
  * Status: works
  */
+#pragma once
 void GomoryHu() {
     int parent[n]; //initialized to 0
     int answer[n][n]; //initialize this one to infinity
