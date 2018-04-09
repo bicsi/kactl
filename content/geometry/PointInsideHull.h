@@ -5,7 +5,7 @@
  * Source: Inspired by old, broken tinyKACTL
  * Description: Determine whether a point t lies inside a given polygon (counter-clockwise order).
  * The polygon must be such that every point on the circumference is visible from the first point in the vector.
- * It returns 0 for points outside, 1 for points on the circumference, and 2 for points inside.
+ * It returns -1 for points outside, 0 for points on the circumference, and 1 for points inside.
  * Usage:
  * Status: Tested at Moscow ICPC pre-finals workshop
  * Time: O(\log N)
@@ -23,10 +23,10 @@ int insideHull2(const vector<P>& H, int L, int R, const P& p) {
 		int sa = sideOf(H[0], H[L], p);
 		int sb = sideOf(H[L], H[L+1], p);
 		int sc = sideOf(H[L+1], H[0], p);
-		if (sa < 0 || sb < 0 || sc < 0) return 0;
+		if (sa < 0 || sb < 0 || sc < 0) return -1;
 		if (sb==0 || (sa==0 && L == 1) || (sc == 0 && R == sz(H)))
-			return 1;
-		return 2;
+			return 0;
+		return 1;
 	}
 	int mid = L + len / 2;
 	if (sideOf(H[0], H[mid], p) >= 0)

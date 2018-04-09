@@ -38,7 +38,8 @@
 \contentsline {section}{\texttt { ConvexTree.h }\hspace {0.2em}}{3}
 \contentsline {section}{\texttt { Treap.h }\hspace {0.2em}}{4}
 \contentsline {section}{\texttt { FenwickTree.h }\hspace {0.2em}}{4}
-\contentsline {section}{\texttt { RMQ.h }\hspace {0.2em}}{4}
+\contentsline {section}{\texttt { FenwickTree2d.h }\hspace {0.2em}}{4}
+\contentsline {section}{\texttt { RMQ.h }\hspace {0.2em}}{5}
 \contentsline {chapter}{\numberline {4}Numerical}{5}
 \ttl@stoptoc {chapters@3}
 \ttl@starttoc {chapters@4}
@@ -55,7 +56,7 @@
 \contentsline {section}{\texttt { Integrate.h }\hspace {0.2em}}{7}
 \contentsline {section}{\texttt { IntegrateAdaptive.h }\hspace {0.2em}}{7}
 \contentsline {section}{\texttt { Simplex.h }\hspace {0.2em}}{7}
-\contentsline {section}{\texttt { SolveLinear.h }\hspace {0.2em}}{7}
+\contentsline {section}{\texttt { SolveLinear.h }\hspace {0.2em}}{8}
 \contentsline {section}{\texttt { Tridiagonal.h }\hspace {0.2em}}{8}
 \contentsline {chapter}{\numberline {5}Number theory}{8}
 \ttl@stoptoc {chapters@4}
@@ -64,14 +65,14 @@
 \contentsline {subsection}{\texttt { ModOps.h }\hspace {0.2em}}{8}
 \contentsline {subsection}{\texttt { ModInverse.h }\hspace {0.2em}}{8}
 \contentsline {subsection}{\texttt { ModSum.h }\hspace {0.2em}}{8}
-\contentsline {subsection}{\texttt { ModMulLL.h }\hspace {0.2em}}{8}
+\contentsline {subsection}{\texttt { ModMulLL.h }\hspace {0.2em}}{9}
 \contentsline {subsection}{\texttt { ModSqrt.h }\hspace {0.2em}}{9}
 \contentsline {section}{\numberline {5.2}Number theoretic transform}{9}
 \contentsline {subsection}{\texttt { NTT.h }\hspace {0.2em}}{9}
 \contentsline {section}{\numberline {5.3}Primality}{9}
 \contentsline {subsection}{\texttt { Eratosthenes.h }\hspace {0.2em}}{9}
 \contentsline {subsection}{\texttt { MillerRabin.h }\hspace {0.2em}}{9}
-\contentsline {subsection}{\texttt { Factor.h }\hspace {0.2em}}{9}
+\contentsline {subsection}{\texttt { Factor.h }\hspace {0.2em}}{10}
 \contentsline {section}{\numberline {5.4}Divisibility}{10}
 \contentsline {subsection}{\texttt { Euclid.h }\hspace {0.2em}}{10}
 \contentsline {subsection}{\numberline {5.4.1}B\IeC {\'e}zout's identity}{10}
@@ -85,9 +86,9 @@
 \ttl@stoptoc {chapters@5}
 \ttl@starttoc {chapters@6}
 \contentsline {section}{\numberline {6.1}The Twelvefold Way}{10}
-\contentsline {section}{\numberline {6.2}Permutations}{10}
-\contentsline {subsection}{\numberline {6.2.1}Factorial}{10}
-\contentsline {subsection}{\texttt { intperm.h }\hspace {0.2em}}{10}
+\contentsline {section}{\numberline {6.2}Permutations}{11}
+\contentsline {subsection}{\numberline {6.2.1}Factorial}{11}
+\contentsline {subsection}{\texttt { intperm.h }\hspace {0.2em}}{11}
 \contentsline {subsection}{\numberline {6.2.2}Cycles}{11}
 \contentsline {subsection}{\numberline {6.2.3}Derangements}{11}
 \contentsline {subsection}{\texttt { derangements.h }\hspace {0.2em}}{11}
@@ -123,6 +124,7 @@
 \contentsline {subsection}{\texttt { CycleCancelFlow.h }\hspace {0.2em}}{14}
 \contentsline {subsection}{\texttt { MinCut.h }\hspace {0.2em}}{14}
 \contentsline {subsection}{\texttt { GlobalMinCut.h }\hspace {0.2em}}{14}
+\contentsline {subsection}{\texttt { GomoryHu.h }\hspace {0.2em}}{15}
 \contentsline {section}{\numberline {7.3}Matching}{15}
 \contentsline {subsection}{\texttt { DFSMatching.h }\hspace {0.2em}}{15}
 \contentsline {subsection}{\texttt { WeightedMatching.h }\hspace {0.2em}}{15}
@@ -148,8 +150,8 @@
 \contentsline {subsection}{\texttt { SegmentIntersection.h }\hspace {0.2em}}{18}
 \contentsline {subsection}{\texttt { LineIntersectionCheck.h }\hspace {0.2em}}{18}
 \contentsline {subsection}{\texttt { LineIntersection.h }\hspace {0.2em}}{18}
-\contentsline {subsection}{\texttt { OnSegment.h }\hspace {0.2em}}{18}
-\contentsline {subsection}{\texttt { LinearTransformation.h }\hspace {0.2em}}{18}
+\contentsline {subsection}{\texttt { OnSegment.h }\hspace {0.2em}}{19}
+\contentsline {subsection}{\texttt { LinearTransformation.h }\hspace {0.2em}}{19}
 \contentsline {subsection}{\texttt { Angle.h }\hspace {0.2em}}{19}
 \contentsline {subsection}{\texttt { Caliper.h }\hspace {0.2em}}{19}
 \contentsline {section}{\numberline {8.2}Circles}{19}
@@ -160,14 +162,14 @@
 \contentsline {subsection}{\texttt { MinimumEnclosingCircle.h }\hspace {0.2em}}{19}
 \contentsline {section}{\numberline {8.3}Polygons}{19}
 \contentsline {subsection}{\texttt { InsidePolygon.h }\hspace {0.2em}}{19}
+\contentsline {subsection}{\texttt { InsidePolygonMulti.h }\hspace {0.2em}}{20}
 \contentsline {subsection}{\texttt { PolygonArea.h }\hspace {0.2em}}{20}
 \contentsline {subsection}{\texttt { PolygonCenter.h }\hspace {0.2em}}{20}
 \contentsline {subsection}{\texttt { PolygonCut.h }\hspace {0.2em}}{20}
 \contentsline {subsection}{\texttt { ConvexHull.h }\hspace {0.2em}}{20}
 \contentsline {subsection}{\texttt { Voronoi.h }\hspace {0.2em}}{20}
 \contentsline {subsection}{\texttt { PolygonDiameter.h }\hspace {0.2em}}{20}
-\contentsline {subsection}{\texttt { PointInsideHull.h }\hspace {0.2em}}{20}
-\contentsline {subsection}{\texttt { LineHullIntersection.h }\hspace {0.2em}}{20}
+\contentsline {subsection}{\texttt { PointInsideHull.h }\hspace {0.2em}}{21}
 \contentsline {subsection}{\texttt { HalfplaneSet.h }\hspace {0.2em}}{21}
 \contentsline {section}{\numberline {8.4}Misc. Point Set Problems}{21}
 \contentsline {subsection}{\texttt { closestPair.h }\hspace {0.2em}}{21}
@@ -182,12 +184,12 @@
 \ttl@stoptoc {chapters@8}
 \ttl@starttoc {chapters@9}
 \contentsline {section}{\texttt { KMP.h }\hspace {0.2em}}{22}
-\contentsline {section}{\texttt { ZFunction.h }\hspace {0.2em}}{22}
+\contentsline {section}{\texttt { ZFunction.h }\hspace {0.2em}}{23}
 \contentsline {section}{\texttt { Manacher.h }\hspace {0.2em}}{23}
 \contentsline {section}{\texttt { PalindromicTree.h }\hspace {0.2em}}{23}
 \contentsline {section}{\texttt { MinRotation.h }\hspace {0.2em}}{23}
 \contentsline {section}{\texttt { SuffixArray.h }\hspace {0.2em}}{23}
-\contentsline {section}{\texttt { SuffixAutomaton.h }\hspace {0.2em}}{23}
+\contentsline {section}{\texttt { SuffixAutomaton.h }\hspace {0.2em}}{24}
 \contentsline {section}{\texttt { AhoCorasick.h }\hspace {0.2em}}{24}
 \contentsline {chapter}{\numberline {10}Various}{24}
 \ttl@stoptoc {chapters@9}
@@ -195,7 +197,7 @@
 \contentsline {section}{\numberline {10.1}Intervals}{24}
 \contentsline {subsection}{\texttt { IntervalContainer.h }\hspace {0.2em}}{24}
 \contentsline {subsection}{\texttt { IntervalCover.h }\hspace {0.2em}}{24}
-\contentsline {subsection}{\texttt { ConstantIntervals.h }\hspace {0.2em}}{24}
+\contentsline {subsection}{\texttt { ConstantIntervals.h }\hspace {0.2em}}{25}
 \contentsline {section}{\numberline {10.2}Misc. algorithms}{25}
 \contentsline {subsection}{\texttt { TernarySearch.h }\hspace {0.2em}}{25}
 \contentsline {subsection}{\texttt { AlphaBeta.h }\hspace {0.2em}}{25}
@@ -206,11 +208,7 @@
 \contentsline {section}{\numberline {10.5}Optimization tricks}{25}
 \contentsline {subsection}{\numberline {10.5.1}Bit hacks}{25}
 \contentsline {subsection}{\numberline {10.5.2}Pragmas}{25}
-\contentsline {subsection}{\texttt { BumpAllocator.h }\hspace {0.2em}}{25}
-\contentsline {subsection}{\texttt { SmallPtr.h }\hspace {0.2em}}{25}
-\contentsline {subsection}{\texttt { BumpAllocatorSTL.h }\hspace {0.2em}}{25}
 \contentsline {subsection}{\texttt { Unrolling.h }\hspace {0.2em}}{25}
-\contentsline {subsection}{\texttt { SIMD.h }\hspace {0.2em}}{25}
 \ttl@stoptoc {chapters@10}
 \ttl@starttoc {chapters@11}
 \contentsfinish 

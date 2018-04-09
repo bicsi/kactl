@@ -15,7 +15,7 @@
 
 int LineIntersection(Point a, Point b, Point p, Point q) {
   double c1 = det(a, b, p), c2 = det(a, b, q);
-  if(abs(c1 - c2) > kEps) return 1;
-  if (abs(c1) < kEps) return -1;
+  if (sgn(c1 - c2)) return 1;
+  if (sgn(c1) == 0) return -1;
   return 0;
 }
