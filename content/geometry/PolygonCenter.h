@@ -11,11 +11,10 @@
 #include "Point.h"
 
 Point PolygonCenter(vector<Point>& P) {
-	auto i = P.begin(), j = prev(P.end());
-	Point res{0.0, 0.0}; double area = 0.0;
-	for (; i != P.end(); j=i++) {
-		res += (*i + *j) * cross(*j, *i);
-		area += cross(*j, *i);
+  int n = P.size(); Point res{0, 0}; double area = 0;
+  for (int i = 0, j = n - 1; i < n; j = i++) {
+		res += (P[i] + P[j]) * cross(P[j], P[i]);
+		area += cross(P[j], P[i]);
 	}
 	return res / area / 3.0;
 }

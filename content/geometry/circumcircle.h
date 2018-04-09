@@ -9,13 +9,13 @@ The circumcirle of a triangle is the circle intersecting all three vertices. Cir
 \end{minipage}
 \begin{minipage}{15mm}
 \vspace{-2mm}
-\includegraphics[width=\textwidth]{../content/geometry/circumcircle}
+\includegraphics[width=\textwidth]{../content/geometry/Circumcircle}
 \end{minipage}
  * Status: tested
  */
 #pragma once
 
-#include "Point.h"
+#include "Circle.h"
 
 double CircumRadius(Point a, Point b, Point c) {
   return dist(a, b) * dist(b, c) * dist(c, a) /
@@ -23,5 +23,9 @@ double CircumRadius(Point a, Point b, Point c) {
 }
 Point CircumCenter(Point a, Point b, Point c) {
   c -= a; b -= a;
-  return a + perp(c * norm(b) - b * norm(c)) / cross(c, b)/2.;
+  return a + perp(c*norm(b) - b*norm(c)) / cross(c, b) / 2.;
+}
+Circle CircumCircle(Point a, Point b, Point c) {
+  Point p = CircumCenter(a, b, c);
+  return {p, abs(p - a)};
 }

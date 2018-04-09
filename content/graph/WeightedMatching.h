@@ -8,82 +8,60 @@
  */
 #pragma once
 
-int sgn(double x) {return abs(x) < 1e-9 ? 0 : x > 0 ? 1 : -1;}
-double MinCostMatching(vector<vector<double>> cost, 
-    vector<int>& L, vector<int>& R) 
-{
-  int n = cost.size(), mated = 0;
-  vector<double> dist(n), u(n), v(n);
-  vector<int> par(n), seen(n);
-
-  /// construct dual feasible solution
-  for (int i = 0; i < n; ++i) {
-    u[i] = cost[i][0];
-    for (int j = 1; j < n; ++j) 
-      u[i] = min(u[i], cost[i][j]);
-  }
-  for (int j = 0; j < n; ++j) {
-    v[j] = cost[0][j] - u[0];
-    for (int i = 1; i < n; ++i) 
-      v[j] = min(v[j], cost[i][j] - u[i]);
-  }
-
-  /// find primal solution satisfying complementary slackness
-  L = R = vector<int>(n, -1);
-  for (int i = 0; i < n; ++i)
-    for (int j = 0; j < n; ++j) {
-      if (R[j] != -1) continue;
-      if (sgn(cost[i][j] - u[i] - v[j]) == 0) {
-        L[i] = j; R[j] = i; mated++; break;
-      }
+template<typename T>
+int MinAssignment(const vector<vector<T>> &c) {
+  int n = c.size(), m = c[0].size();       // assert(n <= m);
+  vector<T> v(m), dist(m);                 // v: potential
+  vector<int> L(n, -1), R(m, -1);          // matching pairs
+  vector<int> index(m), prev(m);
+  iota(index.begin(), index.end(), 0);
+  
+  auto residue = [&](int i, int j) { return c[i][j] - v[j]; };
+  for (int f = 0; f < n; ++f) {
+    for (int j = 0; j < m; ++j) {
+      dist[j] = residue(f, j); prev[j] = f;
     }
-
-  for (; mated < n; mated++) { // until solution is feasible
-    int s = 0;
-    while (L[s] != -1) s++;
-
-    fill(par.begin(), par.end(), -1);
-    fill(seen.begin(), seen.end(), 0);
-    for (int k = 0; k < n; ++k)
-      dist[k] = cost[s][k] - u[s] - v[k];
-
-    int j = 0;
-    while (true) { /// find closest
-      j = -1;
-      for (int k = 0; k < n; ++k) {
-        if (seen[k]) continue;
-        if (j == -1 || dist[k] < dist[j]) j = k;
+    T w; int j, l;
+    for (int s = 0, t = 0;;) {
+      if (s == t) {
+        l = s; w = dist[index[t++]];
+        for (int k = t; k < m; ++k) {
+          j = index[k]; T h = dist[j];
+          if (h <= w) {
+            if (h < w) { t = s; w = h; }
+            index[k] = index[t]; index[t++] = j;
+          }
+        }
+        for (int k = s; k < t; ++k) {
+          j = index[k];
+          if (R[j] < 0) goto aug;
+        }
       }
-      seen[j] = 1;
-      int i = R[j];
-      if (i == -1) break;
-      for (int k = 0; k < n; ++k) { /// relax neighbors
-        if (seen[k]) continue;
-        auto new_dist = dist[j] + cost[i][k] - u[i] - v[k];
-        if (dist[k] > new_dist) {
-          dist[k] = new_dist; 
-          par[k] = j;
+      int q = index[s++], i = R[q];
+      for (int k = t; k < m; ++k) {
+        j = index[k];
+        T h = residue(i,j) - residue(i,q) + w;
+        if (h < dist[j]) {
+          dist[j] = h; prev[j] = i;
+          if (h == w) {
+            if (R[j] < 0) goto aug;
+            index[k] = index[t]; index[t++] = j;
+          }
         }
       }
     }
-
-    /// update dual variables
-    for (int k = 0; k < n; ++k) {
-      if (k == j || !seen[k]) continue;
-      auto w = dist[k] - dist[j];
-      v[k] += w, u[R[k]] -= w;
-    }
-    u[s] += dist[j];
-
-    /// augment along path
-    while (par[j] != -1) {
-      int p = par[j];
-      R[j] = R[p]; L[R[j]] = j; j = p;
-    }
-    R[j] = s; L[s] = j;
+  aug:
+    for(int k = 0; k < l; ++k)
+      v[index[k]] += dist[index[k]] - w;
+    int i;
+    do {
+      R[j] = i = prev[j];
+      swap(j, L[i]);
+    } while (i != f);
   }
-  double ret = 0;
-  for (int i = 0; i < n; ++i)
-    ret += cost[i][L[i]];
+  T ret = 0;
+  for (int i = 0; i < n; ++i) {
+    ret += c[i][L[i]]; // (i, L[i]) is a solution
+  }
   return ret;
 }

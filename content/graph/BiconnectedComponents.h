@@ -43,9 +43,9 @@ struct BCC {
   
   void Solve() {
     for (int i = 0; i < (int)G.size(); ++i)
-    if (enter[i] == -1) {
-      dfs(i, -1);
-    }
+      if (enter[i] == -1) {
+        dfs(i, -1);
+      }
   }
   
   int timer = 0;
@@ -58,7 +58,7 @@ struct BCC {
       if (enter[vec] != -1) {
         ret = min(ret, enter[vec]);
         if (enter[vec] < enter[node])
-        stk.push_back(ei);
+          stk.push_back(ei);
       } else {
         int sz = stk.size(), low = dfs(vec, ei);
         ret = min(ret, low);

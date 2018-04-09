@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.14)  21 MAR 2018 23:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.14)  9 APR 2018 18:13
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1021,6 +1021,13 @@ File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ) [6])
 runsystem(rm -f kactl.tmp)...executed.
 
+runsystem(python2 kactlprocessor.py -i "../content/numerical/FST.h" -o kactl.tmp )...executed.
+
+ (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
+))
+runsystem(rm -f kactl.tmp)...executed.
+
 runsystem(python2 kactlprocessor.py -i "../content/numerical/Integrate.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
@@ -1047,13 +1054,6 @@ runsystem(python2 kactlprocessor.py -i "../content/numerical/SolveLinear.h" -o k
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ) [7])
-runsystem(rm -f kactl.tmp)...executed.
-
-runsystem(python2 kactlprocessor.py -i "../content/numerical/MatrixInverse.h" -o kactl.tmp )...executed.
-
- (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/numerical/Tridiagonal.h" -o kactl.tmp )...executed.
@@ -1089,14 +1089,14 @@ runsystem(python2 kactlprocessor.py -i "../content/number-theory/ModMulLL.h" -o 
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [8])
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/number-theory/ModSqrt.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [8])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/number-theory/NTT.h" -o kactl.tmp )...executed.
@@ -1157,16 +1157,17 @@ runsystem(python2 kactlprocessor.py -i "../content/combinatorial/intperm.h" -o k
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-)) [10]
+))
 Overfull \hbox (6.88965pt too wide) detected at line 17
 \OML/cmm/m/it/10 D\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) = (\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1)(\OML/cmm/m/it/10 D\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1) + \OML/cmm/m/it/10 D\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 2)) = \OML/cmm/m/it/10 nD\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1) + (\OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 1)[] = []
  []
 
+[10]
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/combinatorial/derangements.h" -o kactl.tmp )...executed.
 
-(./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+ (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 )) [11]
 runsystem(rm -f kactl.tmp)...executed.
@@ -1409,7 +1410,7 @@ Package pdftex.def Info: ../content/geometry/LinearTransformation.pdf used on in
 (pdftex.def)             Requested size: 42.67912pt x 42.68211pt.
  (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [18 <../content/geometry/LineDistance.pdf> <../content/geometry/SegmentDistance.pdf> <../content/geometry/SegmentIntersection.pdf> <../content/geometry/lineIntersection.pdf>])
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/Angle.h" -o kactl.tmp )...executed.
@@ -1421,10 +1422,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--10
 
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [18 <../content/geometry/LineDistance.pdf> <../content/geometry/SegmentDistance.pdf> <../content/geometry/SegmentIntersection.pdf> <../content/geometry/lineIntersection.pdf> <../content/geometry/LinearTransformation.pdf>])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/Caliper.h" -o kactl.tmp )...executed.
+
+ (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
+))
+runsystem(rm -f kactl.tmp)...executed.
+
+runsystem(python2 kactlprocessor.py -i "../content/geometry/Circle.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
@@ -1440,7 +1448,7 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/CircleTangents.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp <../content/geometry/CircleTangents.pdf, id=390, 42.67899pt x 42.67899pt>
+ (./kactl.tmp <../content/geometry/CircleTangents.pdf, id=423, 42.67899pt x 42.67899pt>
 File: ../content/geometry/CircleTangents.pdf Graphic file (type pdf)
  <use ../content/geometry/CircleTangents.pdf>
 Package pdftex.def Info: ../content/geometry/CircleTangents.pdf used on input line 13.
@@ -1450,12 +1458,12 @@ File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
 
-runsystem(python2 kactlprocessor.py -i "../content/geometry/circumcircle.h" -o kactl.tmp )...executed.
+runsystem(python2 kactlprocessor.py -i "../content/geometry/Circumcircle.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp <../content/geometry/circumcircle.pdf, id=391, 42.67899pt x 42.67899pt>
-File: ../content/geometry/circumcircle.pdf Graphic file (type pdf)
- <use ../content/geometry/circumcircle.pdf>
-Package pdftex.def Info: ../content/geometry/circumcircle.pdf used on input line 13.
+ (./kactl.tmp <../content/geometry/Circumcircle.pdf, id=424, 42.67899pt x 42.67899pt>
+File: ../content/geometry/Circumcircle.pdf Graphic file (type pdf)
+ <use ../content/geometry/Circumcircle.pdf>
+Package pdftex.def Info: ../content/geometry/Circumcircle.pdf used on input line 13.
 (pdftex.def)             Requested size: 42.67912pt x 42.68211pt.
  (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
@@ -1478,7 +1486,7 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/PolygonArea.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp [19 <../content/geometry/LinearTransformation.pdf> <../content/geometry/CircleTangents.pdf> <../content/geometry/circumcircle.pdf>] (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+ (./kactl.tmp [19 <../content/geometry/CircleTangents.pdf> <../content/geometry/Circumcircle.pdf>] (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
@@ -1542,6 +1550,17 @@ File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ) [20 <../content/geometry/PolygonCut.pdf> <../content/geometry/ConvexHull.pdf>])
 runsystem(rm -f kactl.tmp)...executed.
 
+runsystem(python2 kactlprocessor.py -i "../content/geometry/HalfplaneSet.h" -o kactl.tmp )...executed.
+
+ (./kactl.tmp
+
+Package kactlpkg Warning:  HalfplaneSet.h : Unknown command: NOTE.  on input line 1.
+
+(/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
+))
+runsystem(rm -f kactl.tmp)...executed.
+
 runsystem(python2 kactlprocessor.py -i "../content/geometry/closestPair.h" -o kactl.tmp )...executed.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
@@ -1553,7 +1572,7 @@ runsystem(python2 kactlprocessor.py -i "../content/geometry/kdTree.h" -o kactl.t
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [21])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/DelaunayTriangulation.h" -o kactl.tmp )...executed.
@@ -1574,7 +1593,7 @@ runsystem(python2 kactlprocessor.py -i "../content/geometry/Point3D.h" -o kactl.
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [21])
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/geometry/3dHull.h" -o kactl.tmp )...executed.
@@ -1603,7 +1622,7 @@ runsystem(python2 kactlprocessor.py -i "../content/strings/ZFunction.h" -o kactl
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [22])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/strings/Manacher.h" -o kactl.tmp )...executed.
@@ -1617,7 +1636,7 @@ runsystem(python2 kactlprocessor.py -i "../content/strings/PalindromicTree.h" -o
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-) [22])
+))
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/strings/MinRotation.h" -o kactl.tmp )...executed.
@@ -1672,7 +1691,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--10
 
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))
+) [24])
 runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/various/TernarySearch.h" -o kactl.tmp )...executed.
@@ -1696,7 +1715,7 @@ runsystem(rm -f kactl.tmp)...executed.
 
 runsystem(python2 kactlprocessor.py -i "../content/various/DivideAndConquerDP.h" -o kactl.tmp )...executed.
 
- (./kactl.tmp [24] (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
+ (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 ))
 runsystem(rm -f kactl.tmp)...executed.
@@ -1749,7 +1768,7 @@ runsystem(python2 kactlprocessor.py -i "../content/various/SIMD.h" -o kactl.tmp 
 
  (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))) [25] (../content/appendix/chapter.tex
+) [25])) [26] (../content/appendix/chapter.tex
 Chapter A.
 runsystem(rm -f kactl.tmp)...executed.
 
@@ -1757,24 +1776,24 @@ runsystem(python2 kactlprocessor.py -i "../content/appendix/techniques.txt" -o k
 
 (./kactl.tmp (/usr/local/texlive/2017basic/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-))) [26]
+))) [27]
 \tf@ptc=\write3
 \openout3 = `kactl.ptc'.
 
  (./kactl.aux) ) 
 Here is how much of TeX's memory you used:
- 10704 strings out of 494437
- 152121 string characters out of 6166645
- 901764 words of memory out of 5000000
- 13377 multiletter control sequences out of 15000+600000
+ 10701 strings out of 494437
+ 152373 string characters out of 6166645
+ 796764 words of memory out of 5000000
+ 13366 multiletter control sequences out of 15000+600000
  11738 words of font info for 46 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 39i,15n,60p,802b,2347s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,15n,60p,802b,2345s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017basic/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2017basic/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on kactl.pdf (27 pages, 2915769 bytes).
+Output written on kactl.pdf (28 pages, 2916523 bytes).
 PDF statistics:
- 649 PDF objects out of 1000 (max. 8388607)
- 416 compressed objects within 5 object streams
+ 652 PDF objects out of 1000 (max. 8388607)
+ 418 compressed objects within 5 object streams
  0 named destinations out of 1000 (max. 500000)
  56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

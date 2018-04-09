@@ -20,6 +20,6 @@
 
 Point LineIntersection(Point a, Point b, Point p, Point q) {
   double c1 = det(a, b, p), c2 = det(a, b, q);
-  assert(abs(c1 - c2) > kEps); // undefined if parallel
-  return (c1 * q - c2 * p) / (c1 - c2);
+  assert(sgn(c1 - c2)); // undefined if parallel
+  return (q * c1 - p * c2) / (c1 - c2);
 }

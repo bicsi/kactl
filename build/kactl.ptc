@@ -51,11 +51,11 @@
 \contentsline {section}{\texttt { BerlekampMassey.h }\hspace {0.2em}}{6}
 \contentsline {section}{\texttt { LinearRecurrence.h }\hspace {0.2em}}{6}
 \contentsline {section}{\texttt { FFT.h }\hspace {0.2em}}{6}
+\contentsline {section}{\texttt { FST.h }\hspace {0.2em}}{7}
 \contentsline {section}{\texttt { Integrate.h }\hspace {0.2em}}{7}
 \contentsline {section}{\texttt { IntegrateAdaptive.h }\hspace {0.2em}}{7}
 \contentsline {section}{\texttt { Simplex.h }\hspace {0.2em}}{7}
 \contentsline {section}{\texttt { SolveLinear.h }\hspace {0.2em}}{7}
-\contentsline {section}{\texttt { MatrixInverse.h }\hspace {0.2em}}{8}
 \contentsline {section}{\texttt { Tridiagonal.h }\hspace {0.2em}}{8}
 \contentsline {chapter}{\numberline {5}Number theory}{8}
 \ttl@stoptoc {chapters@4}
@@ -149,13 +149,14 @@
 \contentsline {subsection}{\texttt { LineIntersectionCheck.h }\hspace {0.2em}}{18}
 \contentsline {subsection}{\texttt { LineIntersection.h }\hspace {0.2em}}{18}
 \contentsline {subsection}{\texttt { OnSegment.h }\hspace {0.2em}}{18}
-\contentsline {subsection}{\texttt { LinearTransformation.h }\hspace {0.2em}}{19}
+\contentsline {subsection}{\texttt { LinearTransformation.h }\hspace {0.2em}}{18}
 \contentsline {subsection}{\texttt { Angle.h }\hspace {0.2em}}{19}
 \contentsline {subsection}{\texttt { Caliper.h }\hspace {0.2em}}{19}
 \contentsline {section}{\numberline {8.2}Circles}{19}
+\contentsline {subsection}{\texttt { Circle.h }\hspace {0.2em}}{19}
 \contentsline {subsection}{\texttt { CircleIntersection.h }\hspace {0.2em}}{19}
 \contentsline {subsection}{\texttt { CircleTangents.h }\hspace {0.2em}}{19}
-\contentsline {subsection}{\texttt { circumcircle.h }\hspace {0.2em}}{19}
+\contentsline {subsection}{\texttt { Circumcircle.h }\hspace {0.2em}}{19}
 \contentsline {subsection}{\texttt { MinimumEnclosingCircle.h }\hspace {0.2em}}{19}
 \contentsline {section}{\numberline {8.3}Polygons}{19}
 \contentsline {subsection}{\texttt { InsidePolygon.h }\hspace {0.2em}}{19}
@@ -167,13 +168,14 @@
 \contentsline {subsection}{\texttt { PolygonDiameter.h }\hspace {0.2em}}{20}
 \contentsline {subsection}{\texttt { PointInsideHull.h }\hspace {0.2em}}{20}
 \contentsline {subsection}{\texttt { LineHullIntersection.h }\hspace {0.2em}}{20}
+\contentsline {subsection}{\texttt { HalfplaneSet.h }\hspace {0.2em}}{21}
 \contentsline {section}{\numberline {8.4}Misc. Point Set Problems}{21}
 \contentsline {subsection}{\texttt { closestPair.h }\hspace {0.2em}}{21}
 \contentsline {subsection}{\texttt { kdTree.h }\hspace {0.2em}}{21}
-\contentsline {subsection}{\texttt { DelaunayTriangulation.h }\hspace {0.2em}}{21}
-\contentsline {section}{\numberline {8.5}3D}{21}
-\contentsline {subsection}{\texttt { PolyhedronVolume.h }\hspace {0.2em}}{21}
-\contentsline {subsection}{\texttt { Point3D.h }\hspace {0.2em}}{21}
+\contentsline {subsection}{\texttt { DelaunayTriangulation.h }\hspace {0.2em}}{22}
+\contentsline {section}{\numberline {8.5}3D}{22}
+\contentsline {subsection}{\texttt { PolyhedronVolume.h }\hspace {0.2em}}{22}
+\contentsline {subsection}{\texttt { Point3D.h }\hspace {0.2em}}{22}
 \contentsline {subsection}{\texttt { 3dHull.h }\hspace {0.2em}}{22}
 \contentsline {subsection}{\texttt { SphericalDistance.h }\hspace {0.2em}}{22}
 \contentsline {chapter}{\numberline {9}Strings}{22}
@@ -181,8 +183,8 @@
 \ttl@starttoc {chapters@9}
 \contentsline {section}{\texttt { KMP.h }\hspace {0.2em}}{22}
 \contentsline {section}{\texttt { ZFunction.h }\hspace {0.2em}}{22}
-\contentsline {section}{\texttt { Manacher.h }\hspace {0.2em}}{22}
-\contentsline {section}{\texttt { PalindromicTree.h }\hspace {0.2em}}{22}
+\contentsline {section}{\texttt { Manacher.h }\hspace {0.2em}}{23}
+\contentsline {section}{\texttt { PalindromicTree.h }\hspace {0.2em}}{23}
 \contentsline {section}{\texttt { MinRotation.h }\hspace {0.2em}}{23}
 \contentsline {section}{\texttt { SuffixArray.h }\hspace {0.2em}}{23}
 \contentsline {section}{\texttt { SuffixAutomaton.h }\hspace {0.2em}}{23}
@@ -194,9 +196,9 @@
 \contentsline {subsection}{\texttt { IntervalContainer.h }\hspace {0.2em}}{24}
 \contentsline {subsection}{\texttt { IntervalCover.h }\hspace {0.2em}}{24}
 \contentsline {subsection}{\texttt { ConstantIntervals.h }\hspace {0.2em}}{24}
-\contentsline {section}{\numberline {10.2}Misc. algorithms}{24}
-\contentsline {subsection}{\texttt { TernarySearch.h }\hspace {0.2em}}{24}
-\contentsline {subsection}{\texttt { AlphaBeta.h }\hspace {0.2em}}{24}
+\contentsline {section}{\numberline {10.2}Misc. algorithms}{25}
+\contentsline {subsection}{\texttt { TernarySearch.h }\hspace {0.2em}}{25}
+\contentsline {subsection}{\texttt { AlphaBeta.h }\hspace {0.2em}}{25}
 \contentsline {section}{\numberline {10.3}Dynamic programming}{25}
 \contentsline {subsection}{\texttt { DivideAndConquerDP.h }\hspace {0.2em}}{25}
 \contentsline {subsection}{\texttt { KnuthDP.h }\hspace {0.2em}}{25}

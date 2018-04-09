@@ -30,6 +30,6 @@ template<class Func, class Callback>
 void ConstantIntervals(int from, int to, Func f, Callback cb) {
 	if (to <= from) return;
 	int i = from; auto p = f(i), q = f(to - 1);
-	rec(from, to - 1, f, cb, i, p, q);
+	recurse(from, to - 1, f, cb, i, p, q);
 	cb(i, to, q);
 }

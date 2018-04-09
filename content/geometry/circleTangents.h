@@ -16,11 +16,11 @@ Returns a pair of the two points on the circle with radius r centered around c w
  */
 #pragma once
 
-#include "Point.h"
+#include "Circle.h"
 
-pair<Point, Point> Tangents(Point p, Point c, double r) {
-  p -= c;
-  double x = r * r / norm(p), y = sqrt(x - x * x);
-  return make_pair(c + p * x + perp(p) * y,
-                   c + p * x - perp(p) * y);
+pair<Point, Point> Tangents(Point p, Circle c) {
+  p -= c.c;
+  double x = c.r * c.r / norm(p), y = sqrt(x - x * x);
+  return make_pair(c.c + p * x + perp(p) * y,
+                   c.c + p * x - perp(p) * y);
 }

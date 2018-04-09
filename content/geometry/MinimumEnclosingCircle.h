@@ -9,33 +9,27 @@
  */
 #pragma once
 
-#include "circumcircle.h"
+#include "Circumcircle.h"
 
-pair<double, P> mec2(vector<P>& S, P a, P b, int n) {
-	double hi = INFINITY, lo = -hi;
-	rep(i,0,n) {
-		auto si = (b-a).cross(S[i]-a);
-		if (si == 0) continue;
-		P m = ccCenter(a, b, S[i]);
-		auto cr = (b-a).cross(m-a);
-		if (si < 0) hi = min(hi, cr);
-		else lo = max(lo, cr);
-	}
-	double v = (0 < lo ? lo : hi < 0 ? hi : 0);
-	P c = (a + b) / 2 + (b - a).perp() * v / (b - a).dist2();
-	return {(a - c).dist2(), c};
+// IMPORTANT: random_shuffle(pts.begin(), pts.end())
+Circle MEC(vector<Point>& pts, vector<Point> ch = {}) {
+  if (pts.empty() || ch.size() == 3) {
+    switch (ch.size()) {
+      case 0: return {0, -1};
+      case 1: return {ch[0], 0};
+      case 2: return {(ch[0] + ch[1])/2, abs(ch[0] - ch[1])/2};
+      case 3: return CircumCircle(ch[0], ch[1], ch[2]);
+      default: assert(false);
+    }
+  }
+  
+  auto p = pts.back(); pts.pop_back();
+  auto c = MEC(pts, ch);
+  if (sgn(abs(p - c.c) - c.r) > 0) {
+    ch.push_back(p);
+    c = MEC(pts, ch);
+  }
+  pts.push_back(p);
+  return c;
 }
-pair<double, P> mec(vector<P>& S, P a, int n) {
-	random_shuffle(S.begin(), S.begin() + n);
-	P b = S[0], c = (a + b) / 2;
-	double r = (a - c).dist2();
-	rep(i,1,n) if ((S[i] - c).dist2() > r * (1 + 1e-8)) {
-		tie(r,c) = (n == sz(S) ?
-			mec(S, S[i], i) : mec2(S, a, S[i], i));
-	}
-	return {r, c};
-}
-pair<double, P> enclosingCircle(vector<P> S) {
-	assert(!S.empty()); auto r = mec(S, S[0], sz(S));
-	return {sqrt(r.first), r.second};
-}
+

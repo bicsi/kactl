@@ -3,7 +3,7 @@
  * Date: 2009-08-15
  * License: CC0
  * Source: Gauss
- * Description: Solves a linear equation system with a tridiagonal matrix with diagonal diag, subdiagonal sub and superdiagonal super, i.e., $x=\textrm{tridiagonal}(d,p,q,b)$ solves the equation system
+ * Description: Solves a linear equation system with a tridiagonal matrix with diagonal diag, subdiagonal sub and superdiagonal super, i.e., $x=\textrm{Tridiagonal}(d,p,q,b)$ solves the equation system
 $$\left(\begin{array}{c}b_0\\b_1\\b_2\\b_3\\\vdots\\b_{n-1}\end{array}\right) = 
 \left(\begin{array}{cccccc}
 d_0 & p_0 & 0 & 0 & \cdots & 0\\

@@ -6,6 +6,10 @@
  * returns a solution which has all free variables set to 0.
  * To compute rank, count the number of values in pivot.
  * vector which are not -1.
+ * For inverse modulo prime powers,
+ * repeatedly set $A^{-1} = A^{-1} (2I - AA^{-1})\
+ * (\text{mod }p^k)$ where $A^{-1}$ starts as
+ * the inverse of A mod p, and k is doubled in each step.
  * Time: O(vars^2 cons)
  * Status: tested
  */
@@ -60,7 +64,7 @@ bool Invert(vector<vector<double>> &M) {
   for (auto x : pivs) if (x == -1) return false;
   
   for (int i = 0; i < n; ++i)
-    M[i] = vector<double>(M[i].begin() + n, M[i].end());
+    M[i].erase(M[i].begin(), M[i].begin() + n);
   return true;
 }
 

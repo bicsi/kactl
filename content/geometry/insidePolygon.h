@@ -16,19 +16,14 @@
 
 #include "Point.h"
 #include "OnSegment.h"
-#include "SegmentDistance.h"
 
-template <class It>
-int InsidePolygon(It begin, It end, const Point& p) {
-	int n = 0; //number of isects with line from p to (inf, p.y)
-	for (It i = begin, j = end-1; i != end; j = i++) {
-		//if p is on edge of polygon
-		if (OnSegment(*i, *j, p)) return 0;
-		//or: if (SegDist(*i, *j, p) <= kEps) return 0;
-		//increment n if segment intersects line from p
-		n += (max(i->y(), j->y()) > p.y() &&
-          min(i->y(), j->y()) <= p.y() &&
-          (det(*i, *j, p) > 0) == (i->y() <= p.y()));
+int InsidePolygon(vector<Point> P, const Point& p) {
+	int ic = 0, n = P.size();
+  for (int i = 0, j = n - 1; i < n; j = i++) {
+		if (OnSegment(P[i], P[j], p)) return 0;
+		ic += (max(P[i].Y(), P[j].Y()) > p.Y() &&
+           min(P[i].Y(), P[j].Y()) <= p.Y() &&
+          (det(P[i], P[j], p) > 0) == (P[i].Y() <= p.Y()));
 	}
-  return n % 2 ? 1 : -1; //inside if odd number of intersections
+  return ic % 2 ? 1 : -1; //inside if odd number of intersections
 }
