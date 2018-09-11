@@ -1,6 +1,6 @@
 /**
- * Author: Ulf Lundstrom
- * Date: 2009-03-22
+ * Author: Lucian Bicsi
+ * Date: 2018-05-01
  * License: CC0
  * Source: Basic geometry
  * Description: Data structure that dynamically keeps track
@@ -9,7 +9,7 @@
  * modifications.
  *
  * NOTE: REMOVE t LOGIC FROM ANGLE WHEN IMPLEMENTING
- * Time: O(n)
+ * Time: O(log{n})
  * Status: tested on infoarena and codechef
  * Usage:
  *  HalfplaneSet hs;
