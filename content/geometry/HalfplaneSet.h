@@ -9,7 +9,7 @@
  * modifications.
  *
  * NOTE: REMOVE t LOGIC FROM ANGLE WHEN IMPLEMENTING
- * Time: O(log{n})
+ * Time: O(\log n)
  * Status: tested on infoarena and codechef
  * Usage:
  *  HalfplaneSet hs;
