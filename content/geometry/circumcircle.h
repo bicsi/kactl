@@ -5,24 +5,30 @@
  * Source: http://en.wikipedia.org/wiki/Circumcircle
  * Description:\\
 \begin{minipage}{75mm}
-The circumcirle of a triangle is the circle intersecting all three vertices. ccRadius returns the radius of the circle going through points A, B and C and ccCenter returns the center of the same circle.
+The circumcircle of a triangle is the circle intersecting all 
+three vertices. CircumRadius returns the radius of the circle 
+going through points a, b and c and CircumCenter returns the 
+center of the same circle.
 \end{minipage}
 \begin{minipage}{15mm}
 \vspace{-2mm}
-\includegraphics[width=\textwidth]{content/geometry/circumcircle}
+\includegraphics[width=\textwidth]{../content/geometry/Circumcircle}
 \end{minipage}
  * Status: tested
  */
 #pragma once
 
-#include "Point.h"
+#include "Circle.h"
 
-typedef Point<double> P;
-double ccRadius(const P& A, const P& B, const P& C) {
-	return (B-A).dist()*(C-B).dist()*(A-C).dist()/
-			abs((B-A).cross(C-A))/2;
+double CircumRadius(Point a, Point b, Point c) {
+  return dist(a, b) * dist(b, c) * dist(c, a) /
+    abs(det(a, b, c)) / 2.;
 }
-P ccCenter(const P& A, const P& B, const P& C) {
-	P b = C-A, c = B-A;
-	return A + (b*c.dist2()-c*b.dist2()).perp()/b.cross(c)/2;
+Point CircumCenter(Point a, Point b, Point c) {
+  c = c - a; b = b - a;
+  return a + perp(c*norm(b) - b*norm(c)) / cross(c, b) / 2.;
+}
+Circle CircumCircle(Point a, Point b, Point c) {
+  Point p = CircumCenter(a, b, c);
+  return {p, abs(p - a)};
 }

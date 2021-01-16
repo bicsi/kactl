@@ -1,44 +1,42 @@
 /**
  * Author: Lucian Bicsi
- * Date: 2018-02-14
- * License: CC0
  * Source: Chinese material
- * Description: Generates the $k$'th term of an $n$-order
- * linear recurrence $S[i] = \sum_j S[i-j-1]tr[j]$,
- * given $S[0 \ldots \ge n-1]$ and $tr[0 \ldots n-1]$.
- * Faster than matrix multiplication.
- * Useful together with Berlekamp--Massey.
- * Usage: linearRec({0, 1}, {1, 1}, k) // k'th Fibonacci number
- * Time: O(n^2 \log k)
- * Status: bruteforce-tested mod 5 for n <= 5
+ * Description: Generates the k-th term of a n-th order
+ * linear recurrence given the first n terms and the
+ * recurrence relation. Faster than matrix multiplication.
+ * Useful to use along with Berlekamp Massey.
+ * Recurrence is $s_i = \sum_{j=0}^{n-1} s_{i-j-1} * trans_{j}$
+ * where $first = \{s_0, s_1, ..., s_{n - 1}\}$
+ * Usage: LinearRec({0, 1}, {1, 1}, k) gives k-th
+ * Fibonacci number (0-indexed)
+ * Time: O(N^{2} log(K)) per query
  */
-#pragma once
+#pragma once 
 
-const ll mod = 5; /** exclude-line */
+using Poly = vector<ModInt>;
 
-typedef vector<ll> Poly;
-ll linearRec(Poly S, Poly tr, ll k) {
-	int n = sz(tr);
+ModInt LinearRec(Poly first, Poly trans, int k) {
+  int n = trans.size(); // assert(n <= (int)first.size());
+  Poly r(n + 1, 0), b(r); r[0] = b[1] = 1;
+  auto ans = b[0];
 
-	auto combine = [&](Poly a, Poly b) {
-		Poly res(n * 2 + 1);
-		rep(i,0,n+1) rep(j,0,n+1)
-			res[i + j] = (res[i + j] + a[i] * b[j]) % mod;
-		for (int i = 2 * n; i > n; --i) rep(j,0,n)
-			res[i - 1 - j] = (res[i - 1 - j] + res[i] * tr[j]) % mod;
-		res.resize(n + 1);
-		return res;
-	};
-
-	Poly pol(n + 1), e(pol);
-	pol[0] = e[1] = 1;
-
-	for (++k; k; k /= 2) {
-		if (k % 2) pol = combine(pol, e);
-		e = combine(e, e);
-	}
-
-	ll res = 0;
-	rep(i,0,n) res = (res + pol[i + 1] * S[i]) % mod;
-	return res;
+  auto combine = [&](Poly a, Poly b) { // a * b mod trans
+    Poly res(n * 2 + 1, 0);
+    for (int i = 0; i <= n; ++i)
+      for (int j = 0; j <= n; ++j)
+        res[i + j] = res[i + j] + a[i] * b[j];
+    for (int i = 2 * n; i > n; --i)
+      for (int j = 0; j < n; ++j)
+        res[i - 1 - j] = res[i - 1 - j] + res[i] * trans[j];
+    res.resize(n + 1);
+    return res;
+  };
+  // Consider caching the powers for multiple queries
+  for (++k; k; k /= 2) {
+    if (k % 2) r = combine(r, b);
+    b = combine(b, b);
+  }
+  for (int i = 0; i < n; ++i)
+    ans = ans + r[i + 1] * first[i];
+  return ans;
 }

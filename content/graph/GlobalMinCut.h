@@ -3,39 +3,37 @@
  * Date: Unknown
  * Source: Stanford Notebook, http://www.cs.tau.ac.il/~zwick/grad-algo-08/gmc.pdf
  * Description: Find a global minimum cut in an undirected graph, as represented by an adjacency matrix.
- * Time: O(V^3)
+ * PRECONDITION: W[i][j] = W[j][i], W[i][i] = 0.
+ * Time: O(V^3), optimizable to O(VE \log{E}) (use heap at (*))
  * Status: Lightly tested
  */
 #pragma once
 
-pair<int, vi> getMinCut(vector<vi>& weights) {
-	int N = sz(weights);
-	vi used(N), cut, best_cut;
-	int best_weight = -1;
+pair<int, vector<bool>> GlobalMinCut(vector<vector<int>> W) {
+  int n = W.size(), best = 2e9;
+  vector<bool> cut(n), best_cut, vis;
 
-	for (int phase = N-1; phase >= 0; phase--) {
-		vi w = weights[0], added = used;
-		int prev, k = 0;
-		rep(i,0,phase){
-			prev = k;
-			k = -1;
-			rep(j,1,N)
-				if (!added[j] && (k == -1 || w[j] > w[k])) k = j;
-			if (i == phase-1) {
-				rep(j,0,N) weights[prev][j] += weights[k][j];
-				rep(j,0,N) weights[j][prev] = weights[prev][j];
-				used[k] = true;
-				cut.push_back(k);
-				if (best_weight == -1 || w[k] < best_weight) {
-					best_cut = cut;
-					best_weight = w[k];
-				}
-			} else {
-				rep(j,0,N)
-					w[j] += weights[k][j];
-				added[k] = true;
-			}
-		}
-	}
-	return {best_weight, best_cut};
+  for (int phase = n - 1; phase > 0; phase--) {
+    vector<int> deg = W[0]; 
+    int prev, cur = 0;
+    vis = cut;
+    for (int i = 0; i < phase; ++i) {
+      prev = cur; cur = -1;
+      for (int j = 1; j < n; ++j) // (*)
+        if (!vis[j] && (cur == -1 || deg[j] > deg[cur])) 
+          cur = j;
+      if (i == phase - 1) {
+        for (int j = 0; j < n; ++j) W[prev][j] += W[cur][j];
+        for (int j = 0; j < n; ++j) W[j][prev] = W[prev][j];
+        cut[cur] = true;
+        if (deg[cur] < best) 
+          best = deg[cur], best_cut = cut;
+      } else {
+        for (int j = 0; j < n; ++j) 
+          deg[j] += W[cur][j]; // (*)
+        vis[cur] = true;
+      }
+    }
+  }
+  return {best, best_cut};
 }

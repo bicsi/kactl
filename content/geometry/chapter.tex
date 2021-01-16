@@ -1,45 +1,38 @@
 \chapter{Geometry}
+    \kactlimport{Point.h}
 
 \section{Geometric primitives}
-	\kactlimport{Point.h}
-	\kactlimport{lineDistance.h}
-	\kactlimport{SegmentDistance.h}
-	\kactlimport{SegmentIntersection.h}
-	\kactlimport{lineIntersection.h}
-	\kactlimport{sideOf.h}
-	\kactlimport{OnSegment.h}
-	\kactlimport{linearTransformation.h}
-	% \kactlimport{LineProjectionReflection.h}
-	\kactlimport{Angle.h}
+    \kactlimport{LineIntersection.h}
 
 \section{Circles}
-	\kactlimport{CircleIntersection.h}
-	\kactlimport{CircleTangents.h}
-	% \kactlimport{CircleLine.h}
-	\kactlimport{CirclePolygonIntersection.h}
-	\kactlimport{circumcircle.h}
-	\kactlimport{MinimumEnclosingCircle.h}
-
-\section{Polygons}
-	\kactlimport{InsidePolygon.h}
-	\kactlimport{PolygonArea.h}
-	\kactlimport{PolygonCenter.h}
-	\kactlimport{PolygonCut.h}
-	% \kactlimport{PolygonUnion.h}
-	\kactlimport{ConvexHull.h}
-	\kactlimport{HullDiameter.h}
-	\kactlimport{PointInsideHull.h}
-	\kactlimport{LineHullIntersection.h}
+    \kactlimport{Circle.h}
+    \kactlimport{CircumCircle.h}
+    \kactlimport{MinimumEnclosingCircle.h}
 
 \section{Misc. Point Set Problems}
-	\kactlimport{ClosestPair.h}
-	% \kactlimport{ManhattanMST.h}
-	\kactlimport{kdTree.h}
-	% \kactlimport{DelaunayTriangulation.h}
-	\kactlimport{FastDelaunay.h}
+    % \kactlimport{InsidePolygonMulti.h}
+    \kactlimport{ClosestPair.h}
+    \kactlimport{DynamicHull.h}
 
 \section{3D}
-	\kactlimport{PolyhedronVolume.h}
-	\kactlimport{Point3D.h}
-	\kactlimport{3dHull.h}
-	\kactlimport{sphericalDistance.h}
+    \kactlimport{Point3D.h}
+    \kactlimport{Hull3D.h}
+    \kactlimport{PolyVolume3D.h}
+
+
+\section{Math}
+    \subsection{Pick's Theorem}
+    If a polygon has vertices on integer coordinates, then: 
+    $$A = I + B/2 - 1$$
+    where $A$ is the polygon area, $B$ is 
+    the number of boundary points (on vertices + edges), and 
+    $I$ is the number of interior points (strict).
+    
+    \subsection{Euler's Formula}
+    If a finite, \textbf{connected}, planar graph is drawn in 
+    the plane without any edge intersections, and $V$ is the 
+    number of vertices, $E$ is the number of edges and $F$ is 
+    the number of faces (regions bounded by edges, including 
+    the outer, infinitely large region), then: 
+    $$V - E + F = 2$$
+    $$E \leq 3V-6$$

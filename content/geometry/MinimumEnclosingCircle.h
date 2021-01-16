@@ -4,27 +4,28 @@
  * License: CC0
  * Source: folklore
  * Description: Computes the minimum circle that encloses a set of points.
- * Time: expected O(n)
+ * Time: expected O(N)
  * Status: stress-tested
  */
-#pragma once
 
-#include "circumcircle.h"
-
-pair<P, double> mec(vector<P> ps) {
-	shuffle(all(ps), mt19937(time(0)));
-	P o = ps[0];
-	double r = 0, EPS = 1 + 1e-8;
-	rep(i,0,sz(ps)) if ((o - ps[i]).dist() > r * EPS) {
-		o = ps[i], r = 0;
-		rep(j,0,i) if ((o - ps[j]).dist() > r * EPS) {
-			o = (ps[i] + ps[j]) / 2;
-			r = (o - ps[i]).dist();
-			rep(k,0,j) if ((o - ps[k]).dist() > r * EPS) {
-				o = ccCenter(ps[i], ps[j], ps[k]);
-				r = (o - ps[i]).dist();
-			}
-		}
-	}
-	return {o, r};
+Circle MEC(vector<Point>& pts) {
+  assert(pts.size());
+  shuffle(pts.begin(), pts.end(), rng);
+  int n = pts.size();
+  Point c = pts[0]; double r = 0;
+  double eps = 1 + EPS;
+  for (int i = 0; i < n; ++i) {
+    if (abs(c - pts[i]) < r * eps) continue;
+    c = pts[i]; r = 0.;
+    for (int j = 0; j < i; ++j) {
+      if (abs(c - pts[j]) < r * eps) continue;
+      c = (pts[i] + pts[j]) * 0.5; r = abs(c - pts[i]);
+      for (int k = 0; k < j; ++k) {
+        if (abs(c - pts[k]) < r * eps) continue;
+        c = CircumCenter(pts[i], pts[j], pts[k]);
+        r = abs(c - pts[i]);
+      }
+    }
+  }
+  return {c, r};
 }

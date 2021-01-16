@@ -1,31 +1,48 @@
 \chapter{Numerical}
-
-\section{Polynomials and recurrences}
-  \kactlimport{Polynomial.h}
-  \kactlimport{PolyRoots.h}
-  \kactlimport{PolyInterpolate.h}
-  \kactlimport{BerlekampMassey.h}
-  \kactlimport{LinearRecurrence.h}
-
+  
 \section{Optimization}
-  \kactlimport{GoldenSectionSearch.h}
-  \kactlimport{HillClimbing.h}
-  \kactlimport{Integrate.h}
-  \kactlimport{IntegrateAdaptive.h}
-  \kactlimport{Simplex.h}
+	\kactlimport{Simplex.h}
+	
+	\subsection{LP dualization}
+	To dualize a LP, add one dual variable for each primal 
+	constraint. Function to optimize becomes $b^T y$. 
+	Then, you have one dual constraint for each primal variable, 
+	given by the primal constraints in which they appear. 
+	\begin{center}
+		\begin{tabular}{ |c|c| } 
+		 \hline
+		 \textbf{Primal} & \textbf{Dual} \\
+		 \hline
+		 max $c^T x$ s.t. $Ax \leq b, x \geq 0$ & min $b^T y$ s.t. $A^T y \geq c, y \geq 0$ \\ 
+		 max $c^T x$ s.t. $Ax \leq b$ & min $b^T y$ s.t. $A^T y = c, y \geq 0$ \\ 
+		 max $c^T x$ s.t. $Ax = b, x \geq 0$ & min $b^T y$ s.t. $A^T y \geq c$ \\ 
+		 \hline
+		\end{tabular}
+	\end{center}
+	If primal is not unbounded nor infeasible, then neither the
+	dual is, and strong duality holds (i.e., $c^T x^* = b^T y^*$).
 
 \section{Matrices}
-  \kactlimport{Determinant.h}
-  \kactlimport{IntDeterminant.h}
-  \kactlimport{SolveLinear.h}
-  \kactlimport{SolveLinear2.h}
-  \kactlimport{SolveLinearBinary.h}
-  \kactlimport{MatrixInverse.h}
-  % \kactlimport{MatrixInverse-mod.h}
-  \kactlimport{Tridiagonal.h}
+	\kactlimport{RowEchelon.h}
+	\kactlimport{SolveLinear.h}
+	\kactlimport{MatrixInverse.h}
+
 
 \section{Fourier transforms}
-	\kactlimport{FastFourierTransform.h}
-	\kactlimport{FastFourierTransformMod.h}
-	\kactlimport{NumberTheoreticTransform.h}
-	\kactlimport{FastSubsetTransform.h}
+	\kactlimport{NTT.h}
+	\kactlimport{FST.h}
+
+
+\section{Polynomials}
+	\kactlimport{PolyMul.h}
+	\kactlimport{PolyInv.h}
+	\kactlimport{PolyDivRem.h}
+	\kactlimport{PolyRoots.h}
+
+\section{Recurrences}
+	\kactlimport{BerlekampMassey.h}
+	\kactlimport{LinearRecurrence.h}
+	\subsection{Char. polynomial}
+	If $a_n = c_1 a_{n-1} + \dots + c_k a_{n-k}$, and $r_1, \dots, r_k$ are distinct roots of $x^k + c_1 x^{k-1} + \dots + c_k$, there are $d_1, \dots, d_k$ s.t.
+	\[a_n = d_1r_1^n + \dots + d_kr_k^n. \]
+	Non-distinct roots $r$ become polynomial factors, e.g. $a_n = (d_1n + d_2)r^n$.

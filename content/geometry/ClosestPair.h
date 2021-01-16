@@ -3,28 +3,32 @@
  * Date: 2019-04-17
  * License: CC0
  * Source: https://codeforces.com/blog/entry/58747
- * Description: Finds the closest pair of points.
- * Time: O(n \log n)
+ * Description: Finds the closest pair of points. Returns 
+ * the minimum \textbf{squared distance}, along with the 
+ * points. Need to include proper operator< in namespace std
+ * (see Point.h).
+ * Time: O(N \log N)
+ * Usage: auto [d, p, q] = ClosestPair(pts);
  * Status: stress-tested
  */
 #pragma once
-
 #include "Point.h"
 
-typedef Point<ll> P;
-pair<P, P> closest(vector<P> v) {
-	assert(sz(v) > 1);
-	set<P> S;
-	sort(all(v), [](P a, P b) { return a.y < b.y; });
-	pair<ll, pair<P, P>> ret{LLONG_MAX, {P(), P()}};
-	int j = 0;
-	for (P p : v) {
-		P d{1 + (ll)sqrt(ret.first), 0};
-		while (v[j].y <= p.y - d.x) S.erase(v[j++]);
-		auto lo = S.lower_bound(p - d), hi = S.upper_bound(p + d);
-		for (; lo != hi; ++lo)
-			ret = min(ret, {(*lo - p).dist2(), {*lo, p}});
-		S.insert(p);
-	}
-	return ret.second;
+tuple<long long, Point, Point> ClosestPair(vector<Point> v) {
+  assert((int)v.size() > 1);
+  sort(v.begin(), v.end(), [&](Point a, Point b) {
+    return a.imag() < b.imag();
+  });
+  set<Point> s; int j = 0;
+  tuple<long long, Point, Point> ret{4e18, {}, {}};
+  for (auto p : v) {
+    long long d = 1 + sqrt(get<0>(ret));
+    while (v[j].imag() <= p.imag() - d) s.erase(v[j++]);
+    auto lo = s.lower_bound(p - d), 
+         hi = s.upper_bound(p + d);
+    for (auto it = lo; it != hi; ++it) 
+      ret = min(ret, {norm(*it - p), *it, p});
+    s.insert(p);
+  }
+  return ret;
 }

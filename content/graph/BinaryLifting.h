@@ -1,38 +1,50 @@
 /**
- * Author: Johan Sannemo
- * Date: 2015-02-06
+ * Author: Lucian Bicsi
+ * Date: 2020-11-27
  * License: CC0
  * Source: Folklore
- * Description: Calculate power of two jumps in a tree,
- * to support fast upward jumps and LCAs.
- * Assumes the root node points to itself.
- * Time: construction $O(N \log N)$, queries $O(\log N)$
- * Status: Tested at Petrozavodsk, also stress-tested via LCA.cpp
+ * Description: Calculate skew-binary links.
+ * Time: construction $O(N)$, queries $O(\log N)$
+ * Status: Tested on infoarena
  */
 #pragma once
 
-vector<vi> treeJump(vi& P){
-	int on = 1, d = 1;
-	while(on < sz(P)) on *= 2, d++;
-	vector<vi> jmp(d, P);
-	rep(i,1,d) rep(j,0,sz(P))
-		jmp[i][j] = jmp[i-1][jmp[i-1][j]];
-	return jmp;
-}
+struct Lift {
+  struct Data { int par, link, dep; };
+  vector<Data> T;
 
-int jmp(vector<vi>& tbl, int nod, int steps){
-	rep(i,0,sz(tbl))
-		if(steps&(1<<i)) nod = tbl[i][nod];
-	return nod;
-}
-
-int lca(vector<vi>& tbl, vi& depth, int a, int b) {
-	if (depth[a] < depth[b]) swap(a, b);
-	a = jmp(tbl, a, depth[a] - depth[b]);
-	if (a == b) return a;
-	for (int i = sz(tbl); i--;) {
-		int c = tbl[i][a], d = tbl[i][b];
-		if (c != d) a = c, b = d;
-	}
-	return tbl[0][a];
-}
+  Lift(int n) : T(n) {}
+  
+  void Add(int node, int par) {
+    if (par == -1) T[node] = Data{-1, node, 0};
+    else {
+      int link = par, a1 = T[par].link, a2 = T[a1].link;
+      if (2 * T[a1].dep == T[a2].dep + T[par].dep)
+        link = a2;
+      T[node] = Data{par, link, T[par].dep + 1};
+    }
+  }
+  
+  int Kth(int node, int k) {
+    int seek = T[node].dep - k;
+    if (seek < 0) return -1;
+    while (T[node].dep > seek) 
+      node = (T[T[node].link].dep >= seek) 
+        ? T[node].link : T[node].par;
+    return node;
+  }
+  
+  int LCA(int a, int b) {
+    if (T[a].dep < T[b].dep) swap(a, b);
+    while (T[a].dep > T[b].dep) 
+      a = (T[T[a].link].dep >= T[b].dep) 
+        ? T[a].link : T[a].par;
+    while (a != b) {
+      if (T[a].dep == 0) return -1;
+      if (T[a].link != T[b].link) 
+        a = T[a].link, b = T[b].link;
+      else a = T[a].par, b = T[b].par;
+    }
+    return a;
+  }
+};

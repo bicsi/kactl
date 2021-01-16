@@ -8,31 +8,34 @@
  * Useful for guessing linear recurrences after brute-forcing the first terms.
  * Should work on any field, but numerical stability for floats is not guaranteed.
  * Output will have size $\le n$.
- * Usage: berlekampMassey({0, 1, 1, 3, 5, 11}) // {1, 2}
+ * Usage: BerlekampMassey({0, 1, 1, 3, 5, 11}) // {1, 2}
  * Time: O(N^2)
  * Status: bruteforce-tested mod 5 for n <= 5 and all s
  */
 #pragma once
 
-#include "../number-theory/ModPow.h"
+#include "../number-theory/ModInt.h"
 
-vector<ll> berlekampMassey(vector<ll> s) {
-	int n = sz(s), L = 0, m = 0;
-	vector<ll> C(n), B(n), T;
-	C[0] = B[0] = 1;
+vector<ModInt> BerlekampMassey(vector<ModInt> s) {
+  int n = s.size();
+  vector<ModInt> C(n, 0), B(n, 0);
+  C[0] = B[0] = 1;
 
-	ll b = 1;
-	rep(i,0,n) { ++m;
-		ll d = s[i] % mod;
-		rep(j,1,L+1) d = (d + C[j] * s[i - j]) % mod;
-		if (!d) continue;
-		T = C; ll coef = d * modpow(b, mod-2) % mod;
-		rep(j,m,n) C[j] = (C[j] - coef * B[j - m]) % mod;
-		if (2 * L > i) continue;
-		L = i + 1 - L; B = T; b = d; m = 0;
-	}
-
-	C.resize(L + 1); C.erase(C.begin());
-	for (ll& x : C) x = (mod - x) % mod;
-	return C;
+  auto b = C[0]; int L = 0;
+  for (int i = 0, m = 1; i < n; ++i) {
+    /// Calculate discrepancy
+    auto d = s[i];
+    for (int j = 1; j <= L; ++j)
+      d = d + C[j] * s[i - j];
+    if (d == 0) { ++m; continue; }
+    /// C -= d / b * B * X^m
+    auto T = C; auto coef = d / b;
+    for (int j = m; j < n; ++j)
+      C[j] = C[j] - coef * B[j - m];
+    if (2 * L > i) { ++m; continue; }
+    L = i + 1 - L; B = T; b = d; m = 1;
+  }
+  C.resize(L + 1); C.erase(C.begin());
+  for (auto& x : C) x = x * (-1);
+  return C;
 }

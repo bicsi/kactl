@@ -1,27 +1,33 @@
 /**
- * Author: Johan Sannemo
- * Date: 2016-12-15
- * License: CC0
- * Description: pi[x] computes the length of the longest prefix of s that ends at x, other than s[0...x] itself (abacaba -> 0010123).
- * Can be used to find all occurrences of a string.
- * Time: O(n)
- * Status: Tested on kattis:stringmatching
+ * Author: Lucian Bicsi
+ * Description: $pi[x]$ is the length of the longest prefix of s
+ * that ends at $x$ (exclusively), other than $s[0..x)$ itself.
+ * This is used by Match() to find all occurences of a string.
+ * Time: O(N)
+ * Status: Tested on infoarena
+ * Usage:
+ *  ComputePi("alabala") => {-1, 0, 0, 1, 0, 1, 2, 3}
+ *  Match("atoat", "atoatoat") => {4, 7}
  */
 #pragma once
 
-vi pi(const string& s) {
-	vi p(sz(s));
-	rep(i,1,sz(s)) {
-		int g = p[i-1];
-		while (g && s[i] != s[g]) g = p[g-1];
-		p[i] = g + (s[i] == s[g]);
-	}
-	return p;
+vector<int> ComputePi(string s) {
+  int n = s.size();
+  vector<int> pi(n + 1, -1);
+  for (int i = 0; i < n; ++i) {
+    int j = pi[i];
+    while (j != -1 && s[j] != s[i]) j = pi[j];
+    pi[i + 1] = j + 1;
+  }
+  return pi;
 }
 
-vi match(const string& s, const string& pat) {
-	vi p = pi(pat + '\0' + s), res;
-	rep(i,sz(p)-sz(s),sz(p))
-		if (p[i] == sz(pat)) res.push_back(i - 2 * sz(pat));
-	return res;
+vector<int> Match(string text, string pat) {
+  vector<int> pi = ComputePi(pat), ret;
+  for (int i = 0, j = 0; i < (int)text.size(); ++i) {
+    while (j != -1 && pat[j] != text[i]) j = pi[j];
+    if (++j == (int)pat.size())
+      ret.push_back(i), j = pi[j];
+  }
+  return ret;
 }

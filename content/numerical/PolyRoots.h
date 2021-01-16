@@ -1,35 +1,35 @@
 /**
- * Author: Per Austrin
- * Date: 2004-02-08
+ * Author: Lucian Bicsi
+ * Date: 2020-11-28
  * License: CC0
- * Description: Finds the real roots to a polynomial.
- * Usage: polyRoots({{2,-3,1}},-1e9,1e9) // solve x^2-3x+2 = 0
- * Time: O(n^2 \log(1/\epsilon))
+ * Source: https://en.wikipedia.org/wiki/Durand–Kerner_method
+ * Description: Durand-Kerner method of finding all roots of polynomial.
+ * If polynomial has read coefficients, it might make more sense to 
+ * initialize roots with conjugate pairs (and potentially one 
+ * real root), see (*). It might not converge for all polynomials
+ * and all sets of initial roots.
+ * Time: $O(N^2)$ per iteration
+ * Status: tested by hand
  */
 #pragma once
 
-#include "Polynomial.h"
+using C = complex<double>;
 
-vector<double> polyRoots(Poly p, double xmin, double xmax) {
-	if (sz(p.a) == 2) { return {-p.a[0]/p.a[1]}; }
-	vector<double> ret;
-	Poly der = p;
-	der.diff();
-	auto dr = polyRoots(der, xmin, xmax);
-	dr.push_back(xmin-1);
-	dr.push_back(xmax+1);
-	sort(all(dr));
-	rep(i,0,sz(dr)-1) {
-		double l = dr[i], h = dr[i+1];
-		bool sign = p(l) > 0;
-		if (sign ^ (p(h) > 0)) {
-			rep(it,0,60) { // while (h - l > 1e-8)
-				double m = (l + h) / 2, f = p(m);
-				if ((f <= 0) ^ sign) l = m;
-				else h = m;
-			}
-			ret.push_back((l + h) / 2);
-		}
-	}
-	return ret;
+vector<C> FindRoots(vector<C> p) {
+  int n = p.size() - 1;
+  vector<C> ret(n);
+  for (int i = 0; i < n; ++i) 
+    ret[i] = pow(C{0.456, 0.976}, i); // (*)
+  for (int it = 0; it < 1000; ++it) {
+    for (int i = 0; i < n; ++i) {
+      C up = 0, dw = 1;
+      for (int j = n; j >= 0; --j) {
+        up = up * ret[i] + p[j];
+        if (j != i && j != n) 
+          dw = dw * (ret[i] - ret[j]);
+      }
+      ret[i] -= up / dw / p[n];
+    }
+  }
+  return ret;
 }

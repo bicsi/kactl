@@ -1,65 +1,65 @@
 /**
- * Author: Benjamin Qi, Oleksandr Kulkov, chilli
- * Date: 2020-01-12
+ * Author: Lucian Bicsi
+ * Date: 2020-12-30
  * License: CC0
  * Source: https://codeforces.com/blog/entry/53170, https://github.com/bqi343/USACO/blob/master/Implementations/content/graphs%20(12)/Trees%20(10)/HLD%20(10.3).h
  * Description: Decomposes a tree into vertex disjoint heavy paths and light
- * edges such that the path from any leaf to the root contains at most log(n)
- * light edges. Code does additive modifications and max queries, but can
- * support commutative segtree modifications/queries on paths and subtrees.
- * Takes as input the full adjacency list. VALS\_EDGES being true means that
- * values are stored in the edges, as opposed to the nodes. All values
- * initialized to the segtree default. Root must be 0.
- * Time: O((\log N)^2)
- * Status: stress-tested against old HLD
+ *  edges such that the path from any leaf to the root contains at most log(n)
+ *  light edges.
  */
 #pragma once
 
-#include "../data-structures/LazySegmentTree.h"
-
-template <bool VALS_EDGES> struct HLD {
-	int N, tim = 0;
-	vector<vi> adj;
-	vi par, siz, depth, rt, pos;
-	Node *tree;
-	HLD(vector<vi> adj_)
-		: N(sz(adj_)), adj(adj_), par(N, -1), siz(N, 1), depth(N),
-		  rt(N),pos(N),tree(new Node(0, N)){ dfsSz(0); dfsHld(0); }
-	void dfsSz(int v) {
-		if (par[v] != -1) adj[v].erase(find(all(adj[v]), par[v]));
-		for (int& u : adj[v]) {
-			par[u] = v, depth[u] = depth[v] + 1;
-			dfsSz(u);
-			siz[v] += siz[u];
-			if (siz[u] > siz[adj[v][0]]) swap(u, adj[v][0]);
-		}
-	}
-	void dfsHld(int v) {
-		pos[v] = tim++;
-		for (int u : adj[v]) {
-			rt[u] = (u == adj[v][0] ? rt[v] : u);
-			dfsHld(u);
-		}
-	}
-	template <class B> void process(int u, int v, B op) {
-		for (; rt[u] != rt[v]; v = par[rt[v]]) {
-			if (depth[rt[u]] > depth[rt[v]]) swap(u, v);
-			op(pos[rt[v]], pos[v] + 1);
-		}
-		if (depth[u] > depth[v]) swap(u, v);
-		op(pos[u] + VALS_EDGES, pos[v] + 1);
-	}
-	void modifyPath(int u, int v, int val) {
-		process(u, v, [&](int l, int r) { tree->add(l, r, val); });
-	}
-	int queryPath(int u, int v) { // Modify depending on problem
-		int res = -1e9;
-		process(u, v, [&](int l, int r) {
-				res = max(res, tree->query(l, r));
-		});
-		return res;
-	}
-	int querySubtree(int v) { // modifySubtree is similar
-		return tree->query(pos[v] + VALS_EDGES, pos[v] + siz[v]);
-	}
+struct HeavyLight {
+  vector<int> jump, sub, depth, enter, parent;
+  vector<vector<int>> graph;
+  int timer = 0;
+  
+  HeavyLight(int n) : 
+      jump(n), sub(n), depth(n), 
+      enter(n), parent(n), graph(n) {}
+  
+  void AddEdge(int a, int b) {
+    graph[a].push_back(b);
+    graph[b].push_back(a);
+  }
+  void Build(int root) {
+    dfs1(root, -1, 0); dfs2(root, root);
+  }
+  // Returns the position in the HL linearization
+  int GetPos(int node) {
+    assert(timer); // Call Build() before
+    return enter[node];
+  }
+  // Computes an array of ranges of form [li...ri)
+  // that correspond to the ranges you would need
+  // to query in the underlying structure
+  void GetRanges(int a, int b, vector<pair<int, int>>& ret) {
+    assert(timer); // Call Build() before
+    while (jump[a] != jump[b]) {
+      if (depth[jump[a]] < depth[jump[b]]) swap(a, b);
+      ret.emplace_back(enter[jump[a]], enter[a] + 1);
+      a = parent[jump[a]];
+    }
+    if (depth[a] < depth[b]) swap(a, b);
+    ret.emplace_back(enter[b], enter[a] + 1);
+  }
+  
+  int dfs1(int node, int par, int dep) {
+    sub[node] = 1; parent[node] = par; depth[node] = dep;
+    if (par != -1) 
+      graph[node].erase(
+        find(graph[node].begin(), graph[node].end(), par));
+    for (auto vec : graph[node])
+      sub[node] += dfs1(vec, node, dep + 1);
+    return sub[node];
+  }
+  void dfs2(int node, int jmp) {
+    jump[node] = jmp; enter[node] = timer++;
+    iter_swap(graph[node].begin(), max_element(
+      graph[node].begin(), graph[node].end(), 
+        [&](int a, int b) { return sub[a] < sub[b]; }
+    ));
+    for (auto vec : graph[node])
+      dfs2(vec, vec == graph[node].front() ? jmp : vec);
+  }
 };
