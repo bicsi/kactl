@@ -4,6 +4,7 @@
 	\kactlimport{SCC.h}
 	\kactlimport{BCC.h}
 	\kactlimport{2SAT.h}
+	\kactlimport{SmallDijkstra.h}
 
 \section{Flows, Matchings, Matroids}
 	\kactlimport{EZFlow.h}
@@ -11,8 +12,26 @@
 	\kactlimport{GlobalMinCut.h}
 	\kactlimport{GomoryHu.h}
 	\kactlimport{DFSMatching.h}
+
+
+	\subsection{Flows with demands}
+	To solve flow with demands where $l(u, v) \leq f(u, v) \leq h(u, v)$, 
+	first find feasible flow by solving max $S'$-$T'$ flow on network:
+	\begin{itemize}[noitemsep,topsep=0pt]
+		\item $c'(S',v)=\sum_{u \in V} l(u,v)$ for all $v \in V$
+		\item $c'(v, T') = \sum_{w \in V} l(v, w)$ for all $v \in V$
+		\item $c'(u, v) = h(u, v) - l(u, v)$ for all $(u, v) \in E$
+		\item $c'(T,S)=\infty$
+	\end{itemize}
+	Assert that flow equals $\sum l(u, v)$. Next, solve max flow 
+	on "residual" graph given flow function (take each edge
+	$(u, v) \in E$ and set $c(u, v) = h(u, v) - l(u, v), f(u, v) = f'(u, v)$).
+	For minimum flow, find max $T-S$ flow on the same network. 
+
 	\kactlimport{MinCostMaxFlow.h}
+	\kactlimport{WeightedMatching.h}
 	\kactlimport{MatroidIntersection.h}
+
 
 \section{Trees}
 	% \kactlimport{BinaryLifting.h}

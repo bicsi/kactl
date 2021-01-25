@@ -13,15 +13,14 @@ Circle MEC(vector<Point>& pts) {
   shuffle(pts.begin(), pts.end(), rng);
   int n = pts.size();
   Point c = pts[0]; double r = 0;
-  double eps = 1 + EPS;
   for (int i = 0; i < n; ++i) {
-    if (abs(c - pts[i]) < r * eps) continue;
+    if (abs(c - pts[i]) < r * (1 + EPS)) continue;
     c = pts[i]; r = 0.;
     for (int j = 0; j < i; ++j) {
-      if (abs(c - pts[j]) < r * eps) continue;
+      if (abs(c - pts[j]) < r * (1 + EPS)) continue;
       c = (pts[i] + pts[j]) * 0.5; r = abs(c - pts[i]);
       for (int k = 0; k < j; ++k) {
-        if (abs(c - pts[k]) < r * eps) continue;
+        if (abs(c - pts[k]) < r * (1 + EPS)) continue;
         c = CircumCenter(pts[i], pts[j], pts[k]);
         r = abs(c - pts[i]);
       }
