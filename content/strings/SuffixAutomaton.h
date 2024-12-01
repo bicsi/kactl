@@ -5,58 +5,39 @@
  * Source: own work
  * Description: Builds an automaton of all the suffixes
  * of a given string (online from left to right).
- * For each character c, do sa.ConsumeChar(c)
- * You can change char to int and add negative numbers
- * to support multiple strings.
+ * To support multiple strings/trie, you can add characters
+ * in BFS order of trie and it should work.
  * Time: $O(\log \Sigma)$ amortized per character added
+ * Usage: last = 0; for (auto c : s) last = SA.Add(last, c);
  * Status: tested
  */
 #pragma once
 
 struct SuffixAutomaton {
   struct Node {
-    int link, len;
-    map<char, int> leg;
+    int len, link;
+    map<char, int> leg; // Can use array<int, 26> instead.
   };
-  vector<Node> T;
-  int last = 0, nodes = 1;
-  SuffixAutomaton(int sz) : T(2 * sz + 1) {
-    T[0].link = -1;
-    T[0].len = 0;
-  }
-  // Adds another character to the automaton
-  // and returns the node of the whole new string
-  // (the suffixes of that are parents in the link tree)
-  int ConsumeChar(char c) {
-    int cur = nodes++, node = last;
-    T[cur].len = T[last].len + 1;
-    T[cur].link = 0;
-    while (node != -1 && T[node].leg.count(c) == 0) {
-      T[node].leg[c] = cur;
-      node = T[node].link;
-    }
+  vector<Node> T = {{0, -1, {}}};
+  // Adds another character to the automaton.
+  int Add(int last, char c) {
+    int node = last, cur = T.size(); 
+    T.push_back({T[last].len + 1, 0, {}});
+    while (node != -1 && !T[node].leg[c])
+      T[node].leg[c] = cur, node = T[node].link;
     if (node != -1) {
-      int old = T[node].leg[c];
-      if (T[old].len == T[node].len + 1) {
-        T[cur].link = old;
+      int old = T[node].leg[c], len = T[node].len + 1;
+      assert(T[cur].len >= T[old].len);
+      if (T[old].len == len) {
+         T[cur].link = old;
       } else {
-        int clone = nodes++;
-        T[clone].leg = T[old].leg;
-        T[clone].len = T[node].len + 1;
-        T[clone].link = T[old].link;
+        int clone = T.size(); 
+        T.push_back({len, T[old].link, T[old].leg});
         T[old].link = T[cur].link = clone;
-        while (node != -1 && T[node].leg[c] == old) {
-          T[node].leg[c] = clone;
-          node = T[node].link;
-        }
+        while (node != -1 && T[node].leg[c] == old) 
+          T[node].leg[c] = clone, node = T[node].link;
       }
     }
-    return last = cur;
-  }
-  // Runs through the automaton
-  int Go(int node, char c) {
-    while (node != -1 && T[node].leg.count(c) == 0)
-      node = T[node].link;
-    return (node == -1 ? 0 : T[node].leg[c]);
+    return cur;
   }
 };

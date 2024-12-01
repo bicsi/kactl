@@ -11,21 +11,31 @@ using Point = complex<double>;
 const double PI = 4.0 * atan(1.0);
 const double EPS = 1e-9; // Good eps for long double is ~1e-11
 
-int sgn(double d) { return (d > EPS) - (d < -EPS); }
-
+int sgn(double d) { 
+  return (d > EPS) - (d < -EPS); 
+}
 double dot(Point a, Point b) { 
-  return a.real() * b.real() + a.imag() * b.imag(); }
+  return a.real() * b.real() + a.imag() * b.imag(); 
+}
 double cross(Point a, Point b) { 
-  return a.real() * b.imag() - a.imag() * b.real(); }
+  return a.real() * b.imag() - a.imag() * b.real(); 
+}
 double det(Point a, Point b, Point c) { 
-  return cross(b - a, c - a); }
-double dist(Point a, Point b) { return abs(b - a); }
-Point perp(Point a) { return {-a.imag(), a.real()}; } // +90deg
+  return cross(b - a, c - a); 
+}
+double dist(Point a, Point b) { 
+  return abs(b - a); 
+}
+Point perp(Point a) { // +90deg
+  return {-a.imag(), a.real()}; 
+} 
 Point rotate_ccw(Point a, double theta) {
-  return a * polar(1.0, theta); }
+  return a * polar(1.0, theta); 
+}
+int half(Point p) { return p < 0; }
 
 namespace std {
-  bool operator<(const Point a, const Point b) {
+  bool operator<(Point a, Point b) {
     return make_pair(a.real(), a.imag()) < 
       make_pair(b.real(), b.imag());
   }

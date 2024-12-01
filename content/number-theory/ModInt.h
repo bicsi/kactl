@@ -1,6 +1,6 @@
 /**
- * Author: Lukas Polacek
- * Date: 2009-09-28
+ * Author: Lucian Bicsi
+ * Date: 2021-01-01
  * License: CC0
  * Source: folklore
  * Description: Operators for modular arithmetic. You need 
@@ -8,8 +8,6 @@
  * the structure.
  */
 #pragma once
-
-#include "euclid.h"
 
 const int MOD = 17; // change to something else
 struct ModInt {

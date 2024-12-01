@@ -19,7 +19,7 @@
 #pragma once
 
 template<typename CB>
-void BCC(vector<vector<int>>& graph, CB cb) {
+void BCC(vector<vector<pair<int, int>>>& graph, CB&& cb) {
   int timer = 0, n = graph.size();
   vector<int> val(n, -1);
   vector<tuple<int, int, int>> stk, cont;

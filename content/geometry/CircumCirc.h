@@ -32,3 +32,11 @@ Circle CircumCircle(Point a, Point b, Point c) {
   Point p = CircumCenter(a, b, c);
   return {p, abs(p - a)};
 }
+// +1 if inside circle, 0 if on circle, -1 if outside.
+int InsideCircum(Point p, Point a, Point b, Point c) {
+  // (can be ll if coords are < 2e4)
+  __int128_t p2 = norm(p), A = norm(a) - p2,
+      B = norm(b) - p2, C = norm(c) - p2;
+  return sgn(det(p, a, b) * C + det(p, b, c) * A 
+    + det(p, c, a) * B);
+}

@@ -13,15 +13,17 @@
 #pragma once
 
 #include "Point.h"
+#include "Circle.h"
 
-void Tangents(Circle c1, Circle c2, 
-              vector<pair<Point, Point>>& out) {
+int Tangents(Circle c1, Circle c2, 
+             vector<pair<Point, Point>>& out) {
   Point d = c2.c - c1.c;
   double dr = c1.r - c2.r, d2 = norm(d), h2 = d2 - dr * dr;
-  if (sgn(d2) == 0 || sgn(h2) == -1) return;
-  for (double sign : {-1, 1}) {
-    Point v = (d * dr + perp(d) * sqrt(h2) * sign) / d2;
+  if (sgn(d2) == 0 || sgn(h2) == -1) return 0;
+  for (double z : {-1, 1}) {
+    Point v = (d * dr + perp(d) * sqrt(h2) * z) / d2;
     out.emplace_back(c1 + v * c1.r, c2 + v * c2.r);
-    if (sgn(h2) == 0) break;
+    if (sgn(h2) == 0) return 1;
   }
+  return 2;
 }

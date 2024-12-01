@@ -5,50 +5,37 @@
  * Source: Folklore
  * Status: Somewhat tested
  * Description: Lowest common ancestor. Finds the lowest common
- * ancestor in a tree (with 0 as root). C should be an adjacency list of the tree,
- * either directed or undirected.
- * Can also find the distance between two nodes.
+ * ancestor in a rooted tree.
  * Usage:
- *  LCA lca(undirGraph);
- *  lca.Query(firstNode, secondNode);
- *  lca.Distance(firstNode, secondNode);
- * Time: $O(|V| \log |V| + Q)$
+ *  LCA lca(graph);
+ *  lc = lca.Query(u, v);
+ * Time: $O(N \log N + Q)$
  */
 #pragma once
 
 #include "../data-structures/RMQ.h"
 
 struct LCA {
-  vector<int> enter, depth;
-  vector<vector<int>> graph;
-  vector<pair<int, int>> lin;
-  RMQ<pair<int, int>> rmq;
-  int timer = 0;
+  int n, timer = 0;
+  vector<int> enter, pv, pt;
+  RMQ rmq;
 
-  LCA(int n) : enter(n, -1), depth(n), graph(n), lin(2 * n) {}
+  LCA(vector<vector<int>>& graph, int root = 0) : 
+    n(graph.size()), enter(n, -1), 
+    rmq((dfs(graph, root), pt)) {}
 
-  void dfs(int node, int dep) {
-    enter[node] = timer; depth[node] = dep;
-    lin[timer++] = {dep, node};
-    for (auto vec : graph[node])
-      if (enter[vec] == -1) {
-        dfs(vec, dep + 1);
-        lin[timer++] = {dep, node};
-      }
-  }
-  void AddEdge(int a, int b) {
-    graph[a].push_back(b);
-    graph[b].push_back(a);
-  }
-  void Build(int root) {
-    dfs(root, 0);
-    rmq.Build(lin);
+  void dfs(auto& graph, int node) {
+    enter[node] = timer++;
+    for (auto vec : graph[node]) {
+      if (enter[vec] != -1) continue;
+      pv.push_back(node), pt.push_back(enter[node]);
+      dfs(graph, vec);
+    }
   }
   int Query(int a, int b) {
-    a = enter[a], b = enter[b];
-    return rmq.Query(min(a, b), max(a, b) + 1).second;
+    if (a == b) return a;
+    a = enter[a], b = enter[b]; 
+    return pv[rmq.Query(min(a, b), max(a, b))];
   }
-  int Distance(int a, int b) {
-    return depth[a] + depth[b] - 2 * depth[Query(a, b)];
-  }
+  // Distance is depth[a] + depth[b] - 2 depth[Query(a, b)]
 };

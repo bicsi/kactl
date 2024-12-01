@@ -18,9 +18,9 @@ bool PushFlow(vector<vector<int>>& graph, int s, int t) {
     vis[node] = true;
     for (auto& vec : graph[node]) 
       if (!vis[vec] && dfs(vec)) {
+        graph[vec].push_back(node);
         swap(vec, graph[node].back());
         graph[node].pop_back();
-        graph[vec].push_back(node);
         return true;
       }
     return false;

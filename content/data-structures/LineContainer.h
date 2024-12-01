@@ -5,33 +5,28 @@
  * Source: own work
  * Description: Container where you can add lines of the form kx+m, and query maximum values at points x.
  *  Useful for dynamic programming (``convex hull trick'').
- * Time: O(\log N)
+ * Time: O(\log N) amortized per operation
  * Status: stress-tested
  */
 #pragma once
 
-using T = long long;
-
 bool QUERY;
 struct Line {
-  mutable T a, b, p;
-    T Eval(T x) const { return a * x + b; }
+  mutable ll a, b, p;
+  ll Eval(ll x) const { return a * x + b; }
   bool operator<(const Line& o) const {
     return QUERY ? p < o.p : a < o.a;
   }
 };
 struct LineContainer : multiset<Line> {
-  // for doubles, use kInf = 1/.0, div(a, b) = a / b
-  const T kInf = numeric_limits<T>::max();
-  T div(T a, T b) { // floored division
-    return a / b - ((a ^ b) < 0 && a % b); }
-  bool isect(iterator x, iterator y) {
-    if (y == end()) { x->p = kInf; return false; }
-    if (x->a == y->a) x->p = x->b > y->b ? kInf : -kInf;
-    else x->p = div(y->b - x->b, x->a - y->a);
-    return x->p >= y->p;
-  }
-  void InsertLine(T a, T b) {
+  ll div(ll a, ll b) { return a / b - (a % b < 0); }
+  void InsertLine(ll a, ll b) {
+    auto isect = [&](auto x, auto y) {
+      if (y == end()) return x->p = INF, false; 
+      if (x->a == y->a) x->p = x->b > y->b ? INF : -INF;
+      else x->p = div(x->b - y->b, y->a - x->a);
+      return x->p >= y->p;
+    };
     auto nx = insert({a, b, 0}), it = nx++, pv = it;
     while (isect(it, nx)) nx = erase(nx);
     if (pv != begin() && isect(--pv, it)) 
@@ -39,9 +34,9 @@ struct LineContainer : multiset<Line> {
     while ((it = pv) != begin() && (--pv)->p >= it->p)
       isect(pv, erase(it));
   }
-  T EvalMax(T x) {
+  ll EvalMax(ll x) {
     assert(!empty());
-    QUERY = 1; auto it = lower_bound({0,0,x}); QUERY = 0;
+    QUERY = 1; auto it = lower_bound({0, 0, x}); QUERY = 0;
     return it->Eval(x);
   }
 };

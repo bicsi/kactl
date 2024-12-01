@@ -11,14 +11,15 @@
 struct SplayTree {
   struct Node {
     int ch[2] = {0, 0}, p = 0;
-    long long self = 0, path = 0;        // Path aggregates
-    long long sub = 0, vir = 0;          // Subtree aggregates
+    ll self = 0, path = 0;               // Path aggregates
+    ll sub = 0, vir = 0;                 // Subtree aggregates
     bool flip = 0;                       // Lazy tags
   };
   vector<Node> T;
 
-  SplayTree(int n) : T(n + 1) {}
-  
+  SplayTree(int n) : T(n + 1) {
+    for (int i = 1; i <= n; ++i) pull(i);
+  }
   void push(int x) {
     if (!x || !T[x].flip) return;
     int l = T[x].ch[0], r = T[x].ch[1];

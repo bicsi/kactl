@@ -4,7 +4,7 @@
  * License: CC0
  * Source: https://en.wikipedia.org/wiki/Durand–Kerner_method
  * Description: Durand-Kerner method of finding all roots of polynomial.
- * If polynomial has read coefficients, it might make more sense to 
+ * If polynomial has real coefficients, it might make more sense to 
  * initialize roots with conjugate pairs (and potentially one 
  * real root), see (*). It might not converge for all polynomials
  * and all sets of initial roots.

@@ -9,48 +9,43 @@
  * Status: Tested on kattis mincostmaxflow
  * Time: O(FE \log E)
  */
-#include <bits/stdc++.h>
-
-using namespace std;
+#pragma once
 
 using T = int;
 const T INF = numeric_limits<T>::max() / 4;
  
 struct MFMC {
-  struct Edge { int from, to, nxt; T flow, cap, cost; };
+  struct Edge { int to, rev; T cap, cost, flow; };
   
   int n;
-  vector<int> graph, par; 
+  vector<vector<Edge>> graph;
+  vector<int> par; 
   vector<T> dist, pi;
   vector<Edge> es;
+  priority_queue<pair<T, int>> pq; 
   
-  MFMC(int n) : n(n), graph(n, -1), par(n), dist(n), pi(n) {}
+  MFMC(int n) : n(n), graph(n), par(n), dist(n), pi(n) {}
   
-  void AddEdge(int a, int b, T cap, T cost) {
-    auto add = [&](int a, int b, T cap, T cost) {
-      es.push_back({a, b, graph[a], 0, cap, cost});
-      graph[a] = es.size() - 1;
-    };
-    add(a, b, cap, cost); add(b, a, 0, -cost);
+  void AddEdge(int a, int b, T cap, T cost, T flow = 0) {
+    graph[a].push_back({b, (int)graph[b].size(), cap, cost, flow});
+    graph[b].push_back({a, (int)graph[a].size() - 1, 0, -cost, -flow});
   }
-  bool relax(int ei) {
-    const auto &e = es[ei];
-    if (dist[e.from] == INF) return false;
-    T now = dist[e.from] + pi[e.from] - pi[e.to] + e.cost;
+  bool relax(int from, const Edge& e) {
+    if (dist[from] == INF) return false;
+    T now = dist[from] + pi[from] - pi[e.to] + e.cost;
     if (e.flow < e.cap && now < dist[e.to]) 
-      return dist[e.to] = now, par[e.to] = ei, true;
+      return dist[e.to] = now, par[e.to] = e.rev, true;
     return false;
   }
   bool dijkstra(int s, int t) {
     dist.assign(n, INF); par.assign(n, -1);
-    priority_queue<pair<T, int>> pq; 
     dist[s] = 0; pq.emplace(0, s); 
     while (!pq.empty()) {
       auto [d, node] = pq.top(); pq.pop();
       if (dist[node] != -d) continue;
-      for (int ei = graph[node]; ei != -1; ei = es[ei].nxt) 
-        if (relax(ei)) 
-          pq.emplace(-dist[es[ei].to], es[ei].to);
+      for (auto& e : graph[node]) 
+        if (relax(node, e))
+          pq.emplace(-dist[e.to], e.to);
     }
     for (int i = 0; i < n; ++i)
       pi[i] = min(pi[i] + dist[i], INF);
@@ -60,14 +55,17 @@ struct MFMC {
     T flow = 0, cost = 0;
     while (dijkstra(s, t)) {
       T now = INF;
-      for (int ei = par[t]; ei != -1; ei = par[es[ei].from]) 
-        now = min(now, es[ei].cap - es[ei].flow);
-      for (int ei = par[t]; ei != -1; ei = par[es[ei].from]) {
-        es[ ei ].flow += now;
-        es[ei^1].flow -= now;
-        cost += es[ei].cost * now;
+      for (int phase : {0, 1}) {
+        for (int node = t; node != s; ) {
+          auto& e1 = graph[node][par[node]];
+          auto& e2 = graph[e1.to][e1.rev];
+          if (!phase) now = min(now, e2.cap - e2.flow);
+          else e2.flow += now, e1.flow -= now;
+          node = e1.to;
+        }
       }
       flow += now;
+      cost += pi[t];
     }
     return {flow, cost};
   }
@@ -76,8 +74,9 @@ struct MFMC {
     dist.assign(n, INF); dist[s] = 0;
     int it = n, ch = 1;
     while (ch-- && it--)
-      for (int ei = 0; ei < (int)es.size(); ++ei) 
-        ch |= relax(ei);
+      for (int i = 0; i < n; ++i)
+        for (auto& e : graph[i])
+          ch |= relax(i, e);
     assert(it >= 0); // negative cost cycle
     pi = dist;
   }

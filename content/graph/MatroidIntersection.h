@@ -1,46 +1,59 @@
 /**
  * Author: Lucian Bicsi
- * Date: 2020-11-30
+ * Date: 2021-08-30
  * License: CC0
- * Status: Tested on MW Fall 2020
- * Description: Matroid intersection algorithm. Given two 
- * matroids $M1$ and $M2$ on the same set $[0..n)$, computes
- * the maximal independent set on both matroids. For weighted
- * matroid intersection, replace BFS with Bellman-Ford to 
- * compute path with minimum $(distance, numEdges)$ (consider 
- * edge $(i, j)$ to have weight $w_j - w_i$).
+ * Status: Tested on MW Fall 2020, https://codeforces.com/contest/1556/problem/H
+ * Description: Weighted Matroid intersection algorithm.
+ * Given two matroids $M1$ and $M2$ on the same set $[0..n)$,
+ * computes the maximal independent set on both matroids. Matroids are functions
+ * which should return vector of elements that can be added to an existing solution.
+ * For unweighted version, set $w[i] = 0$.
  * Usage:
  *  Color C(colors); Forest F(n, edges);
- *  auto sol = MatroidIntersection(m, C, F);
+ *  auto sol = MatroidIntersection(C, F, w);
  * Time: Generally $O(M^2 N)$, where $M$ is the solution size.
  */
 #pragma once
 
 template <class M1, class M2>
-vector<bool> MatroidIntersection(int n, M1 m1, M2 m2) {
+vector<bool> MatrInter(M1 m1, M2 m2, vector<int> w) {
+  int n = w.size();
   vector<bool> sol(n, false);
-  int ok = 1;
-  while (ok--) {
-    auto adm1 = m1.Admits(sol), adm2 = m2.Admits(sol);
-    auto ex1 = m1.Exchange(sol), ex2 = m2.Exchange(sol);
-
-    vector<int> parent(n, -2), q;
-    for (int i = 0; i < n; ++i) 
-      if (!sol[i] && adm1[i])
-        parent[i] = -1, q.push_back(i);
-
-    for (int i = 0; i < (int)q.size(); ++i) {
-      int node = q[i];
-      if (!sol[node] && adm2[node]) {
-        for (; node != -1; node = parent[node])
-          sol[node] = !sol[node];
-        ok = 1; break;
-      }
-      for (int vec = 0; vec < n; ++vec) 
-        if (parent[vec] == -2 && sol[node] != sol[vec]
-            && (sol[node] ? ex1[node][vec] : ex2[vec][node]))
-          parent[vec] = node, q.push_back(vec);
+  while (true) {
+    // Build graph.
+    vector<vector<int>> graph(n);
+    for (int i = 0; i < n; ++i) {
+      if (!sol[i]) continue;
+      sol[i] = 0;
+      for (auto j : m1(sol)) graph[i].push_back(j);
+      for (auto j : m2(sol)) graph[j].push_back(i);
+      sol[i] = 1;
     }
+    // Find augmenting path (Bellman-Ford).
+    vector<int> inq(n, 0), parent(n, -2), q;
+    vector<long long> dist(n, 1LL * M * M);
+    auto push = [&](int v, int p, long long d) {
+      if (dist[v] <= d) return;
+      dist[v] = d; parent[v] = p;
+      if (!inq[v]) inq[v] = 1, q.push_back(v);
+    };
+    for (auto node : m1(sol))
+      push(node, -1, 1LL * w[node] * M);
+    for (int i = 0; i < (int)q.size(); ++i) {
+      int node = q[i]; inq[node] = 0;
+      for (auto vec : graph[node])
+        if (vec != node)
+          push(vec, node, dist[node] +
+              (sol[vec] ? -1LL : 1LL) * w[vec] * n + 1);
+    }
+    int choose = -1; long long best = 4e18;
+    for (auto node : m2(sol))
+      if (dist[node] < best)
+        best = dist[node], choose = node;
+    if (choose == -1) break;
+    // Augment.
+    for (int node = choose; node != -1; node = parent[node])
+      sol[node] = !sol[node];
   }
   return sol;
 }

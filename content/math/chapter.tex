@@ -34,6 +34,13 @@ where $V, W$ are lengths of sides opposite angles $v, w$.
 \end{align*}
 where $r=\sqrt{a^2+b^2}, \phi=\operatorname{atan2}(b,a)$.
 
+\section{Algebra}
+
+Let $H \subseteq \mathbb{Z}_{n}$ non-empty subset. $H$ is subgroup iff exists $d$ 
+divisor of $n$ such that $H = \hat{d} \mathbb{Z}_{n}$. 
+
+
+
 \section{Geometry}
 
 \subsection{Triangles}
@@ -75,8 +82,34 @@ z = r\cos\theta & \phi = \textrm{atan2}(y,x)
 	\int e^{-x^2} = \frac{\sqrt \pi}{2} \text{erf}(x) &&& \int xe^{ax}dx = \frac{e^{ax}}{a^2}(ax-1)
 \end{align*}
 
-Integration by parts:
+
+
+
+
+\subsubsection{Integration by parts}
 \[\int_a^bf(x)g(x)dx = [F(x)g(x)]_a^b-\int_a^bF(x)g'(x)dx\]
+
+\subsubsection{Beta Function}
+\[B(x, y) = n \int_{0}^1 t^{nx - 1} (1-t^n)^{y-1} dt\]
+\[B(x, y) = \frac{\Gamma(x) \Gamma(y)}{\Gamma(x + y)}\]
+\[B(x, y) = B(x, y+1) + B(x + 1, y)\]
+\[B(x + 1, y) = B(x, y) \frac{x}{x + y}\]
+\[B(x, y) = B(y, x)\]
+\[B(1, x) = \frac{1}{x}\]
+\[B(x; a,b) = \int_0^x t^{a-1} (1-t)^{b-1} dt\]
+\[ B(1;a,b) = B(a,b) \]
+\[I_x(a, b) = \frac{B(x; a,b)}{B(a, b)}\]
+\[I_0(a, b) = 0 \qquad I_1(a, b) = 1 \qquad I_x(a, 1) = x^a \]
+\[I_x(1, b) = 1 - (1 - x)^b \qquad I_x(a, b) = 1 - I_{1-x}(b, a)\]
+\[I_x(a + 1, b) = I_x(a, b) - \frac{x^a(1-x)^b}{a B(a, b)}\]
+\[I_x(a, b + 1) = I_x(a, b) + \frac{x^a(1-x)^b}{b B(a, b)}\]
+
+
+\subsubsection{Gamma Function}
+\[\Gamma(n) = (n - 1)!\]
+\[\Gamma(z) = \int_{0}^{\infty}x^{z-1} e^{-x} dx\]
+\[\Gamma(1/2) = \sqrt{\pi}\]
+\[\Gamma(z + 1) = z \Gamma(z)\]
 
 \section{Sums}
 \[ c^a + c^{a+1} + \dots + c^{b} = \frac{c^{b+1} - c^a}{c-1}, c \neq 1 \]
@@ -109,6 +142,12 @@ The number of successes in $n$ independent yes/no experiments, each which yields
 \[\mu = np,\,\sigma^2=np(1-p)\]
 $\textrm{Bin}(n,p)$ is approximately $\textrm{Po}(np)$ for small $p$.
 
+For $n$ large enough, $\textrm{Bin}(n,p)$ is approximately $\mathcal{N}(np, np(1-p))$.
+
+
+\textbf{Negative binomial} $\textrm{NBin}(r,p)$: 
+\[F(r+k) = 1-I_p(k+1, r) = I_{1-p}(r, k+1) = F_{\textrm{Bin}}(k, k+r, p) \]
+
 \subsubsection{First success distribution}
 The number of trials needed to get the first success in independent yes/no experiments, each wich yields success with probability $p$ is $\textrm{Fs}(p),\,0\leq p\leq1$.
 \[p(k)=p(1-p)^{k-1},\,k=1,2,\dots\]
@@ -118,6 +157,7 @@ The number of trials needed to get the first success in independent yes/no exper
 The number of events occurring in a fixed period of time $t$ if these events occur with a known average rate $\kappa$ and independently of the time since the last event is $\textrm{Po}(\lambda),\,\lambda=t\kappa$.
 \[p(k)=e^{-\lambda}\frac{\lambda^k}{k!}, k=0,1,2,\dots\]
 \[\mu=\lambda,\,\sigma^2=\lambda\]
+\[\lambda = rt\]
 
 \subsection{Continuous distributions}
 

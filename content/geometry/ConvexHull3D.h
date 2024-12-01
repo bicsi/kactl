@@ -17,15 +17,15 @@
 
 #include "Point3D.h"
 
-vector<Face> Hull3D(vector<Point> v) {
-  int n = v.size(); assert(n >= 3);
+vector<Face> Hull3D(vector<Point> P) {
+  int n = P.size(); assert(n >= 3);
   vector<vector<bool>> dead(n, vector<bool>(n));
   vector<Face> ret = {{0, 1, 2}, {2, 1, 0}}, nret;
   for (int i = 3; i < n; ++i) {
     nret.clear();
     for (auto f : ret) {
       auto [a, b, c] = f;
-      if (det(v[a], v[b], v[c], v[i]) > 0) // consider sgn() 
+      if (det(P[a], P[b], P[c], P[i]) > 0) // consider sgn() 
         dead[a][b] = dead[b][c] = dead[c][a] = true;
       else nret.push_back(f);
     }

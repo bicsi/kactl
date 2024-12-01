@@ -3,75 +3,63 @@
  * Date: 2019-04-17
  * License: CC0
  * Source: https://codeforces.com/blog/entry/75929
- * Description: Persistent dynamic convex hull tree. Useful
- * for onion peeling. Hull is trigonometric ordered and
+ * Description: Dynamic convex hull tree. Useful
+ * for onion peeling. Can be made persistent by replacing the
+ * condition at (*) with true. Hull is trigonometric ordered and
  * non-strict. To make it strict, play with the inequalities.
  * To allow insertions as well, wrap it in a segment tree of
  * integers and combine with the given function. Works in around
- * 2 seconds for N = 200000. Does products up to $O(X^3)$.
+ * 1.5 seconds for N = 200000. Does products up to $O(X^3)$.
  * Time: O(\log^2 N) per operation
  * Status: tested on library-checker
+ * Warning: $P$ has to be sorted (either increasing or decreasing)
  */
 
-namespace DynamicLowerHull {
+#pragma once
+
+struct DynHull {
   struct Node { int bl, br, l, r, lc, rc; };
-  vector<Point> pts;
   vector<Node> T = {{-1, -1, -1, -1, 0, 0}};
+  vector<Point> P;
 
-  bool leaf(int x) { 
-    return T[x].l == T[x].r; 
-  }
-  int combine(int lc, int rc) {
-    if (!lc || !rc) return lc + rc;
-    auto split_x = pts[T[rc].l].real();
-    int ret = T.size();
-    T.push_back({-1, -1, T[lc].l, T[rc].r, lc, rc});
+  DynHull(vector<Point> P) : P(P) {}
 
+  bool leaf(int x) { return T[x].l == T[x].r; }
+  int combine(int lc, int rc, int ret = -1) {
+    if (!lc || !rc) return lc + rc; 
+    if (ret == -1 || ret == lc || ret == rc) // (*) 
+      ret = T.size(), T.push_back({});
+
+    T[ret] = {-1, -1, T[lc].l, T[rc].r, lc, rc};
     while (!leaf(lc) || !leaf(rc)) {
       int a = T[lc].bl, b = T[lc].br, 
           c = T[rc].bl, d = T[rc].br;
-      if (a != b && det(pts[a], pts[b], pts[c]) > 0) {
+      if (a != b && det(P[a], P[b], P[c]) > 0) {
         lc = T[lc].lc;
-      } else if (c != d && det(pts[b], pts[c], pts[d]) > 0) {
+      } else if (c != d && det(P[b], P[c], P[d]) > 0) {
         rc = T[rc].rc;
       } else if (a == b) {
         rc = T[rc].lc;
       } else if (c == d) {
         lc = T[lc].rc;
       } else {
-        auto s1 = det(pts[a], pts[b], pts[c]);
-        auto s2 = det(pts[b], pts[a], pts[d]);
-        assert(s1 + s2 >= 0);
-        if (s1 + s2 == 0 || s1 * pts[d].real() 
-            + s2 * pts[c].real() < split_x * (s1 + s2)) {
-          lc = T[lc].rc;
-        } else {
+        auto s1 = det(P[a], P[b], P[c]), 
+             s2 = det(P[a], P[b], P[d]);
+        assert(s1 >= s2);
+        auto xc = P[c].real(), xd = P[d].real(), 
+             xm = P[T[rc].l].real(), xa = P[a].real();
+        if ((s1 * xd - s2 * xc < (s1 - s2) * xm) ^ (xa < xm)) {
           rc = T[rc].lc;
+        } else { 
+          lc = T[lc].rc;
         }
       }
     }
     T[ret].bl = T[lc].l; T[ret].br = T[rc].l;
     return ret;
   }
-  void hull(int x, int l, int r, vector<int>& ret) {
-    if (!x || l > r) return;
-    if (leaf(x)) { ret.push_back(l); return; }
-    hull(T[x].lc, max(l, T[x].l), min(r, T[x].bl), ret);
-    hull(T[x].rc, max(l, T[x].br), min(r, T[x].r), ret);
-  }
-  // Get actual hull.
-  vector<int> Hull(int x) {
-    vector<int> ret; hull(x, T[x].l, T[x].r, ret); return ret;
-  }
-  // Erase pts[i] from hull (if it exists)
-  int Erase(int x, int i) {
-    if (!x || T[x].l > i || T[x].r < i) return x;
-    if (leaf(x)) return 0;
-    return combine(Erase(T[x].lc, i), Erase(T[x].rc, i));
-  }
-  // Build the hull from points pts[l..r]
+  // Build the hull from points P[l..r]
   int Build(int l, int r) {
-    // assert(is_sorted(pts.begin() + l, pts.begin() + r + 1));
     if (l == r) {
       T.push_back({l, l, l, l, 0, 0});
       return T.size() - 1;
@@ -79,4 +67,27 @@ namespace DynamicLowerHull {
     int m = (l + r) / 2;
     return combine(Build(l, m), Build(m + 1, r));
   }
-}
+  // Maximize dot product with p [set p = {x, 1} for CHT]
+  // UNTESTED: USE WITH CAUTION
+  int Maximize(int x, Point p) {
+    assert(x);
+    if (leaf(x)) return T[x].l; // can also return dot here
+    return (dot(P[T[x].br], p) > dot(P[T[x].bl], p) 
+      ? Maximize(T[x].rc, p)
+      : Maximize(T[x].lc, p));
+  }
+  // Erase P[i] from hull (if it exists)
+  int Erase(int x, int i) { 
+    if (!x || T[x].r < i || T[x].l > i) return x;
+    return leaf(x) ? 0 : combine(
+      Erase(T[x].lc, i), Erase(T[x].rc, i), x);
+  }
+  // Calls callback on all points of the hull.
+  template<typename Callback>
+  void Hull(int x, Callback&& cb, int l = 0, int r = 1e9) { 
+    if (!x || l > r) return;
+    if (leaf(x)) { cb(T[x].l); return; }
+    Hull(T[x].lc, cb, max(l, T[x].l), min(r, T[x].bl));
+    Hull(T[x].rc, cb, max(l, T[x].br), min(r, T[x].r));
+  }
+};

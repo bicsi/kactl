@@ -1,29 +1,47 @@
 \chapter{Geometry}
     \kactlimport{Point.h}
+    \kactlimport{Line.h}
 
 \section{Geometric primitives}
-    \kactlimport{LineIntersection.h}
-    \kactlimport{SegmentIntersection.h}
-    \kactlimport{LineDistance.h}
-    \kactlimport{SegmentDistance.h}
-    \kactlimport{LinearTransformation.h}
+    \kactlimport{LineInter.h}
+    \kactlimport{SegInter.h}
+    \kactlimport{LineDist.h}
+    \kactlimport{SegDist.h}
+    \kactlimport{OnSeg.h}
+    \kactlimport{LinTrans.h}
+
+\section{Polygons}
+    \kactlimport{PolyCenter.h}
+    \kactlimport{InsidePoly.h}
+    \kactlimport{ConvexHull.h}
+    \kactlimport{Minkowski.h}
+    \kactlimport{ExpandPoly.h}
+    \kactlimport{PolyCut.h}
+    \kactlimport{Voronoi.h}
+    \pagebreak
 
 \section{Circles}
     \kactlimport{Circle.h}
-    \kactlimport{LineCircleIntersection.h}
-    \kactlimport{CircleCircleIntersection.h}
-    \kactlimport{CircleTangents.h}
-    \kactlimport{CircumCircle.h}
-    \kactlimport{MinimumEnclosingCircle.h}
+    \kactlimport{LineCircInter.h}
+    \kactlimport{CircCircInter.h}
+    \kactlimport{CircTangents.h}
+    \kactlimport{CircumCirc.h}
+    \kactlimport{MEC.h}
 
 \section{Misc. Point Set Problems}
-    \kactlimport{InsidePolygonMulti.h}
+    \kactlimport{PointLocation.h}
+    \kactlimport{DCEL.h}
     \kactlimport{ClosestPair.h}
     \kactlimport{DynamicHull.h}
+    \kactlimport{HalfplaneSet.h}
+    \kactlimport{RotatePlane.h}
+    \kactlimport{KDTree.h}
+    \kactlimport{Delaunay.h}
+    \kactlimport{FastDelaunay.h}
 
 \section{3D}
     \kactlimport{Point3D.h}
-    \kactlimport{Hull3D.h}
+    \kactlimport{ConvexHull3D.h}
     \kactlimport{PolyVolume3D.h}
 
 
@@ -36,10 +54,12 @@
     $I$ is the number of interior points (strict).
     
     \subsection{Euler's Formula}
-    If a finite, \textbf{connected}, planar graph is drawn in 
+    If a finite, planar graph is drawn in 
     the plane without any edge intersections, and $V$ is the 
     number of vertices, $E$ is the number of edges and $F$ is 
     the number of faces (regions bounded by edges, including 
     the outer, infinitely large region), then: 
     $$V - E + F = 2$$
     $$E \leq 3V-6$$
+    A more general formula for $K$ connected components is:
+    $$V - E + F = 1 + K$$

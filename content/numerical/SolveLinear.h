@@ -4,7 +4,7 @@
  * License: CC0
  * Description: Solves $Mx = b$. Set $A$ to be the block matrix
  * $[M|b]$. If there are multiple solutions,
- * returns a solution which has all free variables set to 0.
+ * returns a sol which has all free variables set to 0.
  * Time: O(M^2 N)
  * Status: tested
  */
@@ -13,10 +13,10 @@
 
 vector<ld> SolveLinear(mat& A) {
   int m = A[0].size() - 1;
-  auto piv = RowEchelon(A);
-  if (piv.size() > m) return {};
+  auto piv = RowEchelon(A).first;
+  if (piv.empty() || piv.back() == m) return {};
   vector<ld> sol(m, 0.);
   for (int i = 0; i < (int)piv.size(); ++i)
-    sol[piv[i]] = A[i][m];
+    sol[piv[i]] = A[i][m] / A[i][piv[i]];
   return sol;
 }

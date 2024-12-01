@@ -7,19 +7,19 @@
 #pragma once
 
 struct SegTree {
-  vector<int> T; int n;
-  SegTree(int n) : T(2 * n, (int)-2e9), n(n) {}
+  vector<ll> T; int n;
+  SegTree(int n) : T(2 * n, -INF), n(n) {}
   
-  void Update(int pos, int val) {
-    for (T[pos += n] = val; pos > 1; pos /= 2)
-      T[pos / 2] = max(T[pos], T[pos ^ 1]);
+  void Update(int pos, ll val) {
+    for (T[pos += n] = val; pos /= 2)
+      T[pos] = f(T[pos * 2], T[pos * 2 + 1]);
   }
-  int Query(int b, int e) {
-    int res = -2e9;
+  ll Query(int b, int e) {
+    ll r1 = -INF, r2 = -INF;
     for (b += n, e += n; b < e; b /= 2, e /= 2) {
-      if (b % 2) res = max(res, T[b++]);
-      if (e % 2) res = max(res, T[--e]);
+      if (b % 2) r1 = max(r1, T[b++]);
+      if (e % 2) r2 = max(T[--e], r2);
     }
-    return res;
+    return max(r1, r2);
   }
 };

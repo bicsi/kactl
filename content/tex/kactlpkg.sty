@@ -202,7 +202,7 @@
 	\begin{center}
 		\strut % Magic
 		\vspace{3cm}\\
-		\includegraphics[width=3cm]{\@unilogo}\\
+		\includegraphics[height=3cm]{\@unilogo}\\
 		{\fontsize{25}{30}\selectfont \@unilong\\}
 		{\fontsize{60}{60}\selectfont \@teamname\\}
 		\vspace{0.5cm}
@@ -246,8 +246,9 @@
 	\setboolean{hastime}{false}
 	\setboolean{hasmemory}{false}
 	\setboolean{hasleftcaption}{false}
-	\myneedspace{3\baselineskip}
-	\penalty-100
+	\setboolean{haswarning}{false}
+	% \myneedspace{3\baselineskip}
+	% \penalty-100
 	{\large #2}
 	\immediate\write18{rm -f \@builddir/kactl.tmp} % Don't include old kactl.tmp on failure.
 	\immediate\write18{python2 content/tex/preprocessor.py -i "\@kactldir/#2" -o \@builddir/kactl.tmp #1}
@@ -323,17 +324,26 @@
 \defmemory{}
 \setboolean{hasmemory}{false}
 
+\newboolean{haswarning}
+\newcommand{\defwarning}[1]{
+	\def\@defwarning{#1}
+	\setboolean{haswarning}{true}
+}
+\defwarning{}
+\setboolean{haswarning}{false}
+
 
 \newcommand{\codeheader}[2]{
 	{\par\noindent\footnotesize{\textbf{#1:} #2\par}}
 }
 
 \long\def\@makecaption#1#2{
-	\vspace{-3pt}
+	% \vspace{-3pt}
 	\ifthenelse{\boolean{hasdescription}}{\codeheader{Description}{\@defdescription}}{}
 	\ifthenelse{\boolean{hasusage}}{\codeheader{Usage}{\@defusage}}{}
 	\ifthenelse{\boolean{hasmemory}}{\codeheader{Memory}{\@defmemory}}{}
 	\ifthenelse{\boolean{hastime}}{\codeheader{Time}{\@deftime}}{}
+	\ifthenelse{\boolean{haswarning}}{\codeheader{WARNING}{\textbf{\@defwarning}}}{}
 	\ifthenelse{\boolean{hasleftcaption}}{\vspace{0pt}}{\vspace{-5pt}}
 	\tiny
 	\texttt{\@leftcaption} \hfill \@rightcaption

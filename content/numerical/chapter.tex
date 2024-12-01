@@ -1,4 +1,8 @@
 \chapter{Numerical}
+
+\section{Integrate}
+	\kactlimport{Integrate.h}
+	\kactlimport{IntegrateAdaptive.h}
   
 \section{Optimization}
 	\kactlimport{Simplex.h}
@@ -25,19 +29,30 @@
 \section{Matrices}
 	\kactlimport{RowEchelon.h}
 	\kactlimport{SolveLinear.h}
+	\kactlimport{MatrixDeterminant.h}
 	\kactlimport{MatrixInverse.h}
 
+	\subsection{Matrix determinant lemma}
+		Suppose $A$ is an invertible square matrix and $u$, $v$ are column vectors. Then:
+		$$det(A + u v^{T}) = (1 + v^{T} A^{-1} u) det(A) = det(A) + v^{T} adj(A) u$$
+		Here, $u v^{T}$ is the outer product of $u$ and $v$. 
+		The first and third expressions are equal even when the square matrix $A$ is not invertible.
 
 \section{Search}
+	\kactlimport{GoldenSectionSearch.h}
+	\kactlimport{TernarySearch.h}
 	\kactlimport{FracBinarySearch.h}
 
 
 \section{Fourier transforms}
+	\kactlimport{FFT.h}
 	\kactlimport{NTT.h}
 	\kactlimport{FST.h}
+	\kactlimport{SubsetConv.h}
 
 
 \section{Polynomials}
+	\kactlimport{PolyInterpolate.h}
 	\kactlimport{PolyMul.h}
 	\kactlimport{PolyInv.h}
 	\kactlimport{PolyDivRem.h}

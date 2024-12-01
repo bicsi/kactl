@@ -6,12 +6,13 @@
  * and https://github.com/bqi343/USACO/blob/42d177dfb9d6ce350389583cfa71484eb8ae614c/Implementations/content/graphs%20(12)/Advanced/DirectedMST.h for the reconstruction
  * Description: Finds a minimum spanning
  * tree/arborescence of a directed graph, given a root node. 
- * INPUT GRAPH MUST BE STRONGLY CONNECTED AND HAVE NO LOOPS.
- * If this is not the case for the problem, consider adding 
- * "fake" edges $(i, 0, \infty)$ and $(0, i, \infty)$, 
+ * 
  * where $i > 0$.
  * Time: O(M \log N)
  * Status: tested on yosupo judge.
+ * Warning: Input graph must be \textbf{strongly connected} and have \textbf{no loops}; 
+ * if this is not the case for the problem, consider adding 
+ * "fake" edges $(i, 0, \infty)$ and $(0, i, \infty)$.
  */
 #pragma once
 
